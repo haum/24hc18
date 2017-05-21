@@ -1,0 +1,11 @@
+Spawner is the script that manages currently running games. Its role is to
+provide an interface between game engine and frontend, so that we can update
+the frontend without killing running games.
+
+It might be responsible to compile codes.
+
+It has to protect itself from errors in AIs. For example, instead of starting AI
+in a regular way (./ia) it can pass this kind of command line to the game
+engine:
+
+timeout 5 cpulimit -l 10 -i firejail --profile=jail.profile ./ai
