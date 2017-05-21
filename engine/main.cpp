@@ -1,3 +1,4 @@
+#include "rand.h"
 #include <iostream>
 
 namespace {
@@ -21,6 +22,12 @@ int main(int argc, char *argv[]) {
 	for (int i = 1; i < argc - 1; ++i)
 		std::cout << "IA" << i << ": " << argv[i + 1] << '\n';
 	std::cout << std::endl;
+
+	// Test randomness
+	for (int i = 0; i < 2000; ++i) {
+		std::cout << random_angle() << ' ' << random_unit() << '\n';
+	}
+	std::cout.flush();
 
 	return 0;
 }
