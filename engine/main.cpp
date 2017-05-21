@@ -1,5 +1,8 @@
+#include "ant.h"
 #include "rand.h"
+#include <array>
 #include <iostream>
+#include <sstream>
 
 namespace {
 void usage(const char *appname) {
@@ -23,9 +26,16 @@ int main(int argc, char *argv[]) {
 		std::cout << "IA" << i << ": " << argv[i + 1] << '\n';
 	std::cout << std::endl;
 
-	// Test randomness
+	// Test two ants
+	Team team{argv[2]};
+	std::array<Ant, 2> ants = {{Ant{team, 0, 0, 0}, Ant{team, 0, 0, 0}}};
 	for (int i = 0; i < 2000; ++i) {
-		std::cout << random_angle() << ' ' << random_unit() << '\n';
+		for (auto &ant : ants) {
+			ant.run();
+			std::cout << ant.longitude() << ' ' << ant.latitude() << ' '
+					  << ant.heading() << ' ';
+		}
+		std::cout << '\n';
 	}
 	std::cout.flush();
 
