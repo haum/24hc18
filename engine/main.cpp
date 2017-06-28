@@ -3,6 +3,7 @@
 #include <array>
 #include <getopt.h>
 #include <iostream>
+#include <signal.h>
 #include <sstream>
 
 int main(int argc, char *argv[]) {
@@ -56,6 +57,8 @@ int main(int argc, char *argv[]) {
 		std::cout << "IA" << (i + 1) << ": " << argv[ind] << '\n';
 	}
 	std::cout << std::endl;
+
+	signal(SIGPIPE, SIG_IGN);
 
 	// Test two ants
 	Team team{ias[0]};
