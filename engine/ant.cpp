@@ -20,10 +20,11 @@ void Ant::walk() {
 }
 
 bool Ant::prelude(std::ostream &os) {
-	os << "Hello ANT\n\n";
-	os << "TYPE " << m_ant_type << '\n';
+	os << "!BEGIN ANT\n\n";
+	os << "TYPE " << static_cast<int>(m_ant_type) << '\n';
 	os << "MEMORY " << static_cast<int>(m_memory[0]) << ' '
 	   << static_cast<int>(m_memory[1]) << '\n';
+	os << "!END\n";
 	os.flush();
 	m_actionState = ACTION_FREE;
 	return true;
