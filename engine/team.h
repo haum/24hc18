@@ -1,7 +1,9 @@
 #ifndef TEAM_H
 #define TEAM_H
 
+class Agent; // Forward declaration
 #include <string>
+#include <vector>
 
 class Team {
   public:
@@ -13,9 +15,18 @@ class Team {
 	/** Get executable command **/
 	const char *exe() { return m_exe.c_str(); }
 
+	/** Add an agent **/
+	void agentAdd(Agent *);
+
+	/** Remove an agent **/
+	void agentRm(Agent *);
+
   private:
 	/** Executable command **/
 	std::string m_exe;
+
+	/** List of agents **/
+	std::vector<Agent *> m_agents;
 };
 
 #endif // TEAM_H
