@@ -10,3 +10,7 @@ void Team::agentRm(Agent *agent) {
 		m_agents.pop_back();
 	}
 }
+
+int Team::eventFd() { return -1; }
+
+void Team::eventProcessRead() {}

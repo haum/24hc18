@@ -1,13 +1,13 @@
-#include "ant.h"
+#include "scenario.h"
 #include "rand.h"
-#include <array>
+#include <memory>
 #include <getopt.h>
 #include <iostream>
 #include <signal.h>
 #include <sstream>
 
 int main(int argc, char *argv[]) {
-	const char *scenario = "";
+	const char *scenario_name = "";
 
 	// Check arguments
 	auto usage = [](const char *appname) {
@@ -16,14 +16,15 @@ int main(int argc, char *argv[]) {
 				  << std::endl;
 	};
 	if (argc > 1) {
-		struct option long_options[] = {{"scenario", required_argument, 0, 's'},
-										{0, 0, 0, 0}};
+		struct option long_options[] = {
+			{"scenario", required_argument, nullptr, 's'},
+			{nullptr, 0, nullptr, 0}};
 		int c, option_index;
 		while ((c = getopt_long(argc, argv, "s:", long_options,
 								&option_index)) != -1) {
 			switch (c) {
 			case 's':
-				scenario = optarg;
+				scenario_name = optarg;
 				break;
 			default:
 				std::cerr << "ERROR: Unknown option\n";
@@ -38,7 +39,7 @@ int main(int argc, char *argv[]) {
 		usage("marabunta_engine");
 		exit(EXIT_FAILURE);
 	}
-	if (!strcmp(scenario, "")) {
+	if (strcmp(scenario_name, "") == 0) {
 		std::cerr << "ERROR: Missing scenario\n";
 		usage(argv[0]);
 		exit(EXIT_FAILURE);
@@ -49,29 +50,21 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
+	signal(SIGPIPE, SIG_IGN);
+
 	// Display info
-	std::cout << "Scenario: " << scenario << '\n';
-	char *ias[argc - optind];
+	std::cout << "Scenario: " << scenario_name << '\n';
+	std::vector<std::unique_ptr<Team>> teams;
+	std::vector<Team *> teams_ptrs;
 	for (int i = 0, ind = optind; ind < argc; ++i, ++ind) {
-		ias[i] = argv[ind];
+		auto team = std::make_unique<Team>(argv[ind]);
+		teams_ptrs.push_back(team.get());
+		teams.push_back(std::move(team));
 		std::cout << "IA" << (i + 1) << ": " << argv[ind] << '\n';
 	}
 	std::cout << std::endl;
-
-	signal(SIGPIPE, SIG_IGN);
-
-	// Test two ants
-	Team team{ias[0]};
-	std::array<Ant, 2> ants = {{Ant{team, 0, 0, 0}, Ant{team, 0, 0, 0}}};
-	for (int i = 0; i < 2000; ++i) {
-		for (auto &ant : ants) {
-			ant.run();
-			std::cout << ant.longitude() << ' ' << ant.latitude() << ' '
-					  << ant.heading() << ' ';
-		}
-		std::cout << '\n';
-	}
-	std::cout.flush();
+	Scenario scenario{scenario_name, teams_ptrs};
+	scenario.run();
 
 	return 0;
 }

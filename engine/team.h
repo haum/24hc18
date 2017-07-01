@@ -15,6 +15,14 @@ class Team {
 	/** Get executable command **/
 	const char *exe() { return m_exe.c_str(); }
 
+	/** Gets event file descriptor
+	  * @return File descriptor
+	  */
+	int eventFd();
+
+	/** Process read events **/
+	void eventProcessRead();
+
 	/** Add an agent **/
 	void agentAdd(Agent *);
 
