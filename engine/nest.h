@@ -8,11 +8,11 @@
 class Nest : public GameObject, public Agent {
   public:
 	/** Constructor
-	  * @param team             Team whose agent belongs
-	  * @param latitude         Lattitude
-	  * @param longitude        Longitude
-	  * @param initialAntNumber Initial number of ants in nest
-	  */
+	 * @param team             Team whose agent belongs
+	 * @param latitude         Lattitude
+	 * @param longitude        Longitude
+	 * @param initialAntNumber Initial number of ants in nest
+	 */
 	Nest(Team &team, double latitude, double longitude,
 		 uint64_t initialAntNumber);
 

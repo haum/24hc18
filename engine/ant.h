@@ -8,14 +8,14 @@
 class Ant : public GameObject, public Agent {
   public:
 	/** Constructor
-	  * @param team Team whose agent belongs
-	  * @param latitude Original lattitude
-	  * @param longitude Original lattitude
-	  * @param heading Original heading
-	  * @param ant_type Type of ant
-	  * @param memory1 Initial memory1
-	  * @param memory2 Initial memory2
-	  */
+	 * @param team Team whose agent belongs
+	 * @param latitude Original lattitude
+	 * @param longitude Original lattitude
+	 * @param heading Original heading
+	 * @param ant_type Type of ant
+	 * @param memory1 Initial memory1
+	 * @param memory2 Initial memory2
+	 */
 	Ant(Team &team, double latitude, double longitude, double heading,
 		uint8_t ant_type = 0, uint8_t memory1 = 0, uint8_t memory2 = 0);
 
@@ -26,8 +26,8 @@ class Ant : public GameObject, public Agent {
 	void turnRight();
 
 	/** Make ant to go forward
-	  * @note Ants do not walk straight
-	  */
+	 * @note Ants do not walk straight
+	 */
 	void walk();
 
   private:

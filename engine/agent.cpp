@@ -1,13 +1,9 @@
 #include "agent.h"
 #include <sstream>
 
-Agent::Agent(Team &team) : m_team{team} {
-    m_team.agentAdd(this);
-}
+Agent::Agent(Team &team) : m_team{team} { m_team.agentAdd(this); }
 
-Agent::~Agent() {
-    m_team.agentRm(this);
-}
+Agent::~Agent() { m_team.agentRm(this); }
 
 void Agent::run() {
 	std::ostringstream os;

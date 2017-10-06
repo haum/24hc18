@@ -1,8 +1,8 @@
-#include "scenario.h"
 #include "rand.h"
-#include <memory>
+#include "scenario.h"
 #include <getopt.h>
 #include <iostream>
+#include <memory>
 #include <signal.h>
 #include <sstream>
 

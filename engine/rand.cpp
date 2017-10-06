@@ -14,7 +14,7 @@ struct random_init {
 			static_cast<unsigned long>(now.time_since_epoch().count()));
 	}
 } r;
-}
+} // namespace
 
 double random_angle() { return angle_distribution(random_generator); }
 

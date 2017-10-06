@@ -9,9 +9,9 @@
 class Scenario {
   public:
 	/** Constructor
-	  * @param name  Scenario name
-	  * @param teams List of teams
-	  */
+	 * @param name  Scenario name
+	 * @param teams List of teams
+	 */
 	Scenario(const char *name, std::vector<Team *> teams);
 
 	/** Run scenario **/

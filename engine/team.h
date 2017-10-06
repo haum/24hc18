@@ -8,16 +8,16 @@ class Agent; // Forward declaration
 class Team {
   public:
 	/** Constructor
-	  * @param exe Executable command
-	  */
+	 * @param exe Executable command
+	 */
 	Team(const char *exe) : m_exe(exe) {}
 
 	/** Get executable command **/
 	const char *exe() { return m_exe.c_str(); }
 
 	/** Gets event file descriptor
-	  * @return File descriptor
-	  */
+	 * @return File descriptor
+	 */
 	int eventFd();
 
 	/** Process read events **/
