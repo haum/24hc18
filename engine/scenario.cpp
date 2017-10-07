@@ -4,13 +4,18 @@
 #include <poll.h>
 #include <unistd.h>
 
+#include "ant.h"
+
 Scenario::Scenario(const char * /*name*/, std::vector<Team *> teams)
 	: m_teams{teams}, m_duration{30s} {
 	// TODO load scenario from file
+	//      now a fix scenario is set (1 nest and 5 ants by team)
 	for (size_t i = 0; i < teams.size(); ++i) {
 		auto nest = std::make_unique<Nest>(*teams[i], i, i, 50);
 		m_nests.push_back(nest.get());
 		m_nestsStorage.push_back(std::move(nest));
+		for (int j = 0; j < 5; ++j)
+			new Ant(*teams[i], i, i, i);
 	}
 }
 
@@ -25,6 +30,10 @@ void Scenario::run() {
 		for (auto *t : m_teams) {
 			int fd;
 			fd = t->eventFd();
+			if (fd < 0) {
+				t->start_subprocess();
+				fd = t->eventFd();
+			}
 			if (fd >= 0) {
 				fds[nbwait].fd = fd;
 				fds[nbwait].events = POLLIN;
@@ -39,6 +48,8 @@ void Scenario::run() {
 			for (nfds_t i = 0; i < nbwait; ++i) {
 				if (fds[i].revents & POLLIN)
 					tm[i]->eventProcessRead();
+				if (fds[i].revents & POLLHUP)
+					tm[i]->eventProcessDied();
 			}
 			while (chr::now() > periodic_tp) {
 				periodic_tp += 100ms;

@@ -6,9 +6,9 @@ Nest::Nest(Team &team, double latitude, double longitude,
 	  m_antNumber{initialAntNumber} {}
 
 bool Nest::prelude(std::ostream &os) {
-	os << "!BEGIN NEST\n\n";
+	os << "BEGIN NEST\n";
 	os << "ANTS " << static_cast<int>(m_antNumber) << '\n';
-	os << "!END\n";
+	os << "END\n";
 	os.flush();
 	return true;
 }
