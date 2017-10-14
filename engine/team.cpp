@@ -78,72 +78,43 @@ void Team::eventProcessDied() {
 	close(m_fderr);
 	m_fderr = -1;
 	m_pid = -1;
-	m_buff_len = 0;
+	m_parser.reset();
 }
 
 void Team::eventProcessRead() {
-	ssize_t len = 0;
-	if (m_fdout >= 0) {
-		len = sizeof(m_buff) - 1 - m_buff_len;
-		len = read(m_fdout, m_buff + m_buff_len, len);
-		len += m_buff_len;
-	}
-	if (len <= 0 || !strstr(m_buff, "\n")) {
+	auto r = m_parser.read(
+		[this](char *buf, ssize_t len) { return read(m_fdout, buf, len); });
+	if (r == LineParserError::LINE_TOO_LONG) {
 		const char *errorstr = "! Line too long, bye";
-		if (len <= 0) {
-			errorstr = "! Error while reading process answer";
-		}
 		kill(errorstr);
-	} else if (m_currentAgent != m_agents.end()) {
-		m_buff[len] = 0;
-		char *ntok;
-		char *narg = strtok_r(m_buff, "\n", &ntok);
-		while (narg != nullptr) {
-			bool uncut = strstr(ntok, "\n");
-			processLine(narg, strlen(narg));
-			if (uncut) {
-				narg = strtok_r(NULL, "\n", &ntok);
-			} else {
-				strcpy(m_buff, ntok);
-				m_buff_len = strlen(m_buff);
-				narg = nullptr;
-			}
-		}
+	} else if (r == LineParserError::READ_ERROR) {
+		const char *errorstr = "! Error while reading process answer";
+		kill(errorstr);
 	}
 }
 
-void Team::processLine(char *line, int len) {
+void Team::processLine(uint8_t argc, const char **argv) {
 	if (m_log != -1) {
 		write(m_log, ". ", 2);
-		write(m_log, line, len);
+		for (int i = 0; i < argc; ++i)
+			write(m_log, argv[i], strlen(argv[i]));
 		char nl = '\n';
 		write(m_log, &nl, 1);
 	}
 
-	char *stok;
-	char *sarg = strtok_r(line, " ", &stok);
-	uint8_t argc = 0;
-	const char *args[20];
-	while (sarg != nullptr && argc < sizeof(args)) {
-		args[argc] = sarg;
-		++argc;
-		sarg = strtok_r(NULL, " ", &stok);
-	}
-	if (argc > 0) {
-		(*m_currentAgent)->execute(argc, args);
-		if (argc == 1 && !strncmp(args[0], "END", 3)) {
-			(*m_currentAgent)->epilogue();
-			bool trynext = true;
-			while (trynext) {
-				if (nextAgent()) {
-					trynext = !sendPrelude();
+	(*m_currentAgent)->execute(argc, argv);
+	if (argc == 1 && !strncmp(argv[0], "END", 3)) {
+		(*m_currentAgent)->epilogue();
+		bool trynext = true;
+		while (trynext) {
+			if (nextAgent()) {
+				trynext = !sendPrelude();
+			} else {
+				if (random_unit() < 1 / 15.0) {
+					kill("! Random kill");
+					trynext = false;
 				} else {
-					if (random_unit() < 1 / 15.0) {
-						kill("! Random kill");
-						trynext = false;
-					} else {
-						trynext = !sendPrelude();
-					}
+					trynext = !sendPrelude();
 				}
 			}
 		}

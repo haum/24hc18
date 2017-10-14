@@ -2,6 +2,7 @@
 #define TEAM_H
 
 class Agent; // Forward declaration
+#include "lineparser.h"
 #include <string>
 #include <vector>
 
@@ -10,7 +11,11 @@ class Team {
 	/** Constructor
 	 * @param exe Executable command
 	 */
-	Team(const char *exe) : m_exe(exe) {}
+	Team(const char *exe) : m_exe{exe} {
+		m_parser.setExecute([this](uint8_t argc, const char **argv) {
+			processLine(argc, argv);
+		});
+	}
 
 	/** Start team manager as subprocess **/
 	void start_subprocess();
@@ -38,7 +43,7 @@ class Team {
 	void eventProcessRead();
 
 	/** Process one line of process **/
-	void processLine(char *line, int len);
+	void processLine(uint8_t argc, const char **argv);
 
 	/** Add an agent **/
 	void agentAdd(Agent *);
@@ -56,9 +61,8 @@ class Team {
 	/** Pid of subprocess **/
 	int m_pid = -1;
 
-	/** Line reception buffer **/
-	char m_buff[81];
-	int m_buff_len = 0;
+	/** Line parser **/
+	LineParser<80> m_parser;
 
 	/** List of agents **/
 	std::vector<Agent *> m_agents;
