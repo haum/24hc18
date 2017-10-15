@@ -1,21 +1,56 @@
 #include "scenario.h"
 #include "timeutils.h"
 #include <alloca.h>
+#include <cstdio>
 #include <poll.h>
+#include <stdexcept>
 #include <unistd.h>
 
 #include "ant.h"
 
-Scenario::Scenario(const char * /*name*/, std::vector<Team *> teams)
+Scenario::Scenario(const char *name, std::vector<Team *> teams)
 	: m_teams{teams}, m_duration{30s} {
-	// TODO load scenario from file
-	//      now a fix scenario is set (1 nest and 5 ants by team)
-	for (size_t i = 0; i < teams.size(); ++i) {
-		auto nest = std::make_unique<Nest>(*teams[i], i, i, 50);
+	auto f = fopen(name, "r");
+	if (f == nullptr)
+		throw(std::runtime_error("Scenario not found"));
+
+	m_parser.setExecute(
+		[this](uint8_t argc, const char **argv) { processLine(argc, argv); });
+	while (!feof(f)) {
+		auto r = m_parser.read(
+			[f](char *buf, ssize_t len) { return fread(buf, 1, len, f); });
+		if (r != LineParserError::NO_ERROR)
+			fprintf(stderr, "Error while reading scenario\n");
+	}
+}
+
+void Scenario::processLine(uint8_t argc, const char **argv) {
+	if (argc <= 0)
+		return;
+
+	if (!strncmp(argv[0], "NEST", 4) && argc == 5) {
+		int team = atoi(argv[1]);
+		if (team < 0 || static_cast<unsigned int>(team) >= m_teams.size())
+			return;
+		auto nest = std::make_unique<Nest>(*m_teams[team], atof(argv[2]),
+										   atof(argv[3]), atoi(argv[4]));
 		m_nests.push_back(nest.get());
 		m_nestsStorage.push_back(std::move(nest));
-		for (int j = 0; j < 5; ++j)
-			new Ant(*teams[i], i, i, i);
+
+	} else if (!strncmp(argv[0], "ANT", 3) && argc == 5) {
+		int team = atoi(argv[1]);
+		if (team < 0 || static_cast<unsigned int>(team) >= m_teams.size())
+			return;
+		new Ant(*m_teams[team], atof(argv[2]), atof(argv[3]),
+				atof(argv[4])); // TODO add a way to destroy these objects
+
+	} else if (!strncmp(argv[0], "MAXTEAMS", 8) && argc == 2) {
+		auto teams = atoi(argv[1]);
+		if (teams < 0)
+			throw(std::runtime_error("Wrong number of teams"));
+		if (static_cast<unsigned int>(teams) < m_teams.size())
+			throw(
+				std::runtime_error("Too many teams to play on this scenario"));
 	}
 }
 

@@ -1,6 +1,7 @@
 #ifndef SCENARIO_H
 #define SCENARIO_H
 
+#include "lineparser.h"
 #include "nest.h"
 #include <chrono>
 #include <memory>
@@ -17,7 +18,13 @@ class Scenario {
 	/** Run scenario **/
 	void run();
 
+	/** Process one line of scenario **/
+	void processLine(uint8_t argc, const char **argv);
+
   private:
+	/** File parser **/
+	LineParser<100> m_parser;
+
 	/** Copy of team list **/
 	std::vector<Team *> m_teams;
 
