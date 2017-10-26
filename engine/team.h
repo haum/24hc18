@@ -11,7 +11,7 @@ class Team {
 	/** Constructor
 	 * @param exe Executable command
 	 */
-	Team(const char *exe) : m_exe{exe} {
+	Team(const char *exe, bool debug) : m_exe{exe}, m_debug(debug) {
 		m_parser.setExecute([this](uint8_t argc, const char **argv) {
 			processLine(argc, argv);
 		});
@@ -60,6 +60,9 @@ class Team {
 
 	/** Pid of subprocess **/
 	int m_pid = -1;
+
+	/** Do we display debug informations **/
+	bool m_debug;
 
 	/** Line parser **/
 	LineParser<80> m_parser;

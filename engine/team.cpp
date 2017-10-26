@@ -138,7 +138,8 @@ void Team::start_subprocess() {
 		m_fdin = pipe0[1];
 		m_fdout = pipe1[0];
 		m_fderr = pipe2[0];
-		m_log = STDERR_FILENO;
+		if (m_debug)
+			m_log = STDERR_FILENO;
 		close(pipe0[0]);
 		close(pipe1[1]);
 		close(pipe2[1]);
