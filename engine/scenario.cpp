@@ -35,14 +35,15 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		auto nest = std::make_unique<Nest>(*m_teams[team], atof(argv[2]),
 										   atof(argv[3]), atoi(argv[4]));
 		m_nests.push_back(nest.get());
-		m_nestsStorage.push_back(std::move(nest));
+		m_gameObjectsStorage.push_back(std::move(nest));
 
 	} else if (!strncmp(argv[0], "ANT", 3) && argc == 5) {
 		int team = atoi(argv[1]);
 		if (team < 0 || static_cast<unsigned int>(team) >= m_teams.size())
 			return;
-		new Ant(*m_teams[team], atof(argv[2]), atof(argv[3]),
-				atof(argv[4])); // TODO add a way to destroy these objects
+		auto ant = std::make_unique<Ant>(*m_teams[team], atof(argv[2]),
+										 atof(argv[3]), atof(argv[4]));
+		m_gameObjectsStorage.push_back(std::move(ant));
 
 	} else if (!strncmp(argv[0], "MAXTEAMS", 8) && argc == 2) {
 		auto teams = atoi(argv[1]);

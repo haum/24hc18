@@ -32,7 +32,7 @@ class Scenario {
 	std::vector<Nest *> m_nests;
 
 	/** List of created nests **/
-	std::vector<std::unique_ptr<Nest>> m_nestsStorage;
+	std::vector<std::unique_ptr<GameObject>> m_gameObjectsStorage;
 
 	/** Duration ×100ms (ie 20 = 2s) **/
 	std::chrono::seconds m_duration;
