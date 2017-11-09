@@ -2,8 +2,8 @@
 
 Nest::Nest(Team &team, double latitude, double longitude,
 		   uint64_t initialAntNumber)
-	: GameObject{NEST, latitude, longitude, 0}, Agent{team},
-	  m_antNumber{initialAntNumber} {}
+	: Agent{team, NEST, latitude, longitude, 0}, m_antNumber{initialAntNumber} {
+}
 
 bool Nest::prelude(std::ostream &os) {
 	os << "BEGIN NEST\n";

@@ -1,17 +1,13 @@
 #ifndef AGENT_H
 #define AGENT_H
 
+#include "gameobject.h"
 #include "team.h"
 #include <cstring>
 #include <ostream>
 
-class Agent {
+class Agent : public GameObject {
   public:
-	/** Constructor
-	 * @param team Team whose agent belongs
-	 */
-	Agent(Team &team);
-
 	/** Virutal destructor (empty) **/
 	virtual ~Agent();
 
@@ -32,6 +28,12 @@ class Agent {
 	virtual void epilogue() {}
 
   protected:
+	/** Constructor
+	 * @param team Team whose agent belongs
+	 */
+	Agent(Team &team, GameObject_t type, double latitude, double longitude,
+		  double heading);
+
 	/** Agent's team **/
 	Team &m_team;
 

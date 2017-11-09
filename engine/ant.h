@@ -5,7 +5,7 @@
 #include "gameobject.h"
 
 /** Class representing an ant **/
-class Ant : public GameObject, public Agent {
+class Ant : public Agent {
   public:
 	/** Constructor
 	 * @param team Team whose agent belongs

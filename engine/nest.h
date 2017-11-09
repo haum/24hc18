@@ -5,7 +5,7 @@
 #include "gameobject.h"
 
 /** Class representing a nest **/
-class Nest : public GameObject, public Agent {
+class Nest : public Agent {
   public:
 	/** Constructor
 	 * @param team             Team whose agent belongs

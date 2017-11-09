@@ -1,7 +1,11 @@
 #include "agent.h"
 #include <sstream>
 
-Agent::Agent(Team &team) : m_team{team} { m_team.agentAdd(this); }
+Agent::Agent(Team &team, GameObject_t type, double latitude, double longitude,
+			 double heading)
+	: GameObject(type, latitude, longitude, heading), m_team{team} {
+	m_team.agentAdd(this);
+}
 
 Agent::~Agent() { m_team.agentRm(this); }
 
