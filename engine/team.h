@@ -31,6 +31,9 @@ class Team {
 	 */
 	void send(const char *data, size_t len);
 
+	/** Print team statistics **/
+	void printStats();
+
 	/** Kill subprocess
 	 * @param str String to log
 	 */

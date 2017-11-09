@@ -74,5 +74,14 @@ int main(int argc, char *argv[]) {
 	scenario.load(scenario_name);
 	scenario.run();
 
+	std::cout << "==========\n"
+			  << "STATISTICS\n"
+			  << "==========\n";
+	for (auto &team : teams) {
+		team->printStats();
+		std::cout << "----------\n";
+	}
+	std::cout << std::flush;
+
 	return 0;
 }

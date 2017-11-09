@@ -39,6 +39,12 @@ void Team::send(const char *data, size_t len) {
 	}
 }
 
+void Team::printStats() {
+	std::cout << "Team " << m_exe << '\n';
+	std::cout << m_agents.size() << " agents alive" << '\n';
+	std::cout << std::flush;
+}
+
 void Team::kill(const char *str) {
 	if (m_log != -1 && str) {
 		write(m_log, str, strlen(str));
