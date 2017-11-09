@@ -12,6 +12,7 @@ class GameObject {
   public:
 	constexpr GameObject(GameObject &) = default;
 	constexpr GameObject(GameObject &&) = default;
+	virtual ~GameObject();
 
 	double latitude() { return m_latitude; }
 	double longitude() { return m_longitude; }
