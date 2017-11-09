@@ -35,9 +35,6 @@ class Scenario {
 	/** Copy of team list **/
 	std::vector<Team *> m_teams;
 
-	/** List of nests **/
-	std::vector<Nest *> m_nests;
-
 	/** List of created nests **/
 	std::vector<std::unique_ptr<GameObject>> m_gameObjectsStorage;
 

@@ -37,7 +37,6 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 			return;
 		auto nest = std::make_unique<Nest>(*m_teams[team], atof(argv[2]),
 										   atof(argv[3]), atoi(argv[4]));
-		m_nests.push_back(nest.get());
 		m_gameObjectsStorage.push_back(std::move(nest));
 
 	} else if (!strncmp(argv[0], "ANT", 3) && argc == 5) {
