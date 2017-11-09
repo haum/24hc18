@@ -55,6 +55,11 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		if (static_cast<unsigned int>(teams) < m_teams.size())
 			throw(
 				std::runtime_error("Too many teams to play on this scenario"));
+	} else if (!strncmp(argv[0], "DURATION", 8) && argc == 2) {
+		auto duration = atoi(argv[1]);
+		if (duration <= 0)
+			throw(std::runtime_error("Invalid duration"));
+		m_duration = duration * 1s;
 	}
 }
 
