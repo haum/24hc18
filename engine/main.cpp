@@ -60,16 +60,18 @@ int main(int argc, char *argv[]) {
 
 	// Display info
 	std::cout << "Scenario: " << scenario_name << '\n';
+	Scenario scenario;
 	std::vector<std::unique_ptr<Team>> teams;
 	std::vector<Team *> teams_ptrs;
 	for (int i = 0, ind = optind; ind < argc; ++i, ++ind) {
-		auto team = std::make_unique<Team>(argv[ind], debug == i);
+		auto team = std::make_unique<Team>(scenario, argv[ind], debug == i);
 		teams_ptrs.push_back(team.get());
 		teams.push_back(std::move(team));
 		std::cout << "IA" << (i + 1) << ": " << argv[ind] << '\n';
 	}
 	std::cout << std::endl;
-	Scenario scenario{scenario_name, teams_ptrs};
+	scenario.set_teams(teams_ptrs);
+	scenario.load(scenario_name);
 	scenario.run();
 
 	return 0;

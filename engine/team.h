@@ -1,7 +1,9 @@
 #ifndef TEAM_H
 #define TEAM_H
 
-class Agent; // Forward declaration
+class Agent;	// Forward declaration
+class Scenario; // Forward declaration
+
 #include "lineparser.h"
 #include <string>
 #include <vector>
@@ -11,11 +13,14 @@ class Team {
 	/** Constructor
 	 * @param exe Executable command
 	 */
-	Team(const char *exe, bool debug) : m_exe{exe}, m_debug(debug) {
+	Team(Scenario &scenario, const char *exe, bool debug)
+		: m_scenario{scenario}, m_exe{exe}, m_debug(debug) {
 		m_parser.setExecute([this](uint8_t argc, const char **argv) {
 			processLine(argc, argv);
 		});
 	}
+
+	Scenario &scenario() { return m_scenario; }
 
 	/** Start team manager as subprocess **/
 	void start_subprocess();
@@ -52,6 +57,9 @@ class Team {
 	void agentRm(Agent *);
 
   private:
+	/** Reference to scenario **/
+	Scenario &m_scenario;
+
 	/** Executable command **/
 	std::string m_exe;
 

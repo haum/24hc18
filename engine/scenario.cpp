@@ -8,9 +8,12 @@
 
 #include "ant.h"
 
-Scenario::Scenario(const char *name, std::vector<Team *> teams)
-	: m_teams{teams}, m_duration{30s} {
-	auto f = fopen(name, "r");
+Scenario::Scenario() : m_duration{30s} {}
+
+void Scenario::set_teams(std::vector<Team *> teams) { m_teams = teams; }
+
+void Scenario::load(const char *scenario_name) {
+	auto f = fopen(scenario_name, "r");
 	if (f == nullptr)
 		throw(std::runtime_error("Scenario not found"));
 
