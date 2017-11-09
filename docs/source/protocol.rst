@@ -206,6 +206,15 @@ Tell an ant to move in the direction of the target by id. This costs X energy.
 
     MOVE_TO <target> <id>
 
+TURN
+~~~~
+
+Tell an ant to turn <X> degrees from -180 to 180. The angle is relative to current position.
+
+.. code-block:: none
+
+   TURN <X>
+
 COLLECT
 ~~~~~~~
 
