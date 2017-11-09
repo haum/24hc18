@@ -75,14 +75,20 @@ class Team {
 	/** Do we display debug informations **/
 	bool m_debug;
 
+	/** Is current agent dead **/
+	bool m_dead;
+
 	/** Line parser **/
 	LineParser<80> m_parser;
 
 	/** List of agents **/
 	std::vector<Agent *> m_agents;
 
+	/** List of agents **/
+	std::vector<Agent *> m_agentsToRemove;
+
 	/** Current agent **/
-	std::vector<Agent *>::iterator m_currentAgent;
+	decltype(m_agents)::iterator m_currentAgent;
 
 	/** Go to next agent
 	 * @return true if sucessful

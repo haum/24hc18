@@ -11,11 +11,9 @@
 void Team::agentAdd(Agent *agent) { m_agents.push_back(agent); }
 
 void Team::agentRm(Agent *agent) {
-	auto it = std::find(m_agents.begin(), m_agents.end(), agent);
-	if (it != m_agents.end()) {
-		*it = m_agents[m_agents.size() - 1];
-		m_agents.pop_back();
-	}
+	if ((*m_currentAgent) == agent)
+		m_dead = true;
+	m_agentsToRemove.push_back(agent);
 }
 
 int Team::eventFd() { return m_fdout; }
@@ -56,9 +54,18 @@ void Team::kill(const char *str) {
 }
 
 bool Team::nextAgent() {
+	m_dead = false;
 	if (m_currentAgent != m_agents.end())
 		++m_currentAgent;
 	if (m_currentAgent == m_agents.end()) {
+		for (auto &agentToRemove : m_agentsToRemove) {
+			auto it =
+				std::find(m_agents.begin(), m_agents.end(), agentToRemove);
+			if (it != m_agents.end()) {
+				*it = m_agents[m_agents.size() - 1];
+				m_agents.pop_back();
+			}
+		}
 		m_currentAgent = m_agents.begin();
 		return false;
 	}
@@ -110,9 +117,11 @@ void Team::processLine(uint8_t argc, const char **argv) {
 		write(m_log, &nl, 1);
 	}
 
-	(*m_currentAgent)->execute(argc, argv);
+	if (!m_dead)
+		(*m_currentAgent)->execute(argc, argv);
 	if (argc == 1 && !strncmp(argv[0], "END", 3)) {
-		(*m_currentAgent)->epilogue();
+		if (!m_dead)
+			(*m_currentAgent)->epilogue();
 		bool trynext = true;
 		while (trynext) {
 			if (nextAgent()) {
