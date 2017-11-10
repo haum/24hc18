@@ -1,4 +1,5 @@
 #include "agent.h"
+#include "scenario.h"
 #include <sstream>
 
 Agent::Agent(Team &team, GameObject_t type, double latitude, double longitude,
@@ -27,3 +28,7 @@ int32_t Agent::param_int(const char *str, bool &ok, int min, int max) {
 	}
 	return ret;
 }
+
+void Agent::destroy(GameObject *obj) { m_team.scenario().rmGameObject(obj); }
+
+void Agent::destroy() { destroy(this); }

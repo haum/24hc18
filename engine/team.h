@@ -53,12 +53,6 @@ class Team {
 	/** Process one line of process **/
 	void processLine(uint8_t argc, const char **argv);
 
-	/** Add an agent **/
-	void agentAdd(Agent *);
-
-	/** Remove an agent **/
-	void agentRm(Agent *);
-
   private:
 	/** Reference to scenario **/
 	Scenario &m_scenario;
@@ -100,6 +94,14 @@ class Team {
 	 * @return true on success, false on failure
 	 */
 	bool sendPrelude();
+
+	/** Add an agent **/
+	void agentAdd(Agent *);
+
+	/** Remove an agent **/
+	void agentRm(Agent *);
+
+	friend class Agent;
 };
 
 #endif // TEAM_H

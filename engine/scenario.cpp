@@ -1,5 +1,6 @@
 #include "scenario.h"
 #include "timeutils.h"
+#include <algorithm>
 #include <alloca.h>
 #include <cstdio>
 #include <poll.h>
@@ -35,17 +36,15 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		int team = atoi(argv[1]);
 		if (team < 0 || static_cast<unsigned int>(team) >= m_teams.size())
 			return;
-		auto nest = std::make_unique<Nest>(*m_teams[team], atof(argv[2]),
-										   atof(argv[3]), atoi(argv[4]));
-		m_gameObjectsStorage.push_back(std::move(nest));
+		addGameObject(std::make_unique<Nest>(*m_teams[team], atof(argv[2]),
+											 atof(argv[3]), atoi(argv[4])));
 
 	} else if (!strncmp(argv[0], "ANT", 3) && argc == 5) {
 		int team = atoi(argv[1]);
 		if (team < 0 || static_cast<unsigned int>(team) >= m_teams.size())
 			return;
-		auto ant = std::make_unique<Ant>(*m_teams[team], atof(argv[2]),
-										 atof(argv[3]), atof(argv[4]));
-		m_gameObjectsStorage.push_back(std::move(ant));
+		addGameObject(std::make_unique<Ant>(*m_teams[team], atof(argv[2]),
+											atof(argv[3]), atof(argv[4])));
 
 	} else if (!strncmp(argv[0], "MAXTEAMS", 8) && argc == 2) {
 		auto teams = atoi(argv[1]);
@@ -59,6 +58,21 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		if (duration <= 0)
 			throw(std::runtime_error("Invalid duration"));
 		m_duration = duration * 1s;
+	}
+}
+
+void Scenario::addGameObject(std::unique_ptr<GameObject> obj) {
+	m_gameObjectsStorage.push_back(std::move(obj));
+}
+
+void Scenario::rmGameObject(GameObject *obj) {
+	auto it = std::find_if(
+		m_gameObjectsStorage.begin(), m_gameObjectsStorage.end(),
+		[obj](std::shared_ptr<GameObject> &gobj) { return gobj.get() == obj; });
+	if (it != m_gameObjectsStorage.end()) {
+		auto i = std::distance(m_gameObjectsStorage.begin(), it);
+		m_gameObjectsStorage[i] = m_gameObjectsStorage.back();
+		m_gameObjectsStorage.resize(m_gameObjectsStorage.size() - 1);
 	}
 }
 

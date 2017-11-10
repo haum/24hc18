@@ -27,6 +27,16 @@ class Agent : public GameObject {
 	 * is executed */
 	virtual void epilogue() {}
 
+	/** Get team reference **/
+	Team &team() { return m_team; }
+
+	/** Destroy a game object
+	 * @note The version without argument destroys the agent itself
+	 * @param obj Object to destroy
+	 */
+	void destroy(GameObject *obj);
+	void destroy();
+
   protected:
 	/** Constructor
 	 * @param team Team whose agent belongs

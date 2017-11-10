@@ -28,6 +28,12 @@ class Scenario {
 	/** Process one line of scenario **/
 	void processLine(uint8_t argc, const char **argv);
 
+	/** Add game object **/
+	void addGameObject(std::unique_ptr<GameObject> obj);
+
+	/** Remove game object **/
+	void rmGameObject(GameObject *obj);
+
   private:
 	/** File parser **/
 	LineParser<100> m_parser;
@@ -36,7 +42,7 @@ class Scenario {
 	std::vector<Team *> m_teams;
 
 	/** List of created nests **/
-	std::vector<std::unique_ptr<GameObject>> m_gameObjectsStorage;
+	std::vector<std::shared_ptr<GameObject>> m_gameObjectsStorage;
 
 	/** Duration ×100ms (ie 20 = 2s) **/
 	std::chrono::seconds m_duration;
