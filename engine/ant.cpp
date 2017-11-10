@@ -41,6 +41,10 @@ void Ant::execute(uint8_t argc, const char **argv) {
 			m_memory[0] = static_cast<uint8_t>(m0);
 			m_memory[1] = static_cast<uint8_t>(m1);
 		}
+
+	} else if (!strncmp(argv[0], "SUICIDE", 7) && argc == 1) {
+		destroy();
+
 	} else if (!strncmp(argv[0], "WALK", 5) && argc == 1) {
 		if (m_actionState == ACTION_FREE) {
 			walk();
