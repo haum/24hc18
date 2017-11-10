@@ -110,7 +110,9 @@ void Scenario::run() {
 			}
 			while (chr::now() > periodic_tp) {
 				periodic_tp += 100ms;
-				// TODO do periodic job
+				for (auto &go : m_gameObjectsStorage) {
+					go->periodic();
+				}
 			}
 		}
 	}

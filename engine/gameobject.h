@@ -18,6 +18,8 @@ class GameObject {
 	double longitude() { return m_longitude; }
 	double heading() { return m_heading; }
 
+	virtual void periodic() {}
+
   protected:
 	GameObject(GameObject_t type, double latitude, double longitude,
 			   double heading);
