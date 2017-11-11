@@ -1,8 +1,8 @@
 #ifndef NEST_H
 #define NEST_H
 
-#include "agent.h"
-#include "gameobject.h"
+#include "gears/agent.h"
+#include "team.h"
 
 /** Class representing a nest **/
 class Nest : public Agent {

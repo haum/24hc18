@@ -1,5 +1,5 @@
 #include "ant.h"
-#include "rand.h"
+#include "gears/rand.h"
 #include <cmath>
 
 Ant::Ant(Team &team, double latitude, double longitude, double heading,

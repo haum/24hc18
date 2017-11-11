@@ -1,8 +1,7 @@
 #ifndef ANT_H
 #define ANT_H
 
-#include "agent.h"
-#include "gameobject.h"
+#include "gears/agent.h"
 
 /** Class representing an ant **/
 class Ant : public Agent {

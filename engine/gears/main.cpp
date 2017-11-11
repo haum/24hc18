@@ -1,5 +1,5 @@
+#include "../scenario.h"
 #include "rand.h"
-#include "scenario.h"
 #include <getopt.h>
 #include <iostream>
 #include <memory>

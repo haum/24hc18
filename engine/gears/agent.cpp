@@ -1,5 +1,5 @@
 #include "agent.h"
-#include "scenario.h"
+#include "../scenario.h"
 #include <sstream>
 
 Agent::Agent(Team &team, GameObject_t type, double latitude, double longitude,

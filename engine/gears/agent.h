@@ -1,8 +1,8 @@
 #ifndef AGENT_H
 #define AGENT_H
 
+#include "../team.h"
 #include "gameobject.h"
-#include "team.h"
 #include <cstring>
 #include <ostream>
 
