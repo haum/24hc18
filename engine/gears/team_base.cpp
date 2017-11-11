@@ -105,7 +105,8 @@ void TeamBase::processLine(uint8_t argc, const char **argv) {
 		write(m_log, ". ", 2);
 		for (int i = 0; i < argc; ++i) {
 			write(m_log, argv[i], strlen(argv[i]));
-			write(m_log, " ", 2);
+			if (i != argc - 1)
+				write(m_log, " ", 1);
 		}
 		char nl = '\n';
 		write(m_log, &nl, 1);
