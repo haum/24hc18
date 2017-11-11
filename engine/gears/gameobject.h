@@ -5,6 +5,8 @@
 enum GameObject_t {
 	NEST,
 	ANT,
+	PHEROMONE,
+	FOOD,
 };
 
 /** Game object base class (stores position) **/
