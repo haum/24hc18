@@ -16,12 +16,17 @@ class Nest : public Agent {
 	Nest(Team &team, double latitude, double longitude,
 		 uint64_t initialAntNumber);
 
+	/** Get category **/
+	GameObject_t category() { return &s_category; }
+
   private:
 	/** Number of  ants currently in nest **/
 	uint64_t m_antNumber;
 
 	virtual bool prelude(std::ostream &os) override;
 	virtual void execute(uint8_t argc, const char **argv) override;
+
+	static const GameObjectCategory s_category;
 };
 
 #endif // NEST_H

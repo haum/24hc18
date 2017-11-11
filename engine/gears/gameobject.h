@@ -1,13 +1,19 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-/** Enumeration of type of game objects **/
-enum GameObject_t {
-	NEST,
-	ANT,
-	PHEROMONE,
-	FOOD,
+#include <string>
+
+/** Description of type of game objects **/
+class GameObjectCategory {
+  public:
+	GameObjectCategory(std::string name) : m_name{name} {}
+	std::string name() const { return m_name; }
+
+  private:
+	std::string m_name;
 };
+
+typedef const GameObjectCategory *GameObject_t;
 
 /** Game object base class (stores position) **/
 class GameObject {
@@ -19,6 +25,7 @@ class GameObject {
 	double latitude() { return m_latitude; }
 	double longitude() { return m_longitude; }
 	double heading() { return m_heading; }
+	GameObject_t type() const { return m_type; }
 
 	virtual void periodic() {}
 

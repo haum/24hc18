@@ -1,4 +1,6 @@
 #include "pheromone.h"
 
+const GameObjectCategory Pheromone::s_category{"PHEROMONE"};
+
 Pheromone::Pheromone(double latitude, double longitude)
-	: GameObject{PHEROMONE, latitude, longitude, 0} {}
+	: GameObject{Pheromone::category(), latitude, longitude, 0} {}

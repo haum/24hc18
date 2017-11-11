@@ -2,9 +2,11 @@
 #include "gears/rand.h"
 #include <cmath>
 
+const GameObjectCategory Ant::s_category{"ANT"};
+
 Ant::Ant(Team &team, double latitude, double longitude, double heading,
 		 uint8_t ant_type, uint8_t memory1, uint8_t memory2)
-	: Agent{team, ANT, latitude, longitude, heading},
+	: Agent{team, Ant::category(), latitude, longitude, heading},
 	  m_ant_type{ant_type}, m_memory{memory1, memory2} {}
 
 void Ant::turnLeft() { m_heading = fmod(m_heading + 2 * M_PI / 36, 2 * M_PI); }

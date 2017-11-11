@@ -1,9 +1,11 @@
 #include "nest.h"
 
+const GameObjectCategory Nest::s_category{"NEST"};
+
 Nest::Nest(Team &team, double latitude, double longitude,
 		   uint64_t initialAntNumber)
-	: Agent{team, NEST, latitude, longitude, 0}, m_antNumber{initialAntNumber} {
-}
+	: Agent{team, Nest::category(), latitude, longitude, 0},
+	  m_antNumber{initialAntNumber} {}
 
 bool Nest::prelude(std::ostream &os) {
 	os << "BEGIN NEST\n";
