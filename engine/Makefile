@@ -8,6 +8,9 @@ all: marabunta_engine
 marabunta_engine:${OBJS}
 	${CXX} ${CXXFLAGS} -o $@ ${OBJS} ${LDFLAGS}
 
+format:${CPPFILES} $(wildcard *.h */*.h)
+	clang-format -style=file -i $^
+
 build/%.o:%.cpp
 	@mkdir -p build/$(dir $<)
 	$(CXX) ${CXXFLAGS} -c $< -o $@
