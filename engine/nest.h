@@ -17,7 +17,7 @@ class Nest : public Agent {
 		 uint64_t initialAntNumber);
 
 	/** Get category **/
-	GameObject_t category() { return &s_category; }
+	GameObject_t category() const { return &s_category; }
 
   private:
 	/** Number of  ants currently in nest **/

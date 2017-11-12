@@ -16,7 +16,7 @@ void TeamBase::agentRm(Agent *agent) {
 	m_agentsToRemove.push_back(agent);
 }
 
-int TeamBase::eventFd() { return m_fdout; }
+int TeamBase::eventFd() const { return m_fdout; }
 
 void TeamBase::send(const char *data, size_t len) {
 	if (m_log != -1) {

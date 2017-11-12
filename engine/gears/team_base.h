@@ -20,7 +20,7 @@ class TeamBase {
 		});
 	}
 
-	Scenario &scenario() { return m_scenario; }
+	Scenario &scenario() const { return m_scenario; }
 
 	/** Start team manager as subprocess **/
 	void start_subprocess();
@@ -39,7 +39,7 @@ class TeamBase {
 	/** Gets event file descriptor
 	 * @return File descriptor
 	 */
-	int eventFd();
+	int eventFd() const;
 
 	/** Process died events **/
 	void eventProcessDied();

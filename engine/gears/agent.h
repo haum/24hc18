@@ -28,7 +28,7 @@ class Agent : public GameObject {
 	virtual void epilogue() {}
 
 	/** Get team reference **/
-	Team &team() { return m_team; }
+	Team &team() const { return m_team; }
 
 	/** Destroy a game object
 	 * @note The version without argument destroys the agent itself

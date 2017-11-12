@@ -22,9 +22,9 @@ class GameObject {
 	constexpr GameObject(GameObject &&) = default;
 	virtual ~GameObject();
 
-	double latitude() { return m_latitude; }
-	double longitude() { return m_longitude; }
-	double heading() { return m_heading; }
+	double latitude() const { return m_latitude; }
+	double longitude() const { return m_longitude; }
+	double heading() const { return m_heading; }
 	GameObject_t type() const { return m_type; }
 
 	virtual void periodic() {}

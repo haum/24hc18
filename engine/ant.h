@@ -19,7 +19,7 @@ class Ant : public Agent {
 		uint8_t ant_type = 0, uint8_t memory1 = 0, uint8_t memory2 = 0);
 
 	/** Get category **/
-	GameObject_t category() { return &s_category; }
+	GameObject_t category() const { return &s_category; }
 
 	/** Make ant to turn left **/
 	void turnLeft();
