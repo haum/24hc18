@@ -27,6 +27,8 @@ class GameObject {
 	double heading() const { return m_heading; }
 	GameObject_t type() const { return m_type; }
 
+	double distance(const GameObject &) const;
+
 	virtual void periodic() {}
 
   protected:
