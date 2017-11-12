@@ -3,6 +3,7 @@
 
 #include "gears/team_base.h"
 
+/** Class managing a team (story part) **/
 class Team : public TeamBase {
   public:
 	/** Constructor **/

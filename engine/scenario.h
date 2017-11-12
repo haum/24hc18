@@ -4,6 +4,7 @@
 #include "gears/scenario_base.h"
 #include <stdint.h>
 
+/** Class managing scenario execution (story part) **/
 class Scenario : public ScenarioBase {
   public:
 	/** Constructor **/

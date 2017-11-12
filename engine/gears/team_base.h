@@ -8,10 +8,13 @@ class Scenario; // Forward declaration
 #include <string>
 #include <vector>
 
+/** Class managing a team (gear part) **/
 class TeamBase {
   public:
 	/** Constructor
-	 * @param exe Executable command
+	 * @param scenario Reference to scenario
+	 * @param exe      Executable command
+	 * @param debug    Should debug be printed or this team
 	 */
 	TeamBase(Scenario &scenario, const char *exe, bool debug)
 		: m_scenario{scenario}, m_exe{exe}, m_debug(debug) {
@@ -20,6 +23,7 @@ class TeamBase {
 		});
 	}
 
+	/** Get scenario **/
 	Scenario &scenario() const { return m_scenario; }
 
 	/** Start team manager as subprocess **/

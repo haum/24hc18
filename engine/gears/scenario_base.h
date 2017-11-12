@@ -7,6 +7,7 @@
 #include <memory>
 #include <vector>
 
+/** Class managing scenario execution (gears part) **/
 class ScenarioBase {
   public:
 	/** Constructor **/
@@ -62,7 +63,7 @@ class ScenarioBase {
 	/** List of created nests **/
 	std::vector<std::shared_ptr<GameObject>> m_gameObjectsStorage;
 
-	/** Duration ×100ms (ie 20 = 2s) **/
+	/** Duration **/
 	std::chrono::seconds m_duration;
 };
 

@@ -16,6 +16,7 @@ class Pheromone : public GameObject {
 	GameObject_t category() const { return &s_category; }
 
   private:
+	/** Pheromone category unique object **/
 	static const GameObjectCategory s_category;
 };
 

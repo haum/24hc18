@@ -36,10 +36,12 @@ class LineParserBase {
 		return read(len);
 	}
 
+	/** Set function executed at each line **/
 	void setExecute(std::function<void(uint8_t, const char **)> exe) {
 		m_execute = exe;
 	}
 
+	/** Reset parsing state **/
 	void reset() { m_buff_len = 0; }
 
   private:
@@ -66,9 +68,11 @@ class LineParserBase {
 
 template <int N> class LineParser : public LineParserBase {
   public:
+	/** Constructor **/
 	LineParser() : LineParserBase{m_buffer.data(), m_buffer.size()} {}
 
   private:
+	/** Parsing buffer **/
 	std::array<char, N + 1> m_buffer;
 };
 

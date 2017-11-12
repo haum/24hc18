@@ -3,6 +3,7 @@
 
 #include "gears/gameobject.h"
 
+/** Class representing a food source **/
 class Food : public GameObject {
   public:
 	/** Constructor
@@ -15,6 +16,7 @@ class Food : public GameObject {
 	GameObject_t category() const { return &s_category; }
 
   private:
+	/** Food category unique object **/
 	static const GameObjectCategory s_category;
 };
 

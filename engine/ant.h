@@ -49,6 +49,7 @@ class Ant : public Agent {
 	virtual bool prelude(std::ostream &os) override;
 	virtual void execute(uint8_t argc, const char **argv) override;
 
+	/** Ant category unique object **/
 	static const GameObjectCategory s_category;
 };
 
