@@ -34,6 +34,24 @@ class ScenarioBase {
 	/** Remove game object **/
 	void rmGameObject(GameObject *obj);
 
+	/** List game objects
+	 * @param fct Functor bool(std::shared_ptr<GameObject>) called at each
+	 *            object until the end of collection or until it returns false
+	 * @note Objects cannot be directly nor indirectly destroyed during the loop
+	 *
+	 * Example usage:
+	 * scenario.listObjects([](auto sgo) {
+	 *     std::cout << sgo->type()->name() << std::endl;
+	 *     return true;
+	 * });
+	 */
+	template <typename Fct> void listObjects(Fct fct) {
+		for (auto sgo : m_gameObjectsStorage) {
+			if (!fct(sgo))
+				break;
+		}
+	}
+
   protected:
 	/** File parser **/
 	LineParser<100> m_parser;
