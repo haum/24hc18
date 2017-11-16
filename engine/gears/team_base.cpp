@@ -37,12 +37,17 @@ void TeamBase::send(const char *data, size_t len) {
 	}
 }
 
-void TeamBase::kill(const char *str) {
-	if (m_log != -1 && str) {
-		write(m_log, str, strlen(str));
+void TeamBase::log(const char *msg) {
+	if (m_log != -1 && msg) {
+		write(m_log, "! ", 2);
+		write(m_log, msg, strlen(msg));
 		char nl = '\n';
 		write(m_log, &nl, 1);
 	}
+}
+
+void TeamBase::kill(const char *str) {
+	log(str);
 	::kill(m_pid, SIGKILL);
 	eventProcessDied();
 }
@@ -77,7 +82,7 @@ bool TeamBase::sendPrelude() {
 }
 
 void TeamBase::eventProcessDied() {
-	write(m_log, "! Process died\n", 15);
+	log("Process died");
 	close(m_fdin);
 	m_fdin = -1;
 	close(m_fdout);
@@ -92,10 +97,10 @@ void TeamBase::eventProcessRead() {
 	auto r = m_parser.read(
 		[this](char *buf, ssize_t len) { return read(m_fdout, buf, len); });
 	if (r == LineParserError::LINE_TOO_LONG) {
-		const char *errorstr = "! Line too long, bye";
+		const char *errorstr = "Line too long, bye";
 		kill(errorstr);
 	} else if (r == LineParserError::READ_ERROR) {
-		const char *errorstr = "! Error while reading process answer";
+		const char *errorstr = "Error while reading process answer";
 		kill(errorstr);
 	}
 }
@@ -123,7 +128,7 @@ void TeamBase::processLine(uint8_t argc, const char **argv) {
 				trynext = !sendPrelude();
 			} else {
 				if (random_unit() < 1 / 15.0) {
-					kill("! Random kill");
+					kill("Random kill");
 					trynext = false;
 				} else {
 					trynext = !sendPrelude();

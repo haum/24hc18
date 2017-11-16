@@ -35,6 +35,12 @@ class TeamBase {
 	 */
 	void send(const char *data, size_t len);
 
+	/** Write a line of debug information in team log
+	 * @note Do not use newline characters in message (not checked)
+	 * @param msg Null-terminated C-string message to display
+	 */
+	void log(const char *msg);
+
 	/** Kill subprocess
 	 * @param str String to log
 	 */

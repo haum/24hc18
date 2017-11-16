@@ -29,6 +29,8 @@ int32_t Agent::param_int(const char *str, bool &ok, int min, int max) {
 	return ret;
 }
 
+void Agent::log(const char *msg) { m_team.log(msg); }
+
 void Agent::destroy(GameObject *obj) { m_team.scenario().rmGameObject(obj); }
 
 void Agent::destroy() { destroy(this); }
