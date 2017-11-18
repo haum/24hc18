@@ -62,6 +62,9 @@ class LineParserBase {
 	/** Buffer usage **/
 	size_t m_buff_len = 0;
 
+	/** Are we still inside a too long line **/
+	bool m_too_long = false;
+
 	/** Line interpreter function pointer **/
 	std::function<void(uint8_t, const char **)> m_execute = nullptr;
 };

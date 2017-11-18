@@ -5,6 +5,8 @@ LineParserError LineParserBase::read(ssize_t len) {
 	if (len <= 0) {
 		return LineParserError::READ_ERROR;
 	} else if (!strstr(m_buff, "\n")) {
+		m_too_long = true;
+		m_buff_len = 0;
 		return LineParserError::LINE_TOO_LONG;
 	} else {
 		m_buff[len] = 0;
@@ -12,7 +14,10 @@ LineParserError LineParserBase::read(ssize_t len) {
 		char *narg = strtok_r(m_buff, "\n", &ntok);
 		while (narg != nullptr) {
 			bool uncut = strstr(ntok, "\n");
-			processLine(narg);
+			if (!m_too_long)
+				processLine(narg);
+			else
+				m_too_long = false;
 			if (uncut) {
 				narg = strtok_r(nullptr, "\n", &ntok);
 			} else {
