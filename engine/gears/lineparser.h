@@ -24,7 +24,7 @@ class LineParserBase {
 	 * @param fn Function to read (parameters are buffer and max len,
 	 *           should return number of read characters)
 	 */
-	LineParserError read(std::function<int(char *, ssize_t)> fn) {
+	template <typename Fct> LineParserError read(Fct fn) {
 		ssize_t len = 0;
 		len = m_size - 1 - m_buff_len;
 		if (len <= 0)
@@ -60,7 +60,7 @@ class LineParserBase {
 	size_t m_size = 0;
 
 	/** Buffer usage **/
-	ssize_t m_buff_len = 0;
+	size_t m_buff_len = 0;
 
 	/** Line interpreter function pointer **/
 	std::function<void(uint8_t, const char **)> m_execute = nullptr;
