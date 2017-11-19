@@ -41,7 +41,7 @@ class GameObject {
 	double heading() const { return m_heading; }
 
 	/** Get type **/
-	GameObject_t type() const { return m_type; }
+	GameObject_t category() const { return m_category; }
 
 	/** Compute distance to another object
 	 * @note The computed distance is the angle of the shorstest path in
@@ -55,12 +55,12 @@ class GameObject {
 
   protected:
 	/** Constructor
-	 * @param type      Type of game object
+	 * @param category  Category of game object
 	 * @param latitude  Initial latitude
 	 * @param longitude Initial longitude
 	 * @param heading   Initial heading
 	 */
-	GameObject(GameObject_t type, double latitude, double longitude,
+	GameObject(GameObject_t category, double latitude, double longitude,
 			   double heading);
 
 	/** Latitude **/
@@ -73,7 +73,7 @@ class GameObject {
 	double m_heading;
 
 	/** Type **/
-	GameObject_t m_type;
+	GameObject_t m_category;
 };
 
 #endif // GAMEOBJECT_H
