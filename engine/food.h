@@ -13,7 +13,7 @@ class Food : public GameObject {
 	Food(double latitude, double longitude);
 
 	/** Get category **/
-	GameObject_t category() const { return &s_category; }
+	static GameObject_t category() { return &s_category; }
 
   private:
 	/** Food category unique object **/
