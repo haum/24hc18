@@ -1,0 +1,13 @@
+Install environment:
+
+virtualenv .venv
+source .venv/bin/activate
+pip install sphinx
+pip install sphinx_rtd_theme
+
+
+Quick build:
+
+source .venv/bin/activate
+make clean
+make html
