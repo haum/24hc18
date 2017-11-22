@@ -29,8 +29,18 @@ class ScenarioBase {
 	/** Process one line of scenario **/
 	virtual void processLine(uint8_t argc, const char **argv) = 0;
 
+	/** Create and add game object **/
+	template <typename T, typename... Args> T *addGameObject(Args &&... args) {
+		static_assert(std::is_base_of<GameObject, T>::value,
+					  "addGameObject can only construct GameObject");
+		auto u = std::make_unique<T>(std::forward<Args>(args)...);
+		auto *ret = u.get();
+		addExistingGameObject(std::move(u));
+		return ret;
+	}
+
 	/** Add game object **/
-	void addGameObject(std::unique_ptr<GameObject> obj);
+	void addExistingGameObject(std::unique_ptr<GameObject> obj);
 
 	/** Remove game object **/
 	void rmGameObject(GameObject *obj);

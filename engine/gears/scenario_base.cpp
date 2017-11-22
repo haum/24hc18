@@ -26,7 +26,7 @@ void ScenarioBase::load(const char *scenario_name) {
 	}
 }
 
-void ScenarioBase::addGameObject(std::unique_ptr<GameObject> obj) {
+void ScenarioBase::addExistingGameObject(std::unique_ptr<GameObject> obj) {
 	m_gameObjectsStorage.push_back(std::move(obj));
 }
 
