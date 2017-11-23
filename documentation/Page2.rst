@@ -1,2 +1,0 @@
-Système multi-agents
-********************
