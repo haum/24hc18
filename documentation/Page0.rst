@@ -6,6 +6,6 @@
 De quoi s'agit il ?
 *******************
 
-Vous êtes à la tête d'une colonie de fourmis. Vous controlez le nid et toutes les fourmis de votre colonie. Vous allez devoir fournier un programme de control des I.A. de votre nid et de vos fourmis. Vos fourmis et votre nid ont des capcités limités et vou ne connaissez pas le terrain. Vous allez devoir faire avec pour relevez ce défi. Votre premier objectif, pas si simple, sera d'assurer la survie de votre colonie.
+Vous êtes à la tête d'une colonie de fourmis. Vous controlez le nid et toutes les fourmis de votre colonie. Vous allez devoir fournir un programme de control des I.A. de votre nid et de vos fourmis. Vos fourmis et votre nid ont des capcités limités et vou ne connaissez pas le terrain. Vous allez devoir faire avec pour relevez ce défi. Votre premier objectif, pas si simple, sera d'assurer la survie de votre colonie.
 
 
