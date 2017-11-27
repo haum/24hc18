@@ -1,19 +1,24 @@
 Protocol
 ********
 
+Ce document défini l'utilisation du protocol de communication entre "le stratège" et "le similateur".
+
 .. WARNING::
-    The cost number is an exemple for the moment.
+    Les valeurs données dans les exemples le sont à titre indicatif.
 
+Généralités
+===========
 
-Generality
-==========
+L'API utilise les ports stdin et stdout et n'accepte que du texte limité à 80 caractères au maximum. 
 
-The action commands are what you tell to the engine and the infos commands
-are the explication of what the engine says to your AI.
+Chaque message est composé d'une commande et d'un ou plusieurs arguments séparés par des espaces.
 
-The API use stdin and stdout and they are limited to 80 characteres. 
+Les commandes sont séparées en deux catégories nid et fourmi.
 
-All commands arguments are separated by spaces.
+Les commandes sont séparées en deux types "actions" et "infos".
+
+ - Infos: ce sont les données que reçoivent vos entités (nid et fourmi) sur  leur environnemet proche.
+ - Actions: ce sont les tâches que vos entités peuvent réaliser pour progresser dans le jeu.
 
 To tell to the engine that the AI has done, write `END` in sdtin.
 
@@ -23,43 +28,25 @@ arount it. The second, the little one, include elements that are interactive.
 
 Exemple of three identical elements in different relative positions.
 
-::
 
-            [3]
-
-    +-----------------+
-    |                 |
-    |       [1]       |<---- VISION
-    |                 |
-    |  +-----------+  |
-    |  |           |  |
-    |  |    [2]    |<------- INTERECTABLE
-    |  |           |  |
-    |  +-----------+  |
-    |                 |
-    +-----------------+
-
-The ``[1]`` is VISIBLE and not INTERACTABLE:
-
-.. code-block:: none
-
-    VISION [ant team=1 hp=3]
-    INTERECTABLE []
+.. image:: _static/images/ant.png
+   :align: center
 
 
-The ``[2]`` is VISIBLE and INTERACTABLE:
+= ============== ================================
+1 visible et     *VISION []*
+  interactif 
+                 *INTERACTABLE [ant team=1 hp=3]*
+- -------------- --------------------------------
+2 visible et non *VISION [ant team=1 hp=3]*
+  interactif
+                 *INTERACTABLE []*
+- -------------- --------------------------------
+3 non visible et *VISION []*
+  non interactif
+                 *INTERACTABLE []*
+= ============== ================================
 
-.. code-block:: none
-
-    VISION []
-    INTERACTABLE [ant team=1 hp=3]
-
-The ``[3]`` is not VISIBLE and not INTERACTABLE:
-
-.. code-block:: none
-    
-    VISION []
-    INTERACTABLE []
 
 Ant
 ===
@@ -67,144 +54,75 @@ Ant
 Infos
 -----
 
-BEGIN
-~~~~~
+================ ==============================================================
+**BEGIN**        Retourne que l'entité fourmi démarre
+       
+                 *BEGIN <entity>*                                      
+**ENERGY**       Retourne le niveau d'énérgie d'une fourmi          
+       
+                 *ENERGY <quantity>*                                   
+**STOCK**        Retourne la quantité de nourriture stockée par une fourmi
 
-Returns the information that an entity's turn begin.
+                 *STOCK <quantity>*
+**VISION**       Retourne les caractéristiques d'un objet présent dans la 
+                 zone de visibilité d'une fourmi (par id). S'il existe 
+                 plusieurs objets, la commande devras être utilisée autant 
+                 de fois que nécessaire. Id are displayed if the number of 
+                 id >1.
 
-.. code-block:: none
+                 *VISION <object> <params>*
 
-    BEGIN <entity>
+                 Voici la liste des objets avec leurs paramètres:
 
-ENERGY
-~~~~~~
+                 - *VISION pheromone <type> <id>*
 
-Returns entity's amount of energy.
+                 - *VISION ant <team_boolean> <energy_level> <id>*
 
-.. code-block:: none
+                 - *VISION food <quantity> <id>*
 
-    ENERGY <quantity>
+                 - *VISION nest <team_boolean> <id>*
+**INTERACTABLE** Dans la zone Interactive, identique à le zone de 
+                 visibilité
+**MEMORY**       Retourne le contenu de la mémpoire d'une fourmi sour la 
+                 forme d'un tableau de deux u_int8 (soit 2 octets)
 
-STOCK
-~~~~~
+                 *MEMORY <u_int8> <u_int8>*
+**STATUS**       Retourne la situation courante d'une fourmi (ATTACKED, 
+                 OCCUPED or NONE
 
-Returns entity's food stock.
-
-.. code-block:: none
-
-    STOCK <quantity>
-
-VISION
-~~~~~~
-
-Returns, by id, one of the object around an ant. If there is two or more 
-objects around, the `VISION` command is repeated as necessary. Id are displayed 
-if the number of id > 1.
-
-.. code-block:: none
-
-    VISION <object> <params>
-
-List of objects available with params:
-
-.. code-block:: none
-
-    VISION pheromone <type> <id>
-
-.. code-block:: none
-
-    VISION ant <team_boolean> <energy_level> <id>
-    
-.. code-block:: none
-
-    VISION food <quantity> <id>
-
-.. code-block:: none
-
-    VISION nest <team_boolean> <id>
-
-INTERACTABLE
-~~~~~~~~~~~~
-
-Returns same as `VISION` command but only objects with which that an ant can 
-interact.
-
-
-MEMORY
-~~~~~~
-
-Returns an array of two u_int8. Limited to 16 bits.
-
-.. code-block:: none
-
-    MEMORY <u_int8> <u_int8>
-
-STATE
-~~~~~
-
-Returns ATTACKED, OCCUPED or NONE.
-
-.. code-block:: none
-
-    STATE <state>
-
+                 *STATE <state>* 
+================ ==============================================================
 
 Actions
 -------
 
-PUT_PHEROMONE
-~~~~~~~~~~~~~
+====================== ========================================== =============
+**PUT_PHEROMONE**      Demande à une fourmi de déposer une        Coup en  
+                       phéromone.                                 énergie :   3
+                                                                  
+                       *PUT_PHEROMONE <type>*
+**CHANGE_PHEROMONE**   Demande à une fourmi de modifier une       Coup en
+                       phéromone.                                 énergie :   2
 
-Tell an ant to put a pheromone on the ground, this costs 3 energy.
+                       *CHANGE_PHEROMONE <id> <type>*
+**RECHARGE_PHEROMONE** Demande à une fourmi de recharger une      Coup en 
+                       phéromone.                                 énergie :   1
 
-.. code-block:: none
+                       *RECHARGE_PHEROMONE <id> <type>*
+**EXPLORE**            Envoi une fourmi en exploration.           Coup en
+                                                                  énergie :   ?
 
-    PUT_PHEROMONE <type>
+                       *EXPLORE*
+**ATTACK**             Demande à une fourmi d'attequer une cible. Coup en
+                                                                  énergie :   ?
 
-CHANGE_PHEROMONE
-~~~~~~~~~~~~~~~~
+                       *ATTACK <target> <id>*                     
+**MOVE_TO**            Demande à une fourmi de se diriger vers    Coup en    
+                       un emplacement.                            énergie :   ?
 
-Tell an ant to change a pheromone by id, this costs 2 energy.
+                       *MOVE_TO <target> <id>*                             
+====================== ========================================== =============
 
-.. code-block:: none
-
-    CHANGE_PHEROMONE <id> <type>
-
-RECHARGE_PHEROMONE
-~~~~~~~~~~~~~~~~~~
-
-Tell an ant to recharge a pheromone by id. This costs 1 energy.
-
-.. code-block:: none
-
-    RECHARGE_PHEROMONE <id> <type>
-
-EXPLORE
-~~~~~~~
-
-Send an ant to explore the world. This costs X energy.
-
-.. code-block:: none
-
-    EXPLORE
-
-ATTACK
-~~~~~~
-
-Tell an ant to attack a target by id. This costs X energy.
-
-.. code-block:: none
-
-    ATTACK <target> <id>
-
-MOVE_TO
-~~~~~~~
-
-Tell an ant to move in the direction of the target by id. This costs X energy.
-
-.. code-block:: none
-
-    MOVE_TO <target> <id>
 
 TURN
 ~~~~
