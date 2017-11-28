@@ -1,0 +1,148 @@
+\documentclass[a4paper, 11pt]{article}
+
+	\usepackage[utf8]{inputenc}
+	\usepackage[T1]{fontenc}
+	\usepackage[french]{babel}
+	\usepackage[most]{tcolorbox}
+	\usepackage{xcolor}
+	\usepackage{tikz}
+	\usepackage{url}
+	\usepackage[left=3cm, right=3cm, top=2cm, bottom=2cm]{geometry}
+
+	% fonts
+	\usepackage{fontspec}
+	\setmainfont{FiraSans-Regular.otf}[
+		Path 	       = ./font/,
+		BoldFont       = FiraSans-Bold.otf ,
+		ItalicFont     = FiraSans-Italic.otf ,
+		BoldItalicFont = FiraSans-BoldItalic.otf ]
+
+	% colors
+	\definecolor{Sred}{HTML}{DC322F}
+	\definecolor{Sblue}{HTML}{268BD2}
+	\definecolor{Sgreen}{HTML}{859900}
+
+
+	\newtcolorbox{warningbox}{ enhanced, colback=Sred!05, coltext=Sred, colframe=Sred }
+	\newtcolorbox{tipbox}{ enhanced, colback=Sgreen!05, coltext=Sgreen, colframe=Sgreen }
+	\newtcolorbox{infobox}{ enhanced, colback=Sblue!05, coltext=Sblue, colframe=Sblue }
+
+\begin{document}
+	\begin{center}
+		\LARGE\bfseries
+		Marabunta
+
+		\includegraphics[width=8cm]{../documentation/_static/images/logo_marabunta.png}
+	\end{center}
+
+
+	\section{Introduction}
+
+La planète Apocrite est un monde peuplé de fourmis au sein du système
+Holométabole. Elle évolue au cœur d'un environnement numérique impitoyable
+gouverné par un simulateur intransigeant.
+
+Fraîchement échouée sur la planète, votre colonie de fourmis va devoir faire
+preuve d'intelligence collective mais aussi d'autonomie pour survivre dans cet
+environnement inconnu. Vous savez qu'Apocrite n'est pas dénuée de ressources
+alimentaires mais redoutez la présence d'autres colonies hostiles, même dans
+cette banlieue de la galaxie.
+
+En tant que stratège, vous aurez à définir le comportement et la tactique
+adoptés par chacune des fourmis et par la fourmilière. Notez qu'aucun dieu n'est
+aux commandes dans cet univers et que les orientations de votre colonie ne
+dépendront que de la somme des interactions individuelles de chacun de ses
+membres avec l'environnement.
+
+Dans cette simulation, la réalité est simplifiée. Vos fourmis disposent donc de
+possibilités bornées dont la description complète est faite dans un autre
+chapitre. Il n'y a aucun obstacle et les fourmis, dont la mémoire est très
+limitée, peuvent communiquer exclusivement en déposant des phéromones.
+
+	\section{Environnement de développement}
+
+Vous \textbf{devez} utiliser un système de gestion de version : Git. Nous nous en
+servirons pour récupérer votre code et le compiler/l'interpréter sur nos systèmes.
+Vous devez également utiliser un langage parmi :
+
+\begin{itemize}
+	\item AsciiDots
+	\item Python 2
+	\item Python 3
+	\item C++
+	\item C
+	\item C\#
+	\item Java
+	\item Perl
+\end{itemize}
+
+Consultez la documentation pour savoir comment seront compilés les programmes et comment
+interagir avec le simulateur :
+
+\begin{center}
+	\color{Sblue}\Large\bfseries
+	24hc18.haum.org
+\end{center}
+
+\textcolor{Sred}{
+	\textbf{Note :} Votre code tourne en environnement clos (\textit{jail}). Essayer de
+	s'échapper c'est être \textbf{immédiatement} disqualifié. L'environnement complet
+	pourra être redémarré à l'envi par le système de jeu pour s'assurer du bon respect des
+	consignes (à sa seule discrétion).
+}
+
+	\section{Déroulement du jeu}
+
+À intervalle régulier, nous récupérerons le code disponible sur les dépôts Git,
+le compilerons pour chacune des équipes et lancerons une série de matches. Le planning des
+matches (heure et scénario proposé) sera annoncé à l'avance.
+
+
+Les matches ont durée finie pré-déterminée en fonction du scénario. Au terme du match des
+points sont attribués aux équipes :
+\begin{itemize}
+	\item Votre code n'est pas récupérable/ne compile pas : \textcolor{Sred}{0 point}.
+	\item Votre code permet à la colonie de survivre sans gagner : \textcolor{Sred}{1 point}.
+	\item Votre code mène la colonie à la victoire : \textcolor{Sred}{2 points}.
+\end{itemize}
+
+\bigskip
+
+La victoire d'une colonie est déterminée en fonction de sa prospérité : somme des
+ressources accumulées dans le nid et de la population en vie. Si plusieurs colonies
+survivent jusqu'au terme, la plus prospère gagne. En cas d'\textit{ex æquo} les deux
+colonies marquent 2 points.
+
+À la lecture de ces précisions, comprenez bien qu'avoir un système permettant à la colonie
+de survivre est \textbf{essentiel}. Il n'est pas toujours nécessaire de se battre pour
+gagner\ldots
+
+	\section{Victoire, 24\textsuperscript{ème} heure et éclat de lune}
+
+Marabunta est un jeu entre équipes (et parfois contre le monde). Votre objectif en tant
+qu'équipe est de marquer plus de points que les autres pour un même nombre de matches.
+
+A la fin des 24h, l'équipe ayant le plus de points gagne, le \textcolor{Sred}{dernier
+match ayant lieu 1h avant la fin}. La dernière heure sera consacrée à un temps de
+discussion entre les équipes ayant choisi le sujet et celle l'ayant préparé.
+
+\bigskip
+
+\textcolor{Sblue}{Parce que les 24h c'est aussi et surtout un temps de partage entre
+passionnés. Les équipes du sujet Marabunta se verront proposer d'aller boire un verre pour
+se détendre et faire connaissance au cours de la nuit.}
+
+	\section{Communication}
+
+	Comme l'an dernier, les gens ayant écrit le sujet seront disponibles tout au long du concours pour vous orienter ou
+	vous aider. Vous pourrez nous trouver :
+
+	\begin{itemize}
+		\item sur IRC : \url{irc.lc/freenode/24hc18}
+		\item autour de nos machines
+		\item autour d'un café
+		\item pas loin d'une blanquette
+		\item au babyfoot
+	\end{itemize}
+\end{document}
+
