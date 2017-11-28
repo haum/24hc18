@@ -55,73 +55,73 @@ Infos
 -----
 
 ================ ==============================================================
-**BEGIN**        Retourne que l'entité fourmi démarre
-       
-                 *BEGIN <entity>*                                      
-**ENERGY**       Retourne le niveau d'énérgie d'une fourmi          
-       
-                 *ENERGY <quantity>*                                   
-**STOCK**        Retourne la quantité de nourriture stockée par une fourmi
-
-                 *STOCK <quantity>*
-**VISION**       Retourne les caractéristiques d'un objet présent dans la 
-                 zone de visibilité d'une fourmi (par id). S'il existe 
-                 plusieurs objets, la commande devras être utilisée autant 
-                 de fois que nécessaire. Id are displayed if the number of 
-                 id >1.
-
-                 *VISION <object> <params>*
-
-                 Voici la liste des objets avec leurs paramètres:
-
-                 - *VISION pheromone <type> <id>*
-
-                 - *VISION ant <team_boolean> <energy_level> <id>*
-
-                 - *VISION food <quantity> <id>*
-
-                 - *VISION nest <team_boolean> <id>*
-**INTERACTABLE** Dans la zone Interactive, identique à le zone de 
-                 visibilité
-**MEMORY**       Retourne le contenu de la mémpoire d'une fourmi sour la 
-                 forme d'un tableau de deux u_int8 (soit 2 octets)
-
-                 *MEMORY <u_int8> <u_int8>*
-**STATUS**       Retourne la situation courante d'une fourmi (ATTACKED, 
-                 OCCUPED or NONE
-
-                 *STATE <state>* 
+**BEGIN**        | Retourne que l'entité fourmi démarre
+                 |
+                 | *BEGIN <entity>*                                      
+**ENERGY**       | Retourne le niveau d'énérgie d'une fourmi          
+                 |
+                 | *ENERGY <quantity>*                                   
+**STOCK**        | Retourne la quantité de nourriture stockée par une fourmi
+                 |
+                 | *STOCK <quantity>*
+**VISION**       | Retourne les caractéristiques d'un objet présent dans la 
+                 | zone de visibilité d'une fourmi (par id). S'il existe 
+                 | plusieurs objets, la commande devras être utilisée autant 
+                 | de fois que nécessaire. Id are displayed if the number of 
+                 | id >1.
+                 |
+                 | *VISION <object> <params>*
+                 |
+                 | Voici la liste des objets avec leurs paramètres:
+                 |
+                 | - *VISION pheromone <type> <id>*
+                 |
+                 | - *VISION ant <team_boolean> <energy_level> <id>*
+                 |
+                 | - *VISION food <quantity> <id>*
+                 |
+                 | - *VISION nest <team_boolean> <id>*
+**INTERACTABLE** | Dans la zone Interactive, identique à le zone de 
+                 | visibilité
+**MEMORY**       | Retourne le contenu de la mémpoire d'une fourmi sour la 
+                 | forme d'un tableau de deux u_int8 (soit 2 octets)
+                 | 
+                 | *MEMORY <u_int8> <u_int8>*
+**STATUS**       | Retourne la situation courante d'une fourmi (ATTACKED, 
+                 | OCCUPED or NONE
+                 |
+                 | *STATE <state>* 
 ================ ==============================================================
 
 Actions
 -------
 
-====================== ========================================== =============
-**PUT_PHEROMONE**      Demande à une fourmi de déposer une        Coup en  
-                       phéromone.                                 énergie :   3
-                                                                  
-                       *PUT_PHEROMONE <type>*
-**CHANGE_PHEROMONE**   Demande à une fourmi de modifier une       Coup en
-                       phéromone.                                 énergie :   2
-
-                       *CHANGE_PHEROMONE <id> <type>*
-**RECHARGE_PHEROMONE** Demande à une fourmi de recharger une      Coup en 
-                       phéromone.                                 énergie :   1
-
-                       *RECHARGE_PHEROMONE <id> <type>*
-**EXPLORE**            Envoi une fourmi en exploration.           Coup en
-                                                                  énergie :   ?
-
-                       *EXPLORE*
-**ATTACK**             Demande à une fourmi d'attequer une cible. Coup en
-                                                                  énergie :   ?
-
-                       *ATTACK <target> <id>*                     
-**MOVE_TO**            Demande à une fourmi de se diriger vers    Coup en    
-                       un emplacement.                            énergie :   ?
-
-                       *MOVE_TO <target> <id>*                             
-====================== ========================================== =============
+======================= ========================================== =============
+**PUT_PHEROMONE**       | Demande à une fourmi de déposer une      Coup en      
+                        | phéromone.                               énergie :   3
+                        |                                                       
+                        | *PUT_PHEROMONE <type>*                                 
+**CHANGE_PHEROMONE**    | Demande à une fourmi de modifier une     Coup en      
+                        | phéromone.                               énergie :   2
+                        |                                                    
+                        | *CHANGE_PHEROMONE <id> <type>*                      
+**RECHARGE_PHEROMONE**  | Demande à une fourmi de recharger une    Coup en      
+                        | phéromone.                               énergie :   1
+                        |                                                    
+                        | *RECHARGE_PHEROMONE <id> <type>*                    
+**EXPLORE**             | Envoi une fourmi en exploration.         Coup en      
+                        |                                          énergie :   ?
+                        |                                                    
+                        | *EXPLORE*                                           
+**ATTACK**              | Demande à une fourmi d'attequer une      Coup en      
+                        | cible.                                   énergie :   ?
+                        |                                                    
+                        | *ATTACK <target> <id>*                              
+**MOVE_TO**             | Demande à une fourmi de se diriger vers  Coup en      
+                        | un emplacement.                          énergie :   ?
+                        |                                                    
+                        | *MOVE_TO <target> <id>*                               
+======================= ========================================== =============
 
 
 TURN
