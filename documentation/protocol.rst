@@ -97,47 +97,47 @@ Actions (stdin)
 ---------------
 
 ======================= ========================================== =============
-**PUT_PHEROMONE**       | Demande à une fourmi de déposer une      Coup en      
+**PUT_PHEROMONE**       | Demande à une fourmi de déposer une      Coût en      
                         | phéromone.                               énergie :   3
                         |                                                       
                         | *PUT_PHEROMONE <type>*                                 
-**CHANGE_PHEROMONE**    | Demande à une fourmi de modifier une     Coup en      
+**CHANGE_PHEROMONE**    | Demande à une fourmi de modifier une     Coût en      
                         | phéromone.                               énergie :   2
                         |                                                    
                         | *CHANGE_PHEROMONE <id> <type>*                      
-**RECHARGE_PHEROMONE**  | Demande à une fourmi de recharger une    Coup en      
+**RECHARGE_PHEROMONE**  | Demande à une fourmi de recharger une    Coût en      
                         | phéromone.                               énergie :   1
                         |                                                    
                         | *RECHARGE_PHEROMONE <id> <type>*                    
-**EXPLORE**             | Envoi une fourmi en exploration.         Coup en      
+**EXPLORE**             | Envoi une fourmi en exploration.         Coût en      
                         |                                          énergie :   ?
                         |                                                    
                         | *EXPLORE*                                           
-**ATTACK**              | Demande à une fourmi d'attequer une      Coup en      
+**ATTACK**              | Demande à une fourmi d'attequer une      Coût en      
                         | cible.                                   énergie :   ?
                         |                                                    
                         | *ATTACK <target> <id>*                              
-**MOVE_TO**             | Demande à une fourmi de se diriger vers  Coup en      
+**MOVE_TO**             | Demande à une fourmi de se diriger vers  Coût en      
                         | un emplacement.                          énergie :   ?
                         |                                                    
-                        | *MOVE_TO <target> <id>*                  Coup en
+                        | *MOVE_TO <target> <id>*                  Coût en
 **TURN**                | Demande à une fourmi d'éffectuer une     énergie :   ?
                         | rotation sur elle même de x° (de -180° 
                         | à 180°).                                
                         |
                         | *TURN <X>*
-**COLLECT**             | Demande à une fourmi de collecter une    Coup en
+**COLLECT**             | Demande à une fourmi de collecter une    Coût en
                         | quantité de nourriture (by id).          énergie :   ?
                         |
                         | *COLLECT <id> <quantity>*
-**DO_TROPHALLAXIS**     | Demande à une fourmi de donner de la     Coup en 
+**DO_TROPHALLAXIS**     | Demande à une fourmi de donner de la     Coût en 
                         | nourriture à une autre (by id).          énergie :   ?
                         |
                         | *DO_TROPHALLAXIS <ant> <quantity>*
-**PUT_DOWN**            | Demande à une fourmi de déposer une      Coup en
+**PUT_DOWN**            | Demande à une fourmi de déposer une      Coût en
                         | quantité de nourriture au sol.           énergie :   ?
                         |
-                        | *PUT_DOWN <quantity>*                    Coup en
+                        | *PUT_DOWN <quantity>*                    Coût en
 **SAVE**                | Demande à une fourmi de mémoriser des    énergie :   ?
                         | données. 2 octets maxi sous la forme 
                         | de 2 u_int8.
@@ -145,86 +145,50 @@ Actions (stdin)
 **SUICIDE**             | Tue la fourmi
                         |
                         | *SUICIDE*
-**NEST**                | Demande à une fourmi de retourner au     Coup en
+**NEST**                | Demande à une fourmi de retourner au     Coût en
                         | nid.                                     énergie :   ?
                         |
                         | *NEST*
-**EAT**                 | Demande à une fourmi de manger une       Coup en
+**EAT**                 | Demande à une fourmi de manger une       Coût en
                         | quantité de nouriture.                   énergie :   ?
                         |
                         | *EAT <quantity>*
 ======================= ========================================== =============
 
 
-Nest
-====
+Nid
+===
 
-Infos
------
+Infos (stdout)
+--------------
 
-BEGIN
-~~~~~
+================ ===============================================================
+**BEGIN**        | Retourne que l'entitté nid démarre
+                 |
+                 | *BEGIN <entity>*
+**ENERGY**       | Retourne le niveau d'énergie du nid
+                 |
+                 | *ENERGY <quantity>*
+**STOCK**        | Retourne la quantitée de nouriture stockée par le nid
+                 |
+                 | *STOCK <quantity>*
+**MEMORY**       | Retourne le contenu dela mémoire du nid sour la forme d'un
+                 | tableau de 20 u_int8 (soit 20 octets)
+                 | 
+                 | *MEMORY [<u_int8> x20]*
+**ANT_NUMBER**   | Retourne le nombre de fourmi à l'intérieur du nid
+                 |
+                 | *ANT_NUMBER <quantity>*
+================ ===============================================================
 
-Returns the information that an entity's turn begin.
+Actions (stdin)
+---------------
 
-.. code-block:: none
-
-    BEGIN <entity>
-
-ENERGY
-~~~~~~
-
-Returns entity's amount of energy.
-
-.. code-block:: none
-
-    ENERGY <quantity>
-
-STOCK
-~~~~~
-
-Returns entity's food stock.
-
-.. code-block:: none
-
-    STOCK <quantity>
-
-MEMORY
-~~~~~~
-
-Returns an array of 20 u_int8. Limited to 20 octets.
-
-.. code-block:: none
-
-    MEMORY [<u_int8> x20]
-
-ANT_NUMBER
-~~~~~~~~~~
-
-Returns the amount of ant in the nest.
-
-.. code-block:: none
-
-    ANT_NUMBER <quantity>
-
-Actions
--------
-
-ANT_OUT
-~~~~~~~
-
-Put an ant out. Memory can be set by two u_int8 but it is optional. Default is
-0 0. This costs X energy.
-
-.. code-block:: none
-
-    ANT_OUT <u_int8> <u_int8> 
-
-ANT_NEW
-~~~~~~~
-
-Create a new ant. This costs X energy.
-
-.. code-block:: none
-
-    ANT_NEW
+======================= ========================================== =============
+**ANT_OUT**             | Sort une fourmi du nid. Les deux octets  Coût en 
+                        | de mémoire de la fourmi peuvent êtres    énergie :   ?
+                        | initialisés à ce moment. Par défaut, ces
+                        | deux octets sont initialisés à zero.
+**ANT_NEW**             | Crée une nouvelle fourmi.                Coût en
+                        |                                          énergie :   ?
+======================= ========================================== =============
