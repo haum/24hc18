@@ -120,9 +120,9 @@ Actions (stdin)
 **MOVE_TO**             | Demande à une fourmi de se diriger vers  Coût en      
                         | un emplacement.                          énergie :   ?
                         |                                                    
-                        | *MOVE_TO <target> <id>*                  Coût en
-**TURN**                | Demande à une fourmi d'éffectuer une     énergie :   ?
-                        | rotation sur elle même de x° (de -180° 
+                        | *MOVE_TO <target> <id>*                 
+**TURN**                | Demande à une fourmi d'éffectuer une     Coût en
+                        | rotation sur elle même de x° (de -180°   énergie :   ?
                         | à 180°).                                
                         |
                         | *TURN <X>*
@@ -137,9 +137,9 @@ Actions (stdin)
 **PUT_DOWN**            | Demande à une fourmi de déposer une      Coût en
                         | quantité de nourriture au sol.           énergie :   ?
                         |
-                        | *PUT_DOWN <quantity>*                    Coût en
-**SAVE**                | Demande à une fourmi de mémoriser des    énergie :   ?
-                        | données. 2 octets maxi sous la forme 
+                        | *PUT_DOWN <quantity>*                   
+**SAVE**                | Demande à une fourmi de mémoriser des    Coût en
+                        | données. 2 octets maxi sous la forme     énergie :   ?
                         | de 2 u_int8.
                         | *SAVE <u_int8> <u_int8>*
 **SUICIDE**             | Tue la fourmi
@@ -189,6 +189,10 @@ Actions (stdin)
                         | de mémoire de la fourmi peuvent êtres    énergie :   ?
                         | initialisés à ce moment. Par défaut, ces
                         | deux octets sont initialisés à zero.
+                        |
+                        | *ANT_OUT <u_int8> <u_int8>*
 **ANT_NEW**             | Crée une nouvelle fourmi.                Coût en
                         |                                          énergie :   ?
+                        |
+                        | *ANT_NEW*
 ======================= ========================================== =============
