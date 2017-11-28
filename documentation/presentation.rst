@@ -13,7 +13,7 @@ Fraîchement échouée sur la planète, votre colonie de fourmis va devoir faire
 preuve d'intelligence collective mais aussi d'autonomie pour survivre dans cet
 environnement inconnu. Vous savez qu'Apocrite n'est pas dénuée de ressources
 alimentaires mais redoutez la présence d'autres colonies hostiles, même dans
-cette banlieu de la galaxie.
+cette banlieue de la galaxie.
 
 En tant que stratège, vous aurez à définir le comportement et la tactique
 adoptés par chacune des fourmis et par la fourmilière. Notez qu'aucun dieu n'est
