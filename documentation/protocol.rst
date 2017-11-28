@@ -1,7 +1,8 @@
 Protocol
 ********
 
-Ce document défini l'utilisation du protocol de communication entre "le stratège" et "le similateur".
+Ce document défini l'utilisation du protocol de communication entre 
+"le stratège" et "le similateur".
 
 .. WARNING::
     Les valeurs données dans les exemples le sont à titre indicatif.
@@ -9,24 +10,28 @@ Ce document défini l'utilisation du protocol de communication entre "le stratè
 Généralités
 ===========
 
-L'API utilise les ports stdin et stdout et n'accepte que du texte limité à 80 caractères au maximum. 
+L'API utilise les ports stdin et stdout et n'accepte que du texte limité à 80 
+caractères au maximum. 
 
-Chaque message est composé d'une commande et d'un ou plusieurs arguments séparés par des espaces.
+Chaque message est composé d'une commande et d'un ou plusieurs arguments séparés
+par des espaces.
 
 Les commandes sont séparées en deux catégories nid et fourmi.
 
 Les commandes sont séparées en deux types "actions" et "infos".
 
- - Infos: ce sont les données que reçoivent vos entités (nid et fourmi) sur  leur environnemet proche.
- - Actions: ce sont les tâches que vos entités peuvent réaliser pour progresser dans le jeu.
+ - Infos: ce sont les données que reçoivent vos entités (nid et fourmi) sur  
+   leur environnemet proche.
+ - Actions: ce sont les tâches que vos entités peuvent réaliser pour progresser 
+   dans le jeu.
 
-To tell to the engine that the AI has done, write `END` in sdtin.
+Pour signifier au simulateur qu'une fourmi ou un nid à effectué toutes ces 
+actions, envoyez *END* sur stdin.
 
-An entity is able to detect differents elements around it. It got two 
-circles of detection. The first, the big one, include the visible elements
-arount it. The second, the little one, include elements that are interactive.
+La capacité d'une fourmi à precevoir son environnement selon la distance est 
+symbolisé par deux cercles de détection.
 
-Exemple of three identical elements in different relative positions.
+Ci-dessous, une representation des cercles de détection.
 
 
 .. image:: _static/images/ant.png
@@ -34,13 +39,13 @@ Exemple of three identical elements in different relative positions.
 
 
 = ============== ================================
-1 visible et     *VISION []*
+1 visible et non *VISION [ant team=1 hp=3]*
   interactif 
-                 *INTERACTABLE [ant team=1 hp=3]*
-- -------------- --------------------------------
-2 visible et non *VISION [ant team=1 hp=3]*
-  interactif
                  *INTERACTABLE []*
+- -------------- --------------------------------
+2 visible et     *VISION []*
+  interactif
+                 *INTERACTABLE ant team=1 hp=3[]*
 - -------------- --------------------------------
 3 non visible et *VISION []*
   non interactif
@@ -88,7 +93,7 @@ Infos (stdout)
                  | 
                  | *MEMORY <u_int8> <u_int8>*
 **STATUS**       | Retourne la situation courante d'une fourmi (ATTACKED, 
-                 | OCCUPED or NONE
+                 | OCCUPED or NONE)
                  |
                  | *STATE <state>* 
 ================ ===============================================================
