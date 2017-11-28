@@ -48,13 +48,13 @@ Exemple of three identical elements in different relative positions.
 = ============== ================================
 
 
-Ant
-===
+Fourmi
+======
 
-Infos
------
+Infos (stdout)
+--------------
 
-================ ==============================================================
+================ ===============================================================
 **BEGIN**        | Retourne que l'entité fourmi démarre
                  |
                  | *BEGIN <entity>*                                      
@@ -91,10 +91,10 @@ Infos
                  | OCCUPED or NONE
                  |
                  | *STATE <state>* 
-================ ==============================================================
+================ ===============================================================
 
-Actions
--------
+Actions (stdin)
+---------------
 
 ======================= ========================================== =============
 **PUT_PHEROMONE**       | Demande à une fourmi de déposer une      Coup en      
@@ -120,83 +120,41 @@ Actions
 **MOVE_TO**             | Demande à une fourmi de se diriger vers  Coup en      
                         | un emplacement.                          énergie :   ?
                         |                                                    
-                        | *MOVE_TO <target> <id>*                               
+                        | *MOVE_TO <target> <id>*                  Coup en
+**TURN**                | Demande à une fourmi d'éffectuer une     énergie :   ?
+                        | rotation sur elle même de x° (de -180° 
+                        | à 180°).                                
+                        |
+                        | *TURN <X>*
+**COLLECT**             | Demande à une fourmi de collecter une    Coup en
+                        | quantité de nourriture (by id).          énergie :   ?
+                        |
+                        | *COLLECT <id> <quantity>*
+**DO_TROPHALLAXIS**     | Demande à une fourmi de donner de la     Coup en 
+                        | nourriture à une autre (by id).          énergie :   ?
+                        |
+                        | *DO_TROPHALLAXIS <ant> <quantity>*
+**PUT_DOWN**            | Demande à une fourmi de déposer une      Coup en
+                        | quantité de nourriture au sol.           énergie :   ?
+                        |
+                        | *PUT_DOWN <quantity>*                    Coup en
+**SAVE**                | Demande à une fourmi de mémoriser des    énergie :   ?
+                        | données. 2 octets maxi sous la forme 
+                        | de 2 u_int8.
+                        | *SAVE <u_int8> <u_int8>*
+**SUICIDE**             | Tue la fourmi
+                        |
+                        | *SUICIDE*
+**NEST**                | Demande à une fourmi de retourner au     Coup en
+                        | nid.                                     énergie :   ?
+                        |
+                        | *NEST*
+**EAT**                 | Demande à une fourmi de manger une       Coup en
+                        | quantité de nouriture.                   énergie :   ?
+                        |
+                        | *EAT <quantity>*
 ======================= ========================================== =============
 
-
-TURN
-~~~~
-
-Tell an ant to turn <X> degrees from -180 to 180. The angle is relative to current position.
-
-.. code-block:: none
-
-   TURN <X>
-
-COLLECT
-~~~~~~~
-
-Tell an ant to collect a quantity of food by id. This costs X energy.
-
-.. code-block:: none
-
-    COLLECT <id> <quantity>
-
-DO_TROPHALLAXIS
-~~~~~~~~~~~~~~~
-
-Tell an ant to give a quantity of food to another ant by id. This costs X energy
-for the ant who gives food.
-
-.. code-block:: none
-    
-    DO_TROPHALLAXIS <ant> <quantity>
-
-PUT_DOWN
-~~~~~~~~
-
-Tell an ant to put on the ground a quantity of food. This costs X energy.
-
-.. code-block:: none
-
-    PUT_DOWN <quantity>
-
-SAVE
-~~~~
-
-Tell an ant to save in u_int8. Limited to 16 bits. This action can be executed 
-during the same turn as another action.
-
-.. code-block:: none
-
-    SAVE <u_int8> <u_int8>
-
-SUICIDE
-~~~~~~~
-
-Kill the current AI. 
-
-.. code-block:: none
-
-    SUICIDE
-
-NEST
-~~~~
-
-Tell an ant to go in the nest. This costs X energy.
-
-.. code-block:: none
-
-    NEST
-
-EAT
-~~~
-
-Tell an ant to eat a quantity of food. This gives X energy.
-
-.. code-block:: none
-
-    EAT <quantity>
 
 Nest
 ====
