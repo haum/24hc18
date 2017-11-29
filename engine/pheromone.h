@@ -22,9 +22,21 @@ class Pheromone : public GameObject {
 	/** Get pheromone type **/
 	int type() { return m_type; }
 
+	/** Get pheromone life **/
+	int life() { return m_life; }
+
+	/** Set pheromone life **/
+	void setLife(int life) { this->m_life = life; }
+
+	/** Method called periodically by the engine **/
+	void periodic() override;
+
   private:
 	/** Pheromone category unique object **/
 	static const GameObjectCategory s_category;
+
+	/** Life of a pheromone **/
+	int m_life;
 
 	/** Team of a pheromone **/
 	Team &m_team;
