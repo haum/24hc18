@@ -31,8 +31,8 @@ Vous êtes libre d'utiliser le langage qui vou conviend parmis la liste suivante
 Nous vous invitons à vous documenter sur ces différents langages si vous ne les 
 connaissez pas. Un choix exotique seras particuliairement aprécié.
 
-Recommendations d'utilisations
-==============================
+Dernier avertissement
+=====================
 
 **Lors des matchs, votre code tourne en environnement cloc (jail). Essayer de 
 s'échapper c'est être immédiatement discalifé. L'environnement complet pourra 
