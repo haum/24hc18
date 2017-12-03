@@ -5,9 +5,17 @@ LineParserError LineParserBase::read(ssize_t len) {
 	if (len <= 0) {
 		return LineParserError::READ_ERROR;
 	} else if (!strstr(m_buff, "\n")) {
-		m_too_long = true;
-		m_buff_len = 0;
-		return LineParserError::LINE_TOO_LONG;
+		if (len >= static_cast<ssize_t>(m_size - 1)) {
+			m_too_long = true;
+			m_buff_len = 0;
+			return LineParserError::LINE_TOO_LONG;
+		} else if (m_too_long) {
+			m_buff_len = 0;
+			return LineParserError::LINE_TOO_LONG;
+		} else {
+			m_buff_len = static_cast<size_t>(len);
+			return LineParserError::NO_ERROR;
+		}
 	} else {
 		m_buff[len] = 0;
 		char *ntok;
@@ -22,7 +30,7 @@ LineParserError LineParserBase::read(ssize_t len) {
 				narg = strtok_r(nullptr, "\n", &ntok);
 			} else {
 				strcpy(m_buff, ntok);
-				m_buff_len = static_cast<ssize_t>(strlen(m_buff));
+				m_buff_len = strlen(m_buff);
 				narg = nullptr;
 			}
 		}
