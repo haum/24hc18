@@ -17,6 +17,8 @@ class GearsLineParser : public testing::Test {
 		});
 	}
 
+	void reset() { read_ptr = 0; }
+
 	ssize_t read(char *out, size_t sz) {
 		size_t inputlen = input.length();
 		if (read_ptr + sz > inputlen)
@@ -135,6 +137,33 @@ TEST_F(GearsLineParser, LongMultiline) {
 		"012/345/678901/234/5678/90/1/23456/789/01/23/456/7890123/4567@"
 		"TSAR/AA@";
 	READ();
+	for (auto e : err)
+		EXPECT_EQ(e, LineParserError::NO_ERROR);
+	EXPECT_EQ(output(), expected_out);
+}
+
+TEST_F(GearsLineParser, SplitedReadLine) {
+	input = "COUCOU 123 45";
+	READ();
+	reset();
+	input = "6 789\n";
+	READ();
+	std::string expected_out = "COUCOU/123/456/789@";
+	for (auto e : err)
+		EXPECT_EQ(e, LineParserError::NO_ERROR);
+	EXPECT_EQ(output(), expected_out);
+}
+
+TEST_F(GearsLineParser, TripleSplitedReadLine) {
+	input = "COUCOU 1";
+	READ();
+	reset();
+	input = "23 45";
+	READ();
+	reset();
+	input = "6 789\n";
+	READ();
+	std::string expected_out = "COUCOU/123/456/789@";
 	for (auto e : err)
 		EXPECT_EQ(e, LineParserError::NO_ERROR);
 	EXPECT_EQ(output(), expected_out);
