@@ -117,6 +117,14 @@ html_sidebars = {
     ]
 }
 
+# Add a small piece of rST text in the prolog/epilog of EVERY file
+# http://www.sphinx-doc.org/en/stable/config.html#confval-rst_prolog
+# rst_prolog = """
+rst_epilog = """
+.. include:: .special.rst
+"""
+
+
 
 # -- Options for HTMLHelp output ------------------------------------------
 
