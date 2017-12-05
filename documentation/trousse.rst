@@ -1,4 +1,4 @@
-.. include:: .special.rst
+
 
 ==============================================
 Ce que doit contenir votre trousse de survie ?

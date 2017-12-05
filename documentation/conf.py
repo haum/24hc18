@@ -121,7 +121,7 @@ html_sidebars = {
 # http://www.sphinx-doc.org/en/stable/config.html#confval-rst_prolog
 # rst_prolog = """
 # rst_epilog = """
-rst_epilog = """\n.. include:: .special.rst\n"""
+rst_prolog = """\n.. include:: .special.rst\n"""
 
 
 
