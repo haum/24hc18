@@ -1,8 +1,8 @@
-Protocol
-********
+Protocole
+*********
 
-Ce document défini l'utilisation du protocol de communication entre 
-"le stratège" et "le similateur".
+Ce document défini l'utilisation du protocole de communication entre 
+"le stratège" et "le simulateur".
 
 .. WARNING::
     Les valeurs données dans les exemples le sont à titre indicatif.
@@ -21,17 +21,17 @@ Les commandes sont séparées en deux catégories nid et fourmi.
 Les commandes sont séparées en deux types "actions" et "infos".
 
  - Infos: ce sont les données que reçoivent vos entités (nid et fourmi) sur  
-   leur environnemet proche.
+   leur environnement proche.
  - Actions: ce sont les tâches que vos entités peuvent réaliser pour progresser 
    dans le jeu.
 
-Pour signifier au simulateur qu'une fourmi ou un nid à effectué toutes ces 
+Pour signifier au simulateur qu'une fourmi ou un nid a effectué toutes ces 
 actions, envoyez *END* sur stdin.
 
-La capacité d'une fourmi à precevoir son environnement selon la distance est 
+La capacité d'une fourmi à percevoir son environnement selon la distance est 
 symbolisé par deux cercles de détection.
 
-Ci-dessous, une representation des cercles de détection.
+Ci-dessous, une représentation des cercles de détection.
 
 
 .. image:: _static/images/ant.png
@@ -63,7 +63,7 @@ Infos (stdout)
 **BEGIN**        | Retourne que l'entité fourmi démarre
                  |
                  | *BEGIN <entity>*                                      
-**ENERGY**       | Retourne le niveau d'énérgie d'une fourmi          
+**ENERGY**       | Retourne le niveau d'énergie d'une fourmi          
                  |
                  | *ENERGY <quantity>*                                   
 **STOCK**        | Retourne la quantité de nourriture stockée par une fourmi
@@ -71,7 +71,7 @@ Infos (stdout)
                  | *STOCK <quantity>*
 **VISION**       | Retourne les caractéristiques d'un objet présent dans la 
                  | zone de visibilité d'une fourmi (par id). S'il existe 
-                 | plusieurs objets, la commande devras être utilisée autant 
+                 | plusieurs objets, la commande devra être utilisée autant 
                  | de fois que nécessaire. Id are displayed if the number of 
                  | id >1.
                  |
@@ -86,9 +86,9 @@ Infos (stdout)
                  | - *VISION food <quantity> <id>*
                  |
                  | - *VISION nest <team_boolean> <id>*
-**INTERACTABLE** | Dans la zone Interactive, identique à le zone de 
+**INTERACTABLE** | Dans la zone Interactive, identique à la zone de 
                  | visibilité
-**MEMORY**       | Retourne le contenu de la mémpoire d'une fourmi sour la 
+**MEMORY**       | Retourne le contenu de la mémoire d'une fourmi sous la 
                  | forme d'un tableau de deux u_int8 (soit 2 octets)
                  | 
                  | *MEMORY <u_int8> <u_int8>*
@@ -118,7 +118,7 @@ Actions (stdin)
                         |                                          énergie :   ?
                         |                                                    
                         | *EXPLORE*                                           
-**ATTACK**              | Demande à une fourmi d'attequer une      Coût en      
+**ATTACK**              | Demande à une fourmi d'attaquer une      Coût en      
                         | cible.                                   énergie :   ?
                         |                                                    
                         | *ATTACK <target> <id>*                              
@@ -126,8 +126,8 @@ Actions (stdin)
                         | un emplacement.                          énergie :   ?
                         |                                                    
                         | *MOVE_TO <target> <id>*                 
-**TURN**                | Demande à une fourmi d'éffectuer une     Coût en
-                        | rotation sur elle même de x° (de -180°   énergie :   ?
+**TURN**                | Demande à une fourmi d'effectuer une     Coût en
+                        | rotation sur elle-même de x° (de -180°   énergie :   ?
                         | à 180°).                                
                         |
                         | *TURN <X>*
@@ -155,7 +155,7 @@ Actions (stdin)
                         |
                         | *NEST*
 **EAT**                 | Demande à une fourmi de manger une       Coût en
-                        | quantité de nouriture.                   énergie :   ?
+                        | quantité de nourriture.                   énergie :   ?
                         |
                         | *EAT <quantity>*
 ======================= ========================================== =============
@@ -168,16 +168,16 @@ Infos (stdout)
 --------------
 
 ================ ===============================================================
-**BEGIN**        | Retourne que l'entitté nid démarre
+**BEGIN**        | Retourne que l'entité nid démarre
                  |
                  | *BEGIN <entity>*
 **ENERGY**       | Retourne le niveau d'énergie du nid
                  |
                  | *ENERGY <quantity>*
-**STOCK**        | Retourne la quantitée de nouriture stockée par le nid
+**STOCK**        | Retourne la quantité de nourriture stockée par le nid
                  |
                  | *STOCK <quantity>*
-**MEMORY**       | Retourne le contenu dela mémoire du nid sour la forme d'un
+**MEMORY**       | Retourne le contenu de la mémoire du nid sous la forme d'un
                  | tableau de 20 u_int8 (soit 20 octets)
                  | 
                  | *MEMORY [<u_int8> x20]*
@@ -193,7 +193,7 @@ Actions (stdin)
 **ANT_OUT**             | Sort une fourmi du nid. Les deux octets  Coût en 
                         | de mémoire de la fourmi peuvent êtres    énergie :   ?
                         | initialisés à ce moment. Par défaut, ces
-                        | deux octets sont initialisés à zero.
+                        | deux octets sont initialisés à zéro.
                         |
                         | *ANT_OUT <u_int8> <u_int8>*
 **ANT_NEW**             | Crée une nouvelle fourmi.                Coût en
