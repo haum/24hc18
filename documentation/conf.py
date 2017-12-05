@@ -120,9 +120,8 @@ html_sidebars = {
 # Add a small piece of rST text in the prolog/epilog of EVERY file
 # http://www.sphinx-doc.org/en/stable/config.html#confval-rst_prolog
 # rst_prolog = """
-rst_epilog = """
-.. include:: .special.rst
-"""
+# rst_epilog = """
+rst_epilog = """\n.. include:: .special.rst\n"""
 
 
 
@@ -182,5 +181,6 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
-
+def setup(app):
+    app.add_stylesheet('hacks.css')
 

@@ -1,3 +1,5 @@
+.. include:: .special.rst
+
 ==============================================
 Ce que doit contenir votre trousse de survie ?
 ==============================================
@@ -43,7 +45,7 @@ connaissez pas. Un choix exotique seras particuliairement aprécié.
 Dernier avertissement
 =====================
 
-**Lors des matchs, votre code tourne en environnement clos (jail). Essayer de 
+:red:`Lors des matchs, votre code tourne en environnement clos (jail). Essayer de 
 s'échapper c'est être immédiatement discalifé. L'environnement complet pourra 
 être redémarré à l'envie par lesystème de jeu pour s'assurer de bon respect des 
-consignes (à sa seule discrétion).**
+consignes (à sa seule discrétion).`

@@ -30,17 +30,17 @@ de la population en vie.
 
 Au terme d'un match des points sont attribués aux équipes:
 
- - Votre code n'est pas récupérable/ne fonctionne pas : **0 point**
- - Votre code permet à votre colonie de survivre sans gagner : **1 point**
- - Votre code mêne votre colonie à la victoire : **2 points**
+ - Votre code n'est pas récupérable/ne fonctionne pas : :blue:`0 point`
+ - Votre code permet à votre colonie de survivre sans gagner : :blue:`1 point`
+ - Votre code mêne votre colonie à la victoire : :blue:`2 points`
 
 En cas d'ex-aequo, les deux équipes marquent 2 points.
 
 Et 24 heures plus tard
 ======================
 
-A la fin des 24h, l'équipe ayant le plus de points gagne, le **dernier match se
-déroulant 1 heure avant la fin**. La dernière heure sera consacrée à un temps de 
+A la fin des 24h, l'équipe ayant le plus de points gagne, :red:`le dernier match se
+déroulant 1 heure avant la fin`. La dernière heure sera consacrée à un temps de 
 discussion entre les équipes ayant choisi le sujet et celle l'ayant préparé.
 
 Un dernier conseil
