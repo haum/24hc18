@@ -3,6 +3,7 @@
 
 #include "../nest.h"
 #include "lineparser.h"
+#include "snitch.h"
 #include <chrono>
 #include <memory>
 #include <vector>
@@ -17,6 +18,11 @@ class ScenarioBase {
 	 * @param teams List of teams
 	 */
 	void set_teams(std::vector<Team *> teams);
+
+	/** Set snitch object
+	 * @param snitch Snitch object
+	 */
+	void set_snitch(Snitch *snitch);
 
 	/** Load scenario
 	 * @param scenario_name  Scenario name
@@ -66,6 +72,9 @@ class ScenarioBase {
   protected:
 	/** File parser **/
 	LineParser<100> m_parser;
+
+	/** Snitch to export data **/
+	Snitch *m_snitch{nullptr};
 
 	/** Copy of team list **/
 	std::vector<Team *> m_teams;

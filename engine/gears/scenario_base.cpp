@@ -11,6 +11,8 @@ ScenarioBase::ScenarioBase() : m_duration{30s} {}
 
 void ScenarioBase::set_teams(std::vector<Team *> teams) { m_teams = teams; }
 
+void ScenarioBase::set_snitch(Snitch *snitch) { m_snitch = snitch; }
+
 void ScenarioBase::load(const char *scenario_name) {
 	auto f = fopen(scenario_name, "r");
 	if (f == nullptr)
@@ -45,10 +47,14 @@ void ScenarioBase::run() {
 	auto end_tp = chr::now() + m_duration;
 	auto periodic_tp = chr::now();
 	size_t ianb = m_teams.size();
-	auto fds = reinterpret_cast<pollfd *>(alloca(ianb * sizeof(pollfd)));
-	auto tm = reinterpret_cast<Team **>(alloca(ianb * sizeof(Team *)));
+	auto fds = reinterpret_cast<pollfd *>(alloca((ianb + 1) * sizeof(pollfd)));
+	auto tm = reinterpret_cast<Team **>(alloca((ianb + 1) * sizeof(Team *)));
 	while (chr::now() < end_tp) {
 		nfds_t nbwait = 0;
+		fds[nbwait].fd = m_snitch->eventFd();
+		fds[nbwait].events = POLLIN;
+		tm[nbwait] = nullptr;
+		++nbwait;
 		for (auto *t : m_teams) {
 			int fd;
 			fd = t->eventFd();
@@ -68,10 +74,15 @@ void ScenarioBase::run() {
 			usleep(100'000);
 		} else {
 			for (nfds_t i = 0; i < nbwait; ++i) {
-				if (fds[i].revents & POLLIN)
-					tm[i]->eventProcessRead();
-				if (fds[i].revents & POLLHUP)
-					tm[i]->eventProcessDied();
+				if (tm[i]) {
+					if (fds[i].revents & POLLIN)
+						tm[i]->eventProcessRead();
+					if (fds[i].revents & POLLHUP)
+						tm[i]->eventProcessDied();
+				} else {
+					if (fds[i].revents & POLLIN)
+						m_snitch->eventProcessRead();
+				}
 			}
 			while (chr::now() > periodic_tp) {
 				periodic_tp += 100ms;
