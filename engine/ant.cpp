@@ -28,33 +28,41 @@ bool Ant::prelude(std::ostream &os) {
 	os << "TYPE " << static_cast<int>(m_ant_type) << '\n';
 	os << "MEMORY " << static_cast<int>(m_memory[0]) << ' '
 	   << static_cast<int>(m_memory[1]) << '\n';
-    int gameObjectId = 0;
+	int gameObjectId = 0;
 	team().scenario().listObjects([&gameObjectId, this, &os](auto sgo) {
-		os << "VISION " << sgo->category()->name();
-		if (sgo->category() == Pheromone::category()) {
-			auto *pheromone = static_cast<Pheromone *>(sgo.get());
-            os << " " << pheromone->type();
-		} else if (sgo->category() == Ant::category()) {
-            auto *ant = static_cast<Ant *>(sgo.get());
-            bool team;
-            if (&this->team() == &ant->team()) {
-                team = true;
-            } else {
-                team = false;
-            }
-            os << " " << team << " " << ant->life(); 
-        } else if (sgo->category() == Nest::category()) {
-            auto *nest = static_cast<Nest *>(sgo.get());
-            bool team;
-            if (&this->team() == &nest->team()) {
-                team = true;
-            } else {
-                team = false;
-            }
-            os << " " << team; 
-        }
-        os << " " << gameObjectId << "\n";
-        gameObjectId++;
+		if (sgo->distance(*this) <= 0.5) {
+			if (sgo->category() == Pheromone::category()) {
+				os << "VISION " << sgo->category()->name();
+				auto *pheromone = static_cast<Pheromone *>(sgo.get());
+				os << " " << pheromone->type() << " " << gameObjectId << "\n";
+				gameObjectId++;
+			} else if (sgo->category() == Ant::category()) {
+				auto *ant = static_cast<Ant *>(sgo.get());
+				bool team;
+				if (this != ant) {
+					os << "VISION " << sgo->category()->name();
+					if (&this->team() == &ant->team()) {
+						team = true;
+					} else {
+						team = false;
+					}
+					os << " " << team << " " << ant->life() << " "
+					   << gameObjectId << "\n";
+					gameObjectId++;
+				}
+			} else if (sgo->category() == Nest::category()) {
+				os << "VISION " << sgo->category()->name();
+				auto *nest = static_cast<Nest *>(sgo.get());
+				bool team;
+				if (&this->team() == &nest->team()) {
+					team = true;
+				} else {
+					team = false;
+				}
+				os << " " << team << " " << gameObjectId << "\n";
+				gameObjectId++;
+			}
+		}
 		return true;
 	});
 
