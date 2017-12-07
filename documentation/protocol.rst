@@ -1,8 +1,9 @@
+=========
 Protocole
-*********
+=========
 
-Ce document défini l'utilisation du protocole de communication entre 
-"le stratège" et "le simulateur".
+Ce document décrit le protocole de communication entre le programme de
+"stratégie" et le "simulateur".
 
 .. WARNING::
     Les valeurs données dans les exemples le sont à titre indicatif.
@@ -10,29 +11,42 @@ Ce document défini l'utilisation du protocole de communication entre
 Généralités
 ===========
 
-L'API utilise les ports stdin et stdout et n'accepte que du texte limité à 80 
-caractères au maximum. 
+Communication
+-------------
 
-Chaque message est composé d'une commande et d'un ou plusieurs arguments séparés
-par des espaces.
+Par commodité pour le programme de stratégie, la communication s'effectue à
+travers ses propres flux d'entrée et de sortie standards (`stdin`, `stdout`).
+Il s'agit d'un protocole au format textuel.
 
-Les commandes sont séparées en deux catégories nid et fourmi.
+Les données sont transmises ligne par ligne (délimitées par un caractère
+LF=0x0A=10) avec un maximum de 80 caractères par ligne (saut de ligne inclus).
+Chaque ligne contient une seule commande avec des arguments séparés par des
+espaces.
 
-Les commandes sont séparées en deux types "actions" et "infos".
+Il y a deux types d'entités dont votre programme doit définir les actions selon
+votre stratégie : chaque fourmi et la fourmillière.
 
- - Infos: ce sont les données que reçoivent vos entités (nid et fourmi) sur  
-   leur environnement proche.
- - Actions: ce sont les tâches que vos entités peuvent réaliser pour progresser 
-   dans le jeu.
+Ci-après, nous faisons la distinction entre les `informations` que l'entité
+perçoit à propos de son environnemet proche et les `actions` qui sont les
+opérations qu'elle peut réaliser.
 
-Pour signifier au simulateur qu'une fourmi ou un nid a effectué toutes ces 
-actions, envoyez *END* sur stdin.
+En pratique, le programme de stratégie reçoit d'abord un marqueur de début de
+dialogue (`BEGIN ANT` dans le cas d'une fourmi, `BEGIN NEST` dans le cas de la
+fourmillière). Suivent ensuite l'ensemble des `informations` perçues puis la
+commande `END`.
 
-La capacité d'une fourmi à percevoir son environnement selon la distance est 
-symbolisé par deux cercles de détection.
+C'est ensuite à votre programme d'indiquer les actions à réaliser. Attention,
+certaines actions ne sont pas cumulables. Votre programme termine la liste des
+actions réalisées avec le marqueur `END` et se met en écoute d'un éventuel
+marqueur de début pour une nouvelle entité.
 
-Ci-dessous, une représentation des cercles de détection.
+Perception de l'environnement
+-----------------------------
 
+Les fourmis n'étant pas omniscientes, elles ont une perception limitée à leur
+environnement proche. Nous distinguons les éléments à portée avec lesquels il
+est possible d'interagir, et les éléments qui sont seulement dans le champ
+visuel. Au delà, la fourmi ignore ce qu'il se passe.
 
 .. image:: _static/images/ant.png
    :align: center
@@ -40,7 +54,7 @@ Ci-dessous, une représentation des cercles de détection.
 
 = ============== ================================
 1 visible et non *VISION [ant team=1 hp=3]*
-  interactif 
+  interactif
                  *INTERACTABLE []*
 - -------------- --------------------------------
 2 visible et     *VISION []*
@@ -56,23 +70,17 @@ Ci-dessous, une représentation des cercles de détection.
 Fourmi
 ======
 
-Infos (stdout)
---------------
+Informations
+------------
 
 ================ ===============================================================
-**BEGIN**        | Retourne que l'entité fourmi démarre
-                 |
-                 | *BEGIN <entity>*                                      
-**ENERGY**       | Retourne le niveau d'énergie d'une fourmi          
-                 |
-                 | *ENERGY <quantity>*                                   
-**STOCK**        | Retourne la quantité de nourriture stockée par une fourmi
-                 |
-                 | *STOCK <quantity>*
-**VISION**       | Retourne les caractéristiques d'un objet présent dans la 
-                 | zone de visibilité d'une fourmi (par id). S'il existe 
-                 | plusieurs objets, la commande devra être utilisée autant 
-                 | de fois que nécessaire. Id are displayed if the number of 
+**BEGIN ANT**    | Informe du début de la communication
+**ENERGY <qté>** | Informe du niveau d'énergie (`qté`) de la fourmi
+**STOCK <qté>**  | Informe de la quantité de nourriture stockée par la fourmi
+**VISION**       | Retourne les caractéristiques d'un objet présent dans la
+                 | zone de visibilité d'une fourmi (par id). S'il existe
+                 | plusieurs objets, la commande devra être utilisée autant
+                 | de fois que nécessaire. Id are displayed if the number of
                  | id >1.
                  |
                  | *VISION <object> <params>*
@@ -86,86 +94,89 @@ Infos (stdout)
                  | - *VISION food <quantity> <id>*
                  |
                  | - *VISION nest <team_boolean> <id>*
-**INTERACTABLE** | Dans la zone Interactive, identique à la zone de 
+**INTERACTABLE** | Dans la zone Interactive, identique à la zone de
                  | visibilité
-**MEMORY**       | Retourne le contenu de la mémoire d'une fourmi sous la 
+**MEMORY**       | Retourne le contenu de la mémoire d'une fourmi sous la
                  | forme d'un tableau de deux u_int8 (soit 2 octets)
-                 | 
+                 |
                  | *MEMORY <u_int8> <u_int8>*
-**STATUS**       | Retourne la situation courante d'une fourmi (ATTACKED, 
+**STATUS**       | Retourne la situation courante d'une fourmi (ATTACKED,
                  | OCCUPED or NONE)
                  |
-                 | *STATE <state>* 
+                 | *STATE <state>*
 ================ ===============================================================
 
-Actions (stdin)
----------------
+Actions
+-------
 
 ======================= ========================================== =============
-**PUT_PHEROMONE**       | Demande à une fourmi de déposer une      Coût en      
-                        | phéromone.                               énergie :   3
-                        |                                                       
-                        | *PUT_PHEROMONE <type>*                                 
-**CHANGE_PHEROMONE**    | Demande à une fourmi de modifier une     Coût en      
-                        | phéromone.                               énergie :   2
-                        |                                                    
-                        | *CHANGE_PHEROMONE <id> <type>*                      
-**RECHARGE_PHEROMONE**  | Demande à une fourmi de recharger une    Coût en      
-                        | phéromone.                               énergie :   1
-                        |                                                    
-                        | *RECHARGE_PHEROMONE <id> <type>*                    
-**EXPLORE**             | Envoi une fourmi en exploration.         Coût en      
-                        |                                          énergie :   ?
-                        |                                                    
-                        | *EXPLORE*                                           
-**ATTACK**              | Demande à une fourmi d'attaquer une      Coût en      
-                        | cible.                                   énergie :   ?
-                        |                                                    
-                        | *ATTACK <target> <id>*                              
-**MOVE_TO**             | Demande à une fourmi de se diriger vers  Coût en      
-                        | un emplacement.                          énergie :   ?
-                        |                                                    
-                        | *MOVE_TO <target> <id>*                 
-**TURN**                | Demande à une fourmi d'effectuer une     Coût en
-                        | rotation sur elle-même de x° (de -180°   énergie :   ?
-                        | à 180°).                                
+Commande                Description                                Coût
+                                                                   énergétique
+======================= ========================================== =============
+**PUT_PHEROMONE**       | Demande à une fourmi de déposer une
+                        | phéromone.                               3
+----------------------- ------------------------------------------ -------------
+                        | *PUT_PHEROMONE <type>*
+**CHANGE_PHEROMONE**    | Demande à une fourmi de modifier une
+                        | phéromone.                               2
+----------------------- ------------------------------------------ -------------
+                        | *CHANGE_PHEROMONE <id> <type>*
+**RECHARGE_PHEROMONE**  | Demande à une fourmi de recharger une
+                        | phéromone.                               1
+                        |
+                        | *RECHARGE_PHEROMONE <id> <type>*
+**EXPLORE**             | Envoi une fourmi en exploration.
+                        |                                          ?
+                        |
+                        | *EXPLORE*
+**ATTACK**              | Demande à une fourmi d'attaquer une
+                        | cible.                                   ?
+                        |
+                        | *ATTACK <target> <id>*
+**MOVE_TO**             | Demande à une fourmi de se diriger vers
+                        | un emplacement.                          ?
+                        |
+                        | *MOVE_TO <target> <id>*
+**TURN**                | Demande à une fourmi d'effectuer une
+                        | rotation sur elle-même de x° (de -180°   ?
+                        | à 180°).
                         |
                         | *TURN <X>*
-**COLLECT**             | Demande à une fourmi de collecter une    Coût en
-                        | quantité de nourriture (by id).          énergie :   ?
+**COLLECT**             | Demande à une fourmi de collecter une
+                        | quantité de nourriture (by id).          ?
                         |
                         | *COLLECT <id> <quantity>*
-**DO_TROPHALLAXIS**     | Demande à une fourmi de donner de la     Coût en 
-                        | nourriture à une autre (by id).          énergie :   ?
+**DO_TROPHALLAXIS**     | Demande à une fourmi de donner de la
+                        | nourriture à une autre (by id).          ?
                         |
                         | *DO_TROPHALLAXIS <ant> <quantity>*
-**PUT_DOWN**            | Demande à une fourmi de déposer une      Coût en
-                        | quantité de nourriture au sol.           énergie :   ?
+**PUT_DOWN**            | Demande à une fourmi de déposer une
+                        | quantité de nourriture au sol.           ?
                         |
-                        | *PUT_DOWN <quantity>*                   
-**SAVE**                | Demande à une fourmi de mémoriser des    Coût en
-                        | données. 2 octets maxi sous la forme     énergie :   ?
+                        | *PUT_DOWN <quantity>*
+**SAVE**                | Demande à une fourmi de mémoriser des
+                        | données. 2 octets maxi sous la forme     ?
                         | de 2 u_int8.
                         | *SAVE <u_int8> <u_int8>*
 **SUICIDE**             | Tue la fourmi
                         |
                         | *SUICIDE*
-**NEST**                | Demande à une fourmi de retourner au     Coût en
-                        | nid.                                     énergie :   ?
+**NEST**                | Demande à une fourmi de retourner au
+                        | nid.                                     ?
                         |
                         | *NEST*
-**EAT**                 | Demande à une fourmi de manger une       Coût en
-                        | quantité de nourriture.                   énergie :   ?
+**EAT**                 | Demande à une fourmi de manger une
+                        | quantité de nourriture.                   ?
                         |
                         | *EAT <quantity>*
 ======================= ========================================== =============
 
 
-Nid
-===
+Fourmillière
+============
 
-Infos (stdout)
---------------
+Informations
+------------
 
 ================ ===============================================================
 **BEGIN**        | Retourne que l'entité nid démarre
@@ -179,25 +190,28 @@ Infos (stdout)
                  | *STOCK <quantity>*
 **MEMORY**       | Retourne le contenu de la mémoire du nid sous la forme d'un
                  | tableau de 20 u_int8 (soit 20 octets)
-                 | 
+                 |
                  | *MEMORY [<u_int8> x20]*
 **ANT_NUMBER**   | Retourne le nombre de fourmi à l'intérieur du nid
                  |
                  | *ANT_NUMBER <quantity>*
 ================ ===============================================================
 
-Actions (stdin)
----------------
+Actions
+-------
 
 ======================= ========================================== =============
-**ANT_OUT**             | Sort une fourmi du nid. Les deux octets  Coût en 
-                        | de mémoire de la fourmi peuvent êtres    énergie :   ?
+Commande                Description                                Coût
+                                                                   énergétique
+======================= ========================================== =============
+**ANT_OUT**             | Sort une fourmi du nid. Les deux octets
+                        | de mémoire de la fourmi peuvent êtres    ?
                         | initialisés à ce moment. Par défaut, ces
                         | deux octets sont initialisés à zéro.
                         |
                         | *ANT_OUT <u_int8> <u_int8>*
-**ANT_NEW**             | Crée une nouvelle fourmi.                Coût en
-                        |                                          énergie :   ?
+**ANT_NEW**             | Crée une nouvelle fourmi.
+                        |                                          ?
                         |
                         | *ANT_NEW*
 ======================= ========================================== =============

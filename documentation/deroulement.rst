@@ -1,14 +1,13 @@
+========================
+Tout va bien se passer ?
+========================
 
-=======================
-Tout va bien se passer?
-=======================
-
-Enchainement de matchs
+Enchaînement de matchs
 ======================
 
 Marabunta est un jeu entre équipes (et parfois contre le monde). Votre objectif
 est de marquer plus de points que les autres au cours d'une série de matchs. Ces 
-matchs proposeront des scenarii différents, de difficulté croissante. 
+matchs proposeront des scenarii différents, de difficulté a priori croissante.
 Nous annoncerons les matchs à venir à l'avance, selon le planning prévu.
 
 Déroulement d'un match
