@@ -6,7 +6,7 @@
 
 const GameObjectCategory Ant::s_category{"ANT"};
 
-Ant::Ant(Team &team, double latitude, double longitude, double heading,
+Ant::Ant(Team &team, int life, double latitude, double longitude, double heading,
 		 uint8_t ant_type, uint8_t memory1, uint8_t memory2)
 	: Agent{team, Ant::category(), latitude, longitude, heading},
 	  m_ant_type{ant_type}, m_memory{memory1, memory2} {}
@@ -28,6 +28,36 @@ bool Ant::prelude(std::ostream &os) {
 	os << "TYPE " << static_cast<int>(m_ant_type) << '\n';
 	os << "MEMORY " << static_cast<int>(m_memory[0]) << ' '
 	   << static_cast<int>(m_memory[1]) << '\n';
+    int gameObjectId = 0;
+	team().scenario().listObjects([&gameObjectId, this, &os](auto sgo) {
+		os << "VISION " << sgo->category()->name();
+		if (sgo->category() == Pheromone::category()) {
+			auto *pheromone = static_cast<Pheromone *>(sgo.get());
+            os << " " << pheromone->type();
+		} else if (sgo->category() == Ant::category()) {
+            auto *ant = static_cast<Ant *>(sgo.get());
+            bool team;
+            if (&this->team() == &ant->team()) {
+                team = true;
+            } else {
+                team = false;
+            }
+            os << " " << team << " " << ant->life(); 
+        } else if (sgo->category() == Nest::category()) {
+            auto *nest = static_cast<Nest *>(sgo.get());
+            bool team;
+            if (&this->team() == &nest->team()) {
+                team = true;
+            } else {
+                team = false;
+            }
+            os << " " << team; 
+        }
+        os << " " << gameObjectId << "\n";
+        gameObjectId++;
+		return true;
+	});
+
 	os << "END\n";
 	os.flush();
 	m_actionState = ACTION_FREE;
