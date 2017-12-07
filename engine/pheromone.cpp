@@ -8,8 +8,7 @@ Pheromone::Pheromone(double latitude, double longitude, Team &team, int type)
 	  m_team{team}, m_type{type} {}
 
 void Pheromone::periodic() {
-	int n_life;
-	n_life = this->life();
+	int n_life = this->life();
 	this->setLife(n_life - 1);
 	if (n_life <= 0) {
 		team().scenario().rmGameObject(this);
