@@ -79,7 +79,7 @@ void Ant::execute(uint8_t argc, const char **argv) {
 	} else if (!strncmp(argv[0], "SUICIDE", 7) && argc == 1) {
 		destroy();
 	} else if (!strncmp(argv[0], "PUT_PHEROMONE", 14) && argc == 1) {
-		team().scenario().addGameObject<Pheromone>(12, 23, team(), 3);
+		team().scenario().addGameObject<Pheromone>(this->longitude(), this->latitude(), team(), 3);
 	} else if (!strncmp(argv[0], "WALK", 5) && argc == 1) {
 		if (m_actionState == ACTION_FREE) {
 			walk();
