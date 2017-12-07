@@ -15,7 +15,7 @@ class Ant : public Agent {
 	 * @param memory1 Initial memory1
 	 * @param memory2 Initial memory2
 	 */
-	Ant(Team &team, double latitude, double longitude, double heading,
+	Ant(Team &team, int life, double latitude, double longitude, double heading,
 		uint8_t ant_type = 0, uint8_t memory1 = 0, uint8_t memory2 = 0);
 
 	/** Get category **/
@@ -32,7 +32,13 @@ class Ant : public Agent {
 	 */
 	void walk();
 
+    /** get ant Life **/
+    int life() { return m_life; }
+
   private:
+    /** Life of an ant **/
+    int m_life;
+
 	/** Type of ant **/
 	uint8_t m_ant_type;
 
