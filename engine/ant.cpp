@@ -6,8 +6,8 @@
 
 const GameObjectCategory Ant::s_category{"ANT"};
 
-Ant::Ant(Team &team, int life, double latitude, double longitude, double heading,
-		 uint8_t ant_type, uint8_t memory1, uint8_t memory2)
+Ant::Ant(Team &team, int life, double latitude, double longitude,
+		 double heading, uint8_t ant_type, uint8_t memory1, uint8_t memory2)
 	: Agent{team, Ant::category(), latitude, longitude, heading},
 	  m_ant_type{ant_type}, m_memory{memory1, memory2} {}
 

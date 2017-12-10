@@ -32,12 +32,12 @@ class Ant : public Agent {
 	 */
 	void walk();
 
-    /** get ant Life **/
-    int life() { return m_life; }
+	/** get ant Life **/
+	int life() { return m_life; }
 
   private:
-    /** Life of an ant **/
-    int m_life;
+	/** Life of an ant **/
+	int m_life;
 
 	/** Type of ant **/
 	uint8_t m_ant_type;
