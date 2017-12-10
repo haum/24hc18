@@ -2,12 +2,14 @@
 
 import sys
 
-while True:
-    line = sys.stdin.readline().strip()
+isAnt = False
+
+for line in sys.stdin:
+    line = line.strip()
     if line == "END":
+        if isAnt:
+            print("SUICIDE")
         print("END", flush=True)
+        isAnt = False
     elif line == "BEGIN ANT":
-        while line != "END":
-            line = sys.stdin.readline().strip()
-        print("SUICIDE")
-        print("END", flush=True)
+        isAnt = True
