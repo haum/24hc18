@@ -24,7 +24,7 @@ class TeamBase {
 	}
 
 	/** Destructor **/
-	~TeamBase();
+	virtual ~TeamBase();
 
 	/** Get scenario **/
 	Scenario &scenario() const { return m_scenario; }
