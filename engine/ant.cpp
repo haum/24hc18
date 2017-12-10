@@ -30,17 +30,27 @@ bool Ant::prelude(std::ostream &os) {
 	   << static_cast<int>(m_memory[1]) << '\n';
 	int gameObjectId = 0;
 	team().scenario().listObjects([&gameObjectId, this, &os](auto sgo) {
-		if (sgo->distance(*this) <= 0.5) {
-			if (sgo->category() == Pheromone::category()) {
-				os << "VISION " << sgo->category()->name();
+		if (sgo->category() == Pheromone::category()) {
+			if (sgo->distance(*this) <= 0.9) {
+				if (sgo->distance(*this) <= 0.3) {
+					os << "INTERACTABLE " << sgo->category()->name();
+				} else {
+					os << "VISION " << sgo->category()->name();
+				}
 				auto *pheromone = static_cast<Pheromone *>(sgo.get());
 				os << " " << pheromone->type() << " " << gameObjectId << "\n";
 				gameObjectId++;
-			} else if (sgo->category() == Ant::category()) {
-				auto *ant = static_cast<Ant *>(sgo.get());
-				bool team;
-				if (this != ant) {
-					os << "VISION " << sgo->category()->name();
+			}
+		} else if (sgo->category() == Ant::category()) {
+			auto *ant = static_cast<Ant *>(sgo.get());
+			bool team;
+			if (this != ant) {
+				if (sgo->distance(*this) <= 0.9) {
+					if (sgo->distance(*this) <= 0.3) {
+						os << "INTERACTABLE " << sgo->category()->name();
+					} else {
+						os << "VISION " << sgo->category()->name();
+					}
 					if (&this->team() == &ant->team()) {
 						team = true;
 					} else {
@@ -50,8 +60,14 @@ bool Ant::prelude(std::ostream &os) {
 					   << gameObjectId << "\n";
 					gameObjectId++;
 				}
-			} else if (sgo->category() == Nest::category()) {
-				os << "VISION " << sgo->category()->name();
+			}
+		} else if (sgo->category() == Nest::category()) {
+			if (sgo->distance(*this) <= 0.9) {
+				if (sgo->distance(*this) <= 0.3) {
+					os << "INTERACTABLE " << sgo->category()->name();
+				} else {
+					os << "VISION " << sgo->category()->name();
+				}
 				auto *nest = static_cast<Nest *>(sgo.get());
 				bool team;
 				if (&this->team() == &nest->team()) {
