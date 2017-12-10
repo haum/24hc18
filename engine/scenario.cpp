@@ -19,7 +19,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		int team = atoi(argv[1]);
 		if (team < 0 || static_cast<unsigned int>(team) >= m_teams.size())
 			return;
-		addGameObject<Ant>(*m_teams[team], atof(argv[2]), atof(argv[3]),
+		addGameObject<Ant>(*m_teams[team], 100, atof(argv[2]), atof(argv[3]),
 						   atof(argv[4]));
 
 	} else if (!strncmp(argv[0], "MAXTEAMS", 8) && argc == 2) {
