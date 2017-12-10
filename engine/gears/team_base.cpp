@@ -8,6 +8,8 @@
 #include <sstream>
 #include <unistd.h>
 
+TeamBase::~TeamBase() { kill("Team is destructed"); }
+
 void TeamBase::agentAdd(Agent *agent) { m_agents.push_back(agent); }
 
 void TeamBase::agentRm(Agent *agent) {

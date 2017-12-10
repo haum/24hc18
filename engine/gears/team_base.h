@@ -23,6 +23,9 @@ class TeamBase {
 		});
 	}
 
+	/** Destructor **/
+	~TeamBase();
+
 	/** Get scenario **/
 	Scenario &scenario() const { return m_scenario; }
 
