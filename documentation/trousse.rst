@@ -1,5 +1,3 @@
-
-
 ==============================================
 Ce que doit contenir votre trousse de survie ?
 ==============================================
@@ -31,16 +29,15 @@ Les outils que vous pouvez utiliser
 Vous êtes libre d'utiliser le langage qui vous conviens  parmi la liste suivante:
  
  - AsciiDots
- - Python 2
- - Python 3
  - C
  - C++
- - C#
  - Java
  - Perl
+ - Python 2
+ - Python 3
 
 Nous vous invitons à vous documenter sur ces différents langages si vous ne les 
-connaissez pas. Un choix exotique sera particulièrement apprécie.
+connaissez pas.
 
 Dernier avertissement
 =====================
