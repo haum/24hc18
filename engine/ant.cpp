@@ -30,27 +30,21 @@ bool Ant::prelude(std::ostream &os) {
 	   << static_cast<int>(m_memory[1]) << '\n';
 	int gameObjectId = 0;
 	team().scenario().listObjects([&gameObjectId, this, &os](auto sgo) {
-		if (sgo->category() == Pheromone::category()) {
+		if (this != sgo.get()) {
 			if (sgo->distance(*this) <= 0.9) {
-				if (sgo->distance(*this) <= 0.3) {
+				if (sgo->distance(*this) <= 0.4) {
 					os << "INTERACTABLE " << sgo->category()->name();
 				} else {
 					os << "VISION " << sgo->category()->name();
 				}
-				auto *pheromone = static_cast<Pheromone *>(sgo.get());
-				os << " " << pheromone->type() << " " << gameObjectId << "\n";
-				gameObjectId++;
-			}
-		} else if (sgo->category() == Ant::category()) {
-			auto *ant = static_cast<Ant *>(sgo.get());
-			bool team;
-			if (this != ant) {
-				if (sgo->distance(*this) <= 0.9) {
-					if (sgo->distance(*this) <= 0.3) {
-						os << "INTERACTABLE " << sgo->category()->name();
-					} else {
-						os << "VISION " << sgo->category()->name();
-					}
+				if (sgo->category() == Pheromone::category()) {
+					auto *pheromone = static_cast<Pheromone *>(sgo.get());
+					os << " " << pheromone->type() << " " << gameObjectId
+					   << "\n";
+					gameObjectId++;
+				} else if (sgo->category() == Ant::category()) {
+					auto *ant = static_cast<Ant *>(sgo.get());
+					bool team;
 					if (&this->team() == &ant->team()) {
 						team = true;
 					} else {
@@ -59,24 +53,17 @@ bool Ant::prelude(std::ostream &os) {
 					os << " " << team << " " << ant->life() << " "
 					   << gameObjectId << "\n";
 					gameObjectId++;
+				} else if (sgo->category() == Nest::category()) {
+					auto *nest = static_cast<Nest *>(sgo.get());
+					bool team;
+					if (&this->team() == &nest->team()) {
+						team = true;
+					} else {
+						team = false;
+					}
+					os << " " << team << " " << gameObjectId << "\n";
+					gameObjectId++;
 				}
-			}
-		} else if (sgo->category() == Nest::category()) {
-			if (sgo->distance(*this) <= 0.9) {
-				if (sgo->distance(*this) <= 0.3) {
-					os << "INTERACTABLE " << sgo->category()->name();
-				} else {
-					os << "VISION " << sgo->category()->name();
-				}
-				auto *nest = static_cast<Nest *>(sgo.get());
-				bool team;
-				if (&this->team() == &nest->team()) {
-					team = true;
-				} else {
-					team = false;
-				}
-				os << " " << team << " " << gameObjectId << "\n";
-				gameObjectId++;
 			}
 		}
 		return true;
