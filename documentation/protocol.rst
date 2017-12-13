@@ -120,7 +120,8 @@ Commande                           Description                                Co
 *RECHARGE_PHEROMONE <id> <type>*   | Demande à une fourmi de recharger une
                                    | phéromone.                               1
 ---------------------------------- ------------------------------------------ --------
-*EXPLORE*                          | Envoi une fourmi en exploration.
+*EXPLORE*                          | Demande à une fourmi de ce déplacer 
+                                   | déplacer 
 ---------------------------------- ------------------------------------------ --------
 *ATTACK <target> <id>*             | Demande à une fourmi d'attaquer une
                                    | cible.                                   ?
@@ -138,7 +139,7 @@ Commande                           Description                                Co
 *DO_TROPHALLAXIS <ant> <quantity>* | Demande à une fourmi de donner de la
                                    | nourriture à une autre (by id).          ?
 ---------------------------------- ------------------------------------------ --------
-*PUT_DOWN <quantity>*              | Demande à une fourmi de déposer une
+*DROP <quantity>*                  | Demande à une fourmi de déposer une
                                    | quantité de nourriture au sol.           ?
 ---------------------------------- ------------------------------------------ --------
 *SAVE <u_int8> <u_int8>*           | Demande à une fourmi de mémoriser des
