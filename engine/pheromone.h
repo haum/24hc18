@@ -28,6 +28,12 @@ class Pheromone : public GameObject {
 	/** Set pheromone life **/
 	void setLife(int life) { this->m_life = life; }
 
+	/** Set category **/
+	void setCategory(int type) {
+		this->m_life = 100;
+		this->m_type = type;
+	}
+
 	/** Method called periodically by the engine **/
 	void periodic() override;
 

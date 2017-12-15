@@ -29,19 +29,21 @@ bool Ant::prelude(std::ostream &os) {
 	os << "MEMORY " << static_cast<int>(m_memory[0]) << ' '
 	   << static_cast<int>(m_memory[1]) << '\n';
 	int gameObjectId = 0;
+	team().resetIds();
 	team().scenario().listObjects([&gameObjectId, this, &os](auto sgo) {
 		if (this != sgo.get()) {
 			if (sgo->distance(*this) <= 0.9) {
 				if (sgo->distance(*this) <= 0.4) {
 					os << "INTERACTABLE " << sgo->category()->name();
+					gameObjectId = team().addId(sgo.get());
 				} else {
 					os << "VISION " << sgo->category()->name();
+					gameObjectId = team().addId(sgo.get());
 				}
 				if (sgo->category() == Pheromone::category()) {
 					auto *pheromone = static_cast<Pheromone *>(sgo.get());
 					os << " " << pheromone->type() << " " << gameObjectId
 					   << "\n";
-					gameObjectId++;
 				} else if (sgo->category() == Ant::category()) {
 					auto *ant = static_cast<Ant *>(sgo.get());
 					bool team;
@@ -52,7 +54,6 @@ bool Ant::prelude(std::ostream &os) {
 					}
 					os << " " << team << " " << ant->life() << " "
 					   << gameObjectId << "\n";
-					gameObjectId++;
 				} else if (sgo->category() == Nest::category()) {
 					auto *nest = static_cast<Nest *>(sgo.get());
 					bool team;
@@ -62,7 +63,6 @@ bool Ant::prelude(std::ostream &os) {
 						team = false;
 					}
 					os << " " << team << " " << gameObjectId << "\n";
-					gameObjectId++;
 				}
 			}
 		}
@@ -91,6 +91,19 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		destroy();
 	} else if (!strncmp(argv[0], "PUT_PHEROMONE", 14) && argc == 1) {
 		team().scenario().addGameObject<Pheromone>(this->longitude(), this->latitude(), team(), 3);
+	} else if (!strncmp(argv[0], "CHANGE_PHEROMONE", 16) && argc == 3) {
+		int id = atoi(argv[2]);
+		GameObject *ptr = team().getIds()[id - 1];
+		team().scenario().listObjects([&argv, ptr, this](auto sgo) {
+			if (ptr == sgo.get()) {
+				if (sgo->category() == Pheromone::category()) {
+					auto *pheromone = static_cast<Pheromone *>(sgo.get());
+					char *endptr;
+					pheromone->setCategory(strtol(argv[1], &endptr, 0));
+				}
+			}
+			return true;
+		});
 	} else if (!strncmp(argv[0], "WALK", 5) && argc == 1) {
 		if (m_actionState == ACTION_FREE) {
 			walk();
