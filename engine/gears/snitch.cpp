@@ -6,8 +6,6 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-#include <iostream>
-
 Snitch::Snitch(const char *const host, uint16_t port, Scenario &scenario)
 	: m_scenario(&scenario) {
 	bool toBeClosed = true;
@@ -49,12 +47,24 @@ void Snitch::eventProcessRead() {
 
 	// Write output
 	m_scenario->listObjects([this](auto sgo) {
-		char cat[20];
-		snprintf(cat, sizeof(cat), "%s\n",
-				 sgo->category()->name().c_str()); // Create placeholder answer
-												   // to be replaced when
-												   // protocol will be defined
-		write(m_fd, cat, strlen(cat));
+		uint32_t data[6];
+		auto f = [](uint32_t *dest, float v) { ::memcpy(dest, &v, sizeof(v)); };
+		auto p = [](uint32_t *dest, void *ptr) {
+			uint32_t v = static_cast<uint32_t>(
+				reinterpret_cast<std::uintptr_t>(ptr)); // Quite ugly
+			::memcpy(dest, &v, sizeof(v));
+		};
+
+		data[0] = 0;
+		f(&data[1], static_cast<float>(sgo->longitude()));
+		f(&data[2], static_cast<float>(sgo->latitude()));
+		f(&data[3], static_cast<float>(sgo->heading()));
+		p(&data[4], sgo->teamBase());
+		p(&data[5], sgo.get());
+		write(m_fd, data, sizeof(data));
 		return true;
 	});
+
+	uint32_t data[6] = {UINT32_MAX, 0, 0, 0, 0, 0};
+	write(m_fd, data, sizeof(data));
 }

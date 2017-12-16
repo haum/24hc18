@@ -1,6 +1,7 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+#include "team_base.h"
 #include <string>
 
 /** Description of type of game objects **/
@@ -43,6 +44,9 @@ class GameObject {
 	/** Get type **/
 	GameObject_t category() const { return m_category; }
 
+	/** Get team base **/
+	TeamBase *teamBase() const { return m_teamBase; }
+
 	/** Compute distance to another object
 	 * @note The computed distance is the angle of the shorstest path in
 	 *       radians. It shoud be multiplied by globe radius to get actual
@@ -74,6 +78,9 @@ class GameObject {
 
 	/** Type **/
 	GameObject_t m_category;
+
+	/** Team base pointer **/
+	TeamBase *m_teamBase{nullptr};
 };
 
 #endif // GAMEOBJECT_H
