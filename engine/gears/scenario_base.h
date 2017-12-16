@@ -58,7 +58,7 @@ class ScenarioBase {
 	 *
 	 * Example usage:
 	 * scenario.listObjects([](auto sgo) {
-	 *     std::cout << sgo->type()->name() << std::endl;
+	 *     std::cout << sgo->category()->name() << std::endl;
 	 *     return true;
 	 * });
 	 */
