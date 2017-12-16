@@ -119,8 +119,6 @@ void TeamBase::processLine(uint8_t argc, const char **argv) {
 		write(m_log, &nl, 1);
 	}
 
-	if (!m_dead)
-		(*m_currentAgent)->execute(argc, argv);
 	if (argc == 1 && !strncmp(argv[0], "END", 3)) {
 		if (!m_dead)
 			(*m_currentAgent)->epilogue();
@@ -137,7 +135,8 @@ void TeamBase::processLine(uint8_t argc, const char **argv) {
 				}
 			}
 		}
-	}
+    } else if (!m_dead)
+        (*m_currentAgent)->execute(argc, argv);
 }
 
 void TeamBase::start_subprocess() {
