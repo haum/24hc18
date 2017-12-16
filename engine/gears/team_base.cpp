@@ -135,8 +135,8 @@ void TeamBase::processLine(uint8_t argc, const char **argv) {
 				}
 			}
 		}
-    } else if (!m_dead)
-        (*m_currentAgent)->execute(argc, argv);
+	} else if (!m_dead)
+		(*m_currentAgent)->execute(argc, argv);
 }
 
 void TeamBase::start_subprocess() {
