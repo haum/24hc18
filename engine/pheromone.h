@@ -11,7 +11,7 @@ class Pheromone : public GameObject {
 	 * @param latitude Original lattitude
 	 * @param longitude Original lattitude
 	 */
-	Pheromone(double latitude, double longitude, Team &team, int type);
+	Pheromone(double latitude, double longitude, Team &team, uint8_t type);
 
 	/** Get category **/
 	static GameObject_t category() { return &s_category; }
@@ -20,7 +20,7 @@ class Pheromone : public GameObject {
 	Team &team() { return m_team; }
 
 	/** Get pheromone type **/
-	int type() { return m_type; }
+	uint8_t type() { return m_type; }
 
 	/** Get pheromone life **/
 	int life() { return m_life; }
@@ -28,8 +28,8 @@ class Pheromone : public GameObject {
 	/** Set pheromone life **/
 	void setLife(int life) { this->m_life = life; }
 
-	/** Set category **/
-	void setCategory(int type) {
+	/** Set type of pheromone **/
+	void setType(uint8_t type) {
 		this->m_life = 100;
 		this->m_type = type;
 	}
@@ -48,7 +48,7 @@ class Pheromone : public GameObject {
 	Team &m_team;
 
 	/** Type of a pheromone **/
-	int m_type;
+	uint8_t m_type;
 };
 
 #endif // PHEROMONE_H

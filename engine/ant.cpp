@@ -101,7 +101,7 @@ void Ant::execute(uint8_t argc, const char **argv) {
 				if (sgo->category() == Pheromone::category()) {
 					auto *pheromone = static_cast<Pheromone *>(sgo.get());
 					char *endptr;
-					pheromone->setCategory(strtol(argv[1], &endptr, 0));
+					pheromone->setType(strtol(argv[1], &endptr, 0));
 				}
 			}
 			return true;
