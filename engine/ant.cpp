@@ -1,4 +1,5 @@
 #include "ant.h"
+#include "food.h"
 #include "gears/rand.h"
 #include "pheromone.h"
 #include "scenario.h"
@@ -30,41 +31,48 @@ bool Ant::prelude(std::ostream &os) {
 	os << "TYPE " << static_cast<int>(m_ant_type) << '\n';
 	os << "MEMORY " << static_cast<int>(m_memory[0]) << ' '
 	   << static_cast<int>(m_memory[1]) << '\n';
-	size_t gameObjectId = 0;
 	team().resetIds();
-	team().scenario().listObjects([&gameObjectId, this, &os](auto sgo) {
+	team().scenario().listObjects([this, &os](auto sgo) {
 		if (this != sgo.get()) {
 			if (sgo->distance(*this) <= 0.9) {
-				if (sgo->distance(*this) <= 0.4) {
-					os << "INTERACTABLE " << sgo->category()->name();
-					gameObjectId = team().addId(sgo.get());
-				} else {
-					os << "VISION " << sgo->category()->name();
-					gameObjectId = team().addId(sgo.get());
-				}
+				size_t gameObjectId = team().addId(sgo.get());
+				const char *zoneTxt =
+					(sgo->distance(*this) <= 0.4 ? " NEAR" : " FAR");
+
 				if (sgo->category() == Pheromone::category()) {
 					auto *pheromone = static_cast<Pheromone *>(sgo.get());
-					os << " " << pheromone->type() << " " << gameObjectId
-					   << "\n";
+					os << "SEE_PHEROMONE";
+					os << ' ' << gameObjectId;
+					os << zoneTxt;
+					os << ' ' << pheromone->type();
+					os << '\n';
+
 				} else if (sgo->category() == Ant::category()) {
 					auto *ant = static_cast<Ant *>(sgo.get());
-					bool team;
-					if (&this->team() == &ant->team()) {
-						team = true;
-					} else {
-						team = false;
-					}
-					os << " " << team << " " << ant->life() << " "
-					   << gameObjectId << "\n";
+					bool ownTeam = (&this->team() == &ant->team());
+					os << "SEE_ANT";
+					os << ' ' << gameObjectId;
+					os << zoneTxt;
+					os << (ownTeam ? " FRIEND" : " ENEMY");
+					os << ' ' << ant->life();
+					os << '\n';
+
 				} else if (sgo->category() == Nest::category()) {
 					auto *nest = static_cast<Nest *>(sgo.get());
-					bool team;
-					if (&this->team() == &nest->team()) {
-						team = true;
-					} else {
-						team = false;
-					}
-					os << " " << team << " " << gameObjectId << "\n";
+					bool ownTeam = (&this->team() == &nest->team());
+					os << "SEE_NEST";
+					os << ' ' << gameObjectId;
+					os << zoneTxt;
+					os << (ownTeam ? " FRIEND" : " ENEMY");
+					os << '\n';
+
+				} else if (sgo->category() == Food::category()) {
+					auto *food = static_cast<Food *>(sgo.get());
+					os << "SEE_FOOD";
+					os << ' ' << gameObjectId;
+					os << zoneTxt;
+					os << ' ' << food->available();
+					os << '\n';
 				}
 			}
 		}
