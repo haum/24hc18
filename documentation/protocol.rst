@@ -70,39 +70,111 @@ Fourmi
 Informations
 ------------
 
+`BEGIN ANT`
+  Informe du début de la communication. Cette commande est toujours envoyée en
+  premier.
+
+`TYPE <type>`
+  Type de fourmi. Ce type est défini par la fourmillière quand elle crée cette
+  fourmi.
+
+  ======  ======
+  `type`  Nombre compris entre 0 et 255 inclus.
+  ======  ======
+
+`MEMORY <m0> <m1>`
+  Indique le contenu de la mémoire de la fourmi.
+
+  ====  ======
+  `m0`  Nombre compris entre 0 et 255 inclus.
+  `m1`  Nombre compris entre 0 et 255 inclus.
+  ====  ======
+
+`SEE_PHEROMONE <id> <zone> <type>`
+  Indique la présence d'une phéromone à proximité.
+
+  ======  ======
+  `id`    Nombre temporaire utilisé pour faire référence à cet objet dans les
+          actions.
+  ------  ------
+  `zone`  Zone d'interaction.
+
+          Prend les valeurs `FAR` ou `NEAR`.
+  ------  ------
+  `type`  Type de phéromone détectée.
+
+          Ce type est défini par la fourmi ayant déposé la phéromone.
+
+          Les phéromones des équipes adverses ne sont pas listées.
+  ======  ======
+
+`SEE_ANT <id> <zone> <friend> <life>`
+  Indique la présence d'une fourmi à proximité.
+
+  ========  ======
+  `id`      Nombre temporaire utilisé pour faire référence à cet objet dans les
+            actions.
+  --------  ------
+  `zone`    Zone d'interaction.
+
+            Prend les valeurs `FAR` ou `NEAR`.
+  --------  ------
+  `friend`  Indique si la fourmi est-elle de notre fourmillière.
+
+            Prend les valeurs `FRIEND` ou `ENEMY`.
+  --------  ------
+  `life`    Indique le niveau de vie de la fourmi.
+
+            Nombre indiquant la vie restante. (À remplacer par des seuils ?)
+  ========  ======
+
+`SEE_NEST <id> <zone> <friend>`
+  Indique la présence d'une fourmillière à proximité.
+
+  ========  ======
+  `id`      Nombre temporaire utilisé pour faire référence à cet objet dans les
+            actions.
+  --------  ------
+  `zone`    Zone d'interaction.
+
+            Prend les valeurs `FAR` ou `NEAR`.
+  --------  ------
+  `friend`  Indique si la fourmi est-elle de notre fourmillière.
+
+            Prend les valeurs `FRIEND` ou `ENEMY`.
+  ========  ======
+
+`SEE_FOOD <id> <zone> <amount>`
+  Indique la présence d'une fourmillière à proximité.
+
+  ========  ======
+  `id`      Nombre temporaire utilisé pour faire référence à cet objet dans les
+            actions.
+  --------  ------
+  `zone`    Zone d'interaction.
+
+            Prend les valeurs `FAR` ou `NEAR`.
+  --------  ------
+  `amount`  Indique le niveau de nourriture.
+
+            Nombre indiquant la quantité disponible restante.
+  ========  ======
+
+
+Non implémenté :
+
 =============================================== =============================================
 Commande                                        Description
 =============================================== =============================================
-*BEGIN ANT*                                     | Informe du début de la communication
------------------------------------------------ ---------------------------------------------
 *ENERGY <qté>*                                  | Informe du niveau d'énergie (`qté`) 
                                                 | de la fourmi
 ----------------------------------------------- ---------------------------------------------
 *STOCK <qté>*                                   | Informe de la quantité de nourriture 
                                                 | stockée par la fourmi
 ----------------------------------------------- ---------------------------------------------
-*VISION pheromon <type> <id>*                   | Informe de la présence de phéromones dans 
-                                                | la zone de visibilité.
------------------------------------------------ ---------------------------------------------
-*VISION ant <team_boolean> <energy_level> <id>* | Informe de la présence de fourmis dans la 
-                                                | zone de visibilité.
------------------------------------------------ ---------------------------------------------
-*VISION food <quantity> <id>*                   | Informe de la présence de nourriture dans 
-                                                | la zone de visibilité.
------------------------------------------------ ---------------------------------------------
-*VISION nest <team_boolean> <id>*               | Informe de la présence de fourmilières 
-                                                | dans la zone de visibilité.
------------------------------------------------ ---------------------------------------------
-*INTERACTABLE*                                  | Fourni les mêmes informations que VISION,
-                                                | mais pour la zone interactive.
------------------------------------------------ ---------------------------------------------
-*MEMORY <u_int8> <u_int8>*                      | Informe du contenu de la mémoire d'une 
-                                                | fourmi sous la forme d'un tableau de 
-                                                | deux u_int8 (soit 2 octets)
------------------------------------------------ ---------------------------------------------
 *STATUS <state>*                                | Informe sur l'etat de situation courante 
                                                 | d'une fourmi (ATTACKED, OCCUPED 
-                                                | où NONE).
+                                                | ou NONE).
 =============================================== =============================================
 
 Actions
