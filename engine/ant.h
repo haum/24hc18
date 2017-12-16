@@ -35,6 +35,27 @@ class Ant : public Agent {
 	/** get ant Life **/
 	int life() { return m_life; }
 
+	/** action MEMORY **/
+	void actionMemory(bool valid, uint8_t m0, uint8_t m1);
+
+	/** action MEMORY **/
+	void actionSuicide(bool valid);
+
+	/** action PUT_PHEROMONE **/
+	void actionPutPheromone(bool valid, uint8_t type);
+
+	/** action CHANGE_PHEROMONE **/
+	void actionChangePheromone(bool valid, int id, uint8_t type);
+
+	/** action WALK **/
+	void actionWalk(bool valid);
+
+	/** action WALK **/
+	void actionTurnLeft(bool valid);
+
+	/** action WALK **/
+	void actionTurnRight(bool valid);
+
   private:
 	/** Life of an ant **/
 	int m_life;
@@ -45,12 +66,20 @@ class Ant : public Agent {
 	/** Long term memory **/
 	uint8_t m_memory[2];
 
-	/** State of action in this turn **/
-	enum {
-		ACTION_FREE,
-		ACTION_MADE,
-		ACTION_MULTIPLE,
-	} m_actionState{ACTION_FREE};
+	/** Is exclusive action done in this turn **/
+	bool m_exclusiveDone = false;
+
+	/** Signal an invalide action **/
+	void invalidAction();
+
+	/** List of action types **/
+	enum ActionType {
+		ALWAYS_ALLOWED,
+		EXCLUSIVE,
+	};
+
+	/** Prelude of actions (to check state) **/
+	bool actionPrelude(int cost, ActionType type, bool valid);
 
 	virtual bool prelude(std::ostream &os) override;
 	virtual void execute(uint8_t argc, const char **argv) override;

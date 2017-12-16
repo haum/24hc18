@@ -73,8 +73,99 @@ bool Ant::prelude(std::ostream &os) {
 
 	os << "END\n";
 	os.flush();
-	m_actionState = ACTION_FREE;
+	m_exclusiveDone = false;
 	return true;
+}
+
+void Ant::invalidAction() {
+	log("Invalid action, kill ant");
+	destroy();
+}
+
+bool Ant::actionPrelude(int cost, ActionType type, bool valid) {
+	m_life -= cost;
+	if (m_life < 0) {
+		m_life = 0;
+		return false;
+	}
+	if (type == EXCLUSIVE) {
+		if (m_exclusiveDone) {
+			invalidAction();
+			return false;
+		} else {
+			m_exclusiveDone = true;
+		}
+
+	} else if (type == ALWAYS_ALLOWED) {
+		// Nothing to do
+	}
+	return valid;
+}
+
+void Ant::actionMemory(bool valid, uint8_t m0, uint8_t m1) {
+	if (!actionPrelude(0, ALWAYS_ALLOWED, valid))
+		return;
+	m_memory[0] = m0;
+	m_memory[1] = m1;
+}
+
+void Ant::actionSuicide(bool valid) {
+	if (!actionPrelude(0, ALWAYS_ALLOWED, valid))
+		return;
+	destroy();
+}
+
+void Ant::actionPutPheromone(bool valid, uint8_t type) {
+	if (!actionPrelude(0, EXCLUSIVE, valid))
+		return;
+	team().scenario().addGameObject<Pheromone>(this->longitude(),
+											   this->latitude(), team(), type);
+}
+
+void Ant::actionChangePheromone(bool valid, int id, uint8_t type) {
+	if (!actionPrelude(0, EXCLUSIVE, valid))
+		return;
+	if (id <= 0) {
+		invalidAction();
+		return;
+	}
+	size_t index = static_cast<size_t>(id - 1);
+	if (index >= team().getIds().size()) {
+		invalidAction();
+		return;
+	}
+
+	GameObject *ptr = team().getIds()[index];
+	team().scenario().listObjects([this, ptr, type](auto sgo) {
+		if (ptr == sgo.get()) {
+			if (sgo->category() == Pheromone::category()) {
+				auto *pheromone = static_cast<Pheromone *>(sgo.get());
+				pheromone->setType(type);
+			} else {
+				invalidAction();
+			}
+			return false;
+		}
+		return true;
+	});
+}
+
+void Ant::actionWalk(bool valid) {
+	if (!actionPrelude(0, EXCLUSIVE, valid))
+		return;
+	walk();
+}
+
+void Ant::actionTurnLeft(bool valid) {
+	if (!actionPrelude(0, EXCLUSIVE, valid))
+		return;
+	turnLeft();
+}
+
+void Ant::actionTurnRight(bool valid) {
+	if (!actionPrelude(0, EXCLUSIVE, valid))
+		return;
+	turnRight();
 }
 
 void Ant::execute(uint8_t argc, const char **argv) {
@@ -84,52 +175,33 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		bool ok1, ok2;
 		int m0 = param_int(argv[1], ok1, 0, 255);
 		int m1 = param_int(argv[2], ok2, 0, 255);
-		if (ok1 && ok2) {
-			m_memory[0] = static_cast<uint8_t>(m0);
-			m_memory[1] = static_cast<uint8_t>(m1);
-		}
+		actionMemory(ok1 && ok2, static_cast<uint8_t>(m0),
+					 static_cast<uint8_t>(m1));
 
-	} else if (!strncmp(argv[0], "SUICIDE", 7) && argc == 1) {
-		destroy();
-	} else if (!strncmp(argv[0], "PUT_PHEROMONE", 14) && argc == 1) {
-		team().scenario().addGameObject<Pheromone>(this->longitude(), this->latitude(), team(), 3);
-	} else if (!strncmp(argv[0], "CHANGE_PHEROMONE", 16) && argc == 3) {
-		size_t id = strtoul(argv[2], nullptr, 10);
-		GameObject *ptr = team().getIds()[id - 1];
-		team().scenario().listObjects([&argv, ptr](auto sgo) {
-			if (ptr == sgo.get()) {
-				if (sgo->category() == Pheromone::category()) {
-					auto *pheromone = static_cast<Pheromone *>(sgo.get());
-					auto usertype = atoi(argv[1]);
-					if (usertype >= 0 && usertype <= 255)
-						pheromone->setType(static_cast<uint8_t>(usertype));
-				}
-			}
-			return true;
-		});
+	} else if (!strncmp(argv[0], "SUICIDE", 8) && argc == 1) {
+		actionSuicide(true);
+
+	} else if (!strncmp(argv[0], "PUT_PHEROMONE", 14) && argc == 2) {
+		bool ok = false;
+		int type = param_int(argv[1], ok, 0, 255);
+		actionPutPheromone(ok, static_cast<uint8_t>(type));
+
+	} else if (!strncmp(argv[0], "CHANGE_PHEROMONE", 17) && argc == 3) {
+		bool ok1, ok2;
+		int id = param_int(argv[1], ok1, 0, 255);
+		int type = param_int(argv[2], ok2, 0, 255);
+		actionChangePheromone(ok1 && ok2, id, static_cast<uint8_t>(type));
+
 	} else if (!strncmp(argv[0], "WALK", 5) && argc == 1) {
-		if (m_actionState == ACTION_FREE) {
-			walk();
-			m_actionState = ACTION_MADE;
-		} else {
-			m_actionState = ACTION_MULTIPLE;
-		}
+		actionWalk(true);
 
 	} else if (!strncmp(argv[0], "TURNLEFT", 9) && argc == 1) {
-		if (m_actionState == ACTION_FREE) {
-			turnLeft();
-			m_actionState = ACTION_MADE;
-		} else {
-			m_actionState = ACTION_MULTIPLE;
-		}
+		actionTurnLeft(true);
 
 	} else if (!strncmp(argv[0], "TURNRIGHT", 10) && argc == 1) {
+		actionTurnRight(true);
 
-		if (m_actionState == ACTION_FREE) {
-			turnRight();
-			m_actionState = ACTION_MADE;
-		} else {
-			m_actionState = ACTION_MULTIPLE;
-		}
+	} else {
+		invalidAction();
 	}
 }
