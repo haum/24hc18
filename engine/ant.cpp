@@ -30,7 +30,7 @@ bool Ant::prelude(std::ostream &os) {
 	os << "TYPE " << static_cast<int>(m_ant_type) << '\n';
 	os << "MEMORY " << static_cast<int>(m_memory[0]) << ' '
 	   << static_cast<int>(m_memory[1]) << '\n';
-	int gameObjectId = 0;
+	size_t gameObjectId = 0;
 	team().resetIds();
 	team().scenario().listObjects([&gameObjectId, this, &os](auto sgo) {
 		if (this != sgo.get()) {
@@ -94,14 +94,15 @@ void Ant::execute(uint8_t argc, const char **argv) {
 	} else if (!strncmp(argv[0], "PUT_PHEROMONE", 14) && argc == 1) {
 		team().scenario().addGameObject<Pheromone>(this->longitude(), this->latitude(), team(), 3);
 	} else if (!strncmp(argv[0], "CHANGE_PHEROMONE", 16) && argc == 3) {
-		int id = atoi(argv[2]);
+		size_t id = strtoul(argv[2], nullptr, 10);
 		GameObject *ptr = team().getIds()[id - 1];
-		team().scenario().listObjects([&argv, ptr, this](auto sgo) {
+		team().scenario().listObjects([&argv, ptr](auto sgo) {
 			if (ptr == sgo.get()) {
 				if (sgo->category() == Pheromone::category()) {
 					auto *pheromone = static_cast<Pheromone *>(sgo.get());
-					char *endptr;
-					pheromone->setType(strtol(argv[1], &endptr, 0));
+					auto usertype = atoi(argv[1]);
+					if (usertype >= 0 && usertype <= 255)
+						pheromone->setType(static_cast<uint8_t>(usertype));
 				}
 			}
 			return true;
