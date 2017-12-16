@@ -47,6 +47,9 @@ class Ant : public Agent {
 	/** action CHANGE_PHEROMONE **/
 	void actionChangePheromone(bool valid, int id, uint8_t type);
 
+	/** action RECHARGE_PHEROMONE **/
+	void actionRechargePheromone(bool valid, int id);
+
 	/** action WALK **/
 	void actionWalk(bool valid);
 

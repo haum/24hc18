@@ -158,6 +158,33 @@ void Ant::actionChangePheromone(bool valid, int id, uint8_t type) {
 	});
 }
 
+void Ant::actionRechargePheromone(bool valid, int id) {
+	if (!actionPrelude(0, EXCLUSIVE, valid))
+		return;
+	if (id <= 0) {
+		invalidAction();
+		return;
+	}
+	size_t index = static_cast<size_t>(id - 1);
+	if (index >= team().getIds().size()) {
+		invalidAction();
+		return;
+	}
+
+	GameObject *ptr = team().getIds()[index];
+	team().scenario().listObjects([this, ptr](auto sgo) {
+		if (ptr == sgo.get()) {
+			if (sgo->category() == Pheromone::category()) {
+				auto *pheromone = static_cast<Pheromone *>(sgo.get());
+				pheromone->setLife(100);
+			} else {
+				invalidAction();
+			}
+			return false;
+		}
+		return true;
+	});
+}
 void Ant::actionWalk(bool valid) {
 	if (!actionPrelude(0, EXCLUSIVE, valid))
 		return;
@@ -199,6 +226,11 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		int id = param_int(argv[1], ok1, 0, 255);
 		int type = param_int(argv[2], ok2, 0, 255);
 		actionChangePheromone(ok1 && ok2, id, static_cast<uint8_t>(type));
+
+	} else if (!strncmp(argv[0], "RECHARGE_PHEROMONE", 19) && argc == 2) {
+		bool ok;
+		int id = param_int(argv[1], ok, 0, 255);
+		actionRechargePheromone(ok, id);
 
 	} else if (!strncmp(argv[0], "WALK", 5) && argc == 1) {
 		actionWalk(true);
