@@ -130,7 +130,7 @@ void Ant::actionPutPheromone(bool valid, uint8_t type) {
 											   this->latitude(), team(), type);
 }
 
-void Ant::actionChangePheromone(bool valid, int id, uint8_t type) {
+void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
 	if (!actionPrelude(0, EXCLUSIVE, valid))
 		return;
 	if (id <= 0) {
@@ -223,9 +223,9 @@ void Ant::execute(uint8_t argc, const char **argv) {
 
 	} else if (!strncmp(argv[0], "CHANGE_PHEROMONE", 17) && argc == 3) {
 		bool ok1, ok2;
-		int id = param_int(argv[1], ok1, 0, 255);
-		int type = param_int(argv[2], ok2, 0, 255);
-		actionChangePheromone(ok1 && ok2, id, static_cast<uint8_t>(type));
+		int type = param_int(argv[1], ok1, 0, 255);
+		int id = param_int(argv[2], ok2, 0, 255);
+		actionChangePheromone(ok1 && ok2, static_cast<uint8_t>(type), id);
 
 	} else if (!strncmp(argv[0], "RECHARGE_PHEROMONE", 19) && argc == 2) {
 		bool ok;
