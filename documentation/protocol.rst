@@ -193,43 +193,68 @@ Commande                           Description                                Co
                                    | phéromone.                               1
 ---------------------------------- ------------------------------------------ --------
 *EXPLORE*                          | Demande à une fourmi de ce déplacer 
-                                   | déplacer 
+                                   | déplacer                                 1
 ---------------------------------- ------------------------------------------ --------
 *ATTACK <target> <id>*             | Demande à une fourmi d'attaquer une
-                                   | cible.                                   ?
+                                   | cible.                                   
 ---------------------------------- ------------------------------------------ --------
 *MOVE_TO <target> <id>*            | Demande à une fourmi de se diriger vers
-                                   | un emplacement.                          ?
+                                   | un emplacement.                          2
 ---------------------------------- ------------------------------------------ --------
 *TURN <X>*                         | Demande à une fourmi d'effectuer une
-                                   | rotation sur elle-même de x° (de -180°   ?
+                                   | rotation sur elle-même de x° (de -180°   1
                                    | à 180°).
 ---------------------------------- ------------------------------------------ --------
 *COLLECT <id> <quantity>*          | Demande à une fourmi de collecter une
-                                   | quantité de nourriture (by id).          ?
+                                   | quantité de nourriture (by id).          4
 ---------------------------------- ------------------------------------------ --------
 *DO_TROPHALLAXIS <ant> <quantity>* | Demande à une fourmi de donner de la
-                                   | nourriture à une autre (by id).          ?
+                                   | nourriture à une autre (by id).          
 ---------------------------------- ------------------------------------------ --------
 *DROP <quantity>*                  | Demande à une fourmi de déposer une
-                                   | quantité de nourriture au sol.           ?
+                                   | quantité de nourriture au sol.           4
 ---------------------------------- ------------------------------------------ --------
 *SAVE <u_int8> <u_int8>*           | Demande à une fourmi de mémoriser des
-                                   | données. 2 octets maxi sous la forme     ?
+                                   | données. 2 octets maxi sous la forme     0
                                    | de 2 u_int8.
 ---------------------------------- ------------------------------------------ --------
-*SUICIDE*                          | Tue la fourmi
+*SUICIDE*                          | Tue la fourmi                            0
 ---------------------------------- ------------------------------------------ --------
 *NEST*                             | Demande à une fourmi de retourner au
-                                   | nid.                                     ?
+                                   | nid. Cette action n'est possible que     2
+                                   | lorsque le nid est dans la zone 
+                                   | interactive.
 ---------------------------------- ------------------------------------------ --------
 *EAT <quantity>*                   | Demande à une fourmi de manger une
-                                   | quantité de nourriture.                   ?
+                                   | quantité de nourriture.                  0
 ================================== ========================================== ========
 
 
 Fourmilière
 ============
+
+La fourmilère abrite le stock de ressource de la colonie ainsi q'une partie de
+sa population.
+
+La population vivant dans la fourmilère consome ses ressources. Par conséquent,
+le stock de ressources baisse proportionellement à la population selon le calcul
+suivant : 1 point de stock toutes les 100ms et par palier de 100 fourmis.
+
+Voici un exemple:
+
+============== =================================================================
+Population     Coût en ressources
+-------------- -----------------------------------------------------------------
+85 fourmis     1 point de stosck / 100ms
+-------------- -----------------------------------------------------------------
+512 fourmis    6 points de stock / 100ms                                       
+============== =================================================================
+
+Le stock et la population de la fourmilière ne sont pas limités.
+
+Lorsque la population où le stock de la fourmilière tombent à 0, cette dernière
+n'est pas détriute. Elle reste, désertée sur le terrain et peut être recolonisée
+par son équipe uniquement.
 
 Informations
 ------------
@@ -260,9 +285,11 @@ Actions
 Commande                     Description                                Coût
 ============================ ========================================== ========
 *ANT_OUT <u_int8> <u_int8>*  | Sort une fourmi du nid. Les deux octets
-                             | de mémoire de la fourmi peuvent êtres    ?
+                             | de mémoire de la fourmi peuvent êtres    1
                              | initialisés à ce moment. Par défaut, ces
                              | deux octets sont initialisés à zéro.
 ---------------------------- ------------------------------------------ --------
-*ANT_NEW*                    | Crée une nouvelle fourmi.
+*ANT_NEW*                    | Crée une nouvelle fourmi.                5
+                             | Chaque fourmi née avec le maximum de 
+                             | ses points de stmina.
 ============================ ========================================== ========
