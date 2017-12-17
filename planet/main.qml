@@ -34,8 +34,18 @@ Entity {
     Entity {
         id: sphereEntity
         components: [
-            SphereMesh { radius: 1 },
-            PhongMaterial {}
+            SphereMesh {
+                radius: 1.0
+                generateTangents: true
+                rings: 64
+                slices: 64
+            },
+            NormalDiffuseMapMaterial {
+                ambient: Qt.rgba(0.8, 0.8, 0.8, 1.0)
+                diffuse:  TextureLoader { source: "planetmap.jpg" }
+                textureScale: 1.0
+                shininess: 0.0
+            }
         ]
     }
 }
