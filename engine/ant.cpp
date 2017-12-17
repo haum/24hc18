@@ -41,11 +41,13 @@ bool Ant::prelude(std::ostream &os) {
 
 				if (sgo->category() == Pheromone::category()) {
 					auto *pheromone = static_cast<Pheromone *>(sgo.get());
-					os << "SEE_PHEROMONE";
-					os << ' ' << gameObjectId;
-					os << zoneTxt;
-					os << ' ' << pheromone->type();
-					os << '\n';
+					if (&pheromone->team() == &team()) {
+						os << "SEE_PHEROMONE";
+						os << ' ' << gameObjectId;
+						os << zoneTxt;
+						os << ' ' << pheromone->type();
+						os << '\n';
+					}
 
 				} else if (sgo->category() == Ant::category()) {
 					auto *ant = static_cast<Ant *>(sgo.get());
