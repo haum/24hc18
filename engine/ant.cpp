@@ -95,7 +95,7 @@ void Ant::invalidAction() {
 bool Ant::actionPrelude(int cost, ActionType type, bool valid) {
 	m_life -= cost;
 	if (m_life < 0) {
-		m_life = 0;
+		destroy();
 		return false;
 	}
 	if (type == EXCLUSIVE) {
@@ -187,6 +187,30 @@ void Ant::actionRechargePheromone(bool valid, int id) {
 		return true;
 	});
 }
+
+void Ant::actionAttack(bool valid, int id) {
+	if (!actionPrelude(0, EXCLUSIVE, valid)) {
+		return;
+	}
+	if (id <= 0) {
+		invalidAction();
+		return;
+	}
+	size_t index = static_cast<size_t>(id - 1);
+	if (index >= team().getIds().size()) {
+		invalidAction();
+		return;
+	}
+
+	GameObject *ptr = team().getIds()[index];
+
+	if (ptr->distance(*this) <= 0.4) {
+		if (ptr->category() == Ant::category()) {
+			auto *ant = static_cast<Ant *>(ptr);
+			ant->setLife(ant->life() - 1);
+		}
+	}
+}
 void Ant::actionExplore(bool valid) {
 	if (!actionPrelude(0, EXCLUSIVE, valid))
 		return;
@@ -233,6 +257,11 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		bool ok;
 		int id = param_int(argv[1], ok, 0, 255);
 		actionRechargePheromone(ok, id);
+
+	} else if (!strncmp(argv[0], "ATTACK", 8) && argc == 2) {
+		bool ok;
+		int id = param_int(argv[1], ok, 0, 255);
+		actionAttack(ok, id);
 
 	} else if (!strncmp(argv[0], "EXPLORE", 7) && argc == 1) {
 		actionExplore(true);

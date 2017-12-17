@@ -53,6 +53,12 @@ class Ant : public Agent {
 	/** action Explore **/
 	void actionExplore(bool valid);
 
+	/** action ATTACK **/
+	void actionAttack(bool valid, int id);
+
+	/** set ant Life **/
+	void setLife(int life) { this->m_life = life; }
+
 	/** action WALK **/
 	void actionTurnLeft(bool valid);
 
