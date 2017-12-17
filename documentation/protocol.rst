@@ -195,10 +195,10 @@ Commande                           Description                                Co
 *EXPLORE*                          | Demande à une fourmi de ce déplacer 
                                    | déplacer                                 1
 ---------------------------------- ------------------------------------------ --------
-*ATTACK <target> <id>*             | Demande à une fourmi d'attaquer une
+*ATTACK <id>*                      | Demande à une fourmi d'attaquer une
                                    | cible.                                   
 ---------------------------------- ------------------------------------------ --------
-*MOVE_TO <target> <id>*            | Demande à une fourmi de se diriger vers
+*MOVE_TO <id>*                     | Demande à une fourmi de se diriger vers
                                    | un emplacement.                          2
 ---------------------------------- ------------------------------------------ --------
 *TURN <X>*                         | Demande à une fourmi d'effectuer une
