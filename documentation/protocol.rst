@@ -189,7 +189,7 @@ Commande                           Description                                Co
 *CHANGE_PHEROMONE <id> <type>*     | Demande à une fourmi de modifier 
                                    | une phéromone.                           2
 ---------------------------------- ------------------------------------------ --------
-*RECHARGE_PHEROMONE <id> <type>*   | Demande à une fourmi de recharger une
+*RECHARGE_PHEROMONE <id>*          | Demande à une fourmi de recharger une
                                    | phéromone.                               1
 ---------------------------------- ------------------------------------------ --------
 *EXPLORE*                          | Demande à une fourmi de ce déplacer 
