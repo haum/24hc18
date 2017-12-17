@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.0
 import QtQuick.Window 2.0
 import QtQuick.Scene3D 2.0
 
@@ -19,6 +20,7 @@ Window {
         source: "starfield.jpg"
 
         Scene3D {
+            id: scene3d
             anchors.fill: parent
             focus: true
             aspects: ["input", "logic"]
@@ -41,7 +43,9 @@ Window {
                 }
             }
 
-            Planet {}
+            Planet {
+                id: planet
+            }
         }
     }
     MouseArea {
@@ -64,6 +68,44 @@ Window {
             anchors.fill: parent
             color: "#43144a"
             opacity: 0.8
+
+            Column {
+                anchors.fill: parent
+                anchors.margins: 10
+                Text {
+                    text: qsTr("Rotation:")
+                    color: Qt.rgba(1, 1, 1, 1)
+                }
+                Slider {
+                    id: slRotation
+                    width: parent.width
+                    visible: !cbRotation.checked
+                    onActiveFocusChanged: if (activeFocus) scene3d.forceActiveFocus();
+                    onPositionChanged: planet.rotationAngle = position * 360
+                }
+                Row {
+                    CheckBox {
+                        id: cbRotation
+                        checked: true
+                        onActiveFocusChanged: if (activeFocus) scene3d.forceActiveFocus();
+
+                        NumberAnimation {
+                            target: planet
+                            property: "rotationAngle"
+                            from: 0
+                            to: 360
+                            duration: 5*60*1000
+                            loops: Animation.Infinite
+                            running: cbRotation.checked
+                        }
+                    }
+                    Text {
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: qsTr("Automatique")
+                        color: Qt.rgba(1, 1, 1, 1)
+                    }
+                }
+            }
         }
     }
 }

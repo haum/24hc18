@@ -5,6 +5,8 @@ import Qt3D.Input 2.0
 import Qt3D.Extras 2.0
 
 Entity {
+    property real rotationAngle: 0.0
+
     OrbitCameraController {
         camera: Camera {
             id: camera
@@ -44,6 +46,13 @@ Entity {
                 diffuse:  TextureLoader { source: "planetmap.jpg" }
                 textureScale: 1.0
                 shininess: 0.0
+            },
+            Transform {
+                matrix: {
+                    var m = Qt.matrix4x4();
+                    m.rotate(rotationAngle, Qt.vector3d(0, 1, 0))
+                    return m;
+                }
             }
         ]
     }
