@@ -73,6 +73,10 @@ Window {
                 anchors.fill: parent
                 anchors.margins: 10
                 Text {
+                    text: qsTr("Connected: ") + (gcomm && gcomm.connected)
+                    color: Qt.rgba(1, 1, 1, 1)
+                }
+                Text {
                     text: qsTr("Rotation:")
                     color: Qt.rgba(1, 1, 1, 1)
                 }
@@ -101,7 +105,7 @@ Window {
                     }
                     Text {
                         anchors.verticalCenter: parent.verticalCenter
-                        text: qsTr("Automatique")
+                        text: qsTr("Automatic")
                         color: Qt.rgba(1, 1, 1, 1)
                     }
                 }
