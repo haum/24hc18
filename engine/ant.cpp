@@ -45,7 +45,7 @@ bool Ant::prelude(std::ostream &os) {
 						os << "SEE_PHEROMONE";
 						os << ' ' << gameObjectId;
 						os << zoneTxt;
-						os << ' ' << pheromone->type();
+						os << ' ' << static_cast<int>(pheromone->type());
 						os << '\n';
 					}
 
