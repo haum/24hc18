@@ -1,9 +1,12 @@
-#include <Qt3DQuickExtras/qt3dquickwindow.h>
 #include <QGuiApplication>
+#include <QQuickView>
 
 int main(int argc, char* argv[]) {
     QGuiApplication app(argc, argv);
-    Qt3DExtras::Quick::Qt3DQuickWindow view;
+    QQuickView view;
+
+    view.resize(1024, 800);
+    view.setResizeMode(QQuickView::SizeRootObjectToView);
     view.setSource(QUrl("main.qml"));
     view.show();
 

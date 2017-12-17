@@ -4,4 +4,5 @@ SOURCES += \
     main.cpp
 
 OTHER_FILES += \
-    main.qml
+    main.qml \
+    Planet.qml \
