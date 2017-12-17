@@ -30,7 +30,7 @@ class Ant : public Agent {
 	/** Make ant to go forward
 	 * @note Ants do not walk straight
 	 */
-	void walk();
+	void explore();
 
 	/** get ant Life **/
 	int life() { return m_life; }
@@ -50,8 +50,8 @@ class Ant : public Agent {
 	/** action RECHARGE_PHEROMONE **/
 	void actionRechargePheromone(bool valid, int id);
 
-	/** action WALK **/
-	void actionWalk(bool valid);
+	/** action Explore **/
+	void actionExplore(bool valid);
 
 	/** action WALK **/
 	void actionTurnLeft(bool valid);

@@ -18,7 +18,7 @@ void Ant::turnLeft() { m_heading = fmod(m_heading + 2 * M_PI / 36, 2 * M_PI); }
 
 void Ant::turnRight() { m_heading = fmod(m_heading - 2 * M_PI / 36, 2 * M_PI); }
 
-void Ant::walk() {
+void Ant::explore() {
 	const double dm = 2 * M_PI / 10000;
 	double dh = (random_angle() - M_PI) / 36;
 	m_heading = fmod(m_heading + dh, 2 * M_PI);
@@ -185,10 +185,10 @@ void Ant::actionRechargePheromone(bool valid, int id) {
 		return true;
 	});
 }
-void Ant::actionWalk(bool valid) {
+void Ant::actionExplore(bool valid) {
 	if (!actionPrelude(0, EXCLUSIVE, valid))
 		return;
-	walk();
+	explore();
 }
 
 void Ant::actionTurnLeft(bool valid) {
@@ -232,8 +232,8 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		int id = param_int(argv[1], ok, 0, 255);
 		actionRechargePheromone(ok, id);
 
-	} else if (!strncmp(argv[0], "WALK", 5) && argc == 1) {
-		actionWalk(true);
+	} else if (!strncmp(argv[0], "EXPLORE", 7) && argc == 1) {
+		actionExplore(true);
 
 	} else if (!strncmp(argv[0], "TURNLEFT", 9) && argc == 1) {
 		actionTurnLeft(true);
