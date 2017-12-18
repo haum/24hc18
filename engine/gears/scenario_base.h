@@ -38,7 +38,7 @@ class ScenarioBase {
 	/** Create and add game object **/
 	template <typename T, typename... Args> T *addGameObject(Args &&... args) {
 		static_assert(std::is_base_of<GameObject, T>::value,
-					  "addGameObject can only construct GameObject");
+		              "addGameObject can only construct GameObject");
 		auto u = std::make_unique<T>(std::forward<Args>(args)...);
 		auto *ret = u.get();
 		addExistingGameObject(std::move(u));

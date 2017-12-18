@@ -61,7 +61,7 @@ bool TeamBase::nextAgent() {
 	if (m_currentAgent == m_agents.end()) {
 		for (auto &agentToRemove : m_agentsToRemove) {
 			auto it =
-				std::find(m_agents.begin(), m_agents.end(), agentToRemove);
+			    std::find(m_agents.begin(), m_agents.end(), agentToRemove);
 			if (it != m_agents.end()) {
 				*it = m_agents[m_agents.size() - 1];
 				m_agents.pop_back();
@@ -97,7 +97,7 @@ void TeamBase::eventProcessDied() {
 
 void TeamBase::eventProcessRead() {
 	auto r = m_parser.read(
-		[this](char *buf, ssize_t len) { return read(m_fdout, buf, len); });
+	    [this](char *buf, ssize_t len) { return read(m_fdout, buf, len); });
 	if (r == LineParserError::LINE_TOO_LONG) {
 		const char *errorstr = "Line too long, bye";
 		kill(errorstr);
@@ -175,9 +175,9 @@ void TeamBase::start_subprocess() {
 		close(pipe2[0]);
 		close(pipe2[1]);
 		execlp("sh", "sh", "-c", m_exe.c_str(),
-			   nullptr); // Here we change process
+		       nullptr); // Here we change process
 		std::cerr << "Cannot start " << m_exe << ": " << strerror(errno)
-				  << std::endl;
+		          << std::endl;
 		m_fdin = -1;
 		m_fdout = -1;
 		m_fderr = -1;

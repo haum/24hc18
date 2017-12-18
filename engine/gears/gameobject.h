@@ -65,7 +65,7 @@ class GameObject {
 	 * @param heading   Initial heading
 	 */
 	GameObject(GameObject_t category, double latitude, double longitude,
-			   double heading);
+	           double heading);
 
 	/** Latitude **/
 	double m_latitude;

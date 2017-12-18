@@ -19,10 +19,10 @@ void ScenarioBase::load(const char *scenario_name) {
 		throw(std::runtime_error("scenario not found"));
 
 	m_parser.setExecute(
-		[this](uint8_t argc, const char **argv) { processLine(argc, argv); });
+	    [this](uint8_t argc, const char **argv) { processLine(argc, argv); });
 	while (!feof(f)) {
 		auto r = m_parser.read(
-			[f](char *buf, ssize_t len) { return fread(buf, 1, len, f); });
+		    [f](char *buf, ssize_t len) { return fread(buf, 1, len, f); });
 		if (r != LineParserError::NO_ERROR)
 			fprintf(stderr, "Error while reading scenario\n");
 	}
@@ -34,8 +34,8 @@ void ScenarioBase::addExistingGameObject(std::unique_ptr<GameObject> obj) {
 
 void ScenarioBase::rmGameObject(GameObject *obj) {
 	auto it = std::find_if(
-		m_gameObjectsStorage.begin(), m_gameObjectsStorage.end(),
-		[obj](std::shared_ptr<GameObject> &gobj) { return gobj.get() == obj; });
+	    m_gameObjectsStorage.begin(), m_gameObjectsStorage.end(),
+	    [obj](std::shared_ptr<GameObject> &gobj) { return gobj.get() == obj; });
 	if (it != m_gameObjectsStorage.end()) {
 		auto i = std::distance(m_gameObjectsStorage.begin(), it);
 		m_gameObjectsStorage[i] = m_gameObjectsStorage.back();

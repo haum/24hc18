@@ -3,8 +3,8 @@
 #include <sstream>
 
 Agent::Agent(Team &team, GameObject_t type, double latitude, double longitude,
-			 double heading)
-	: GameObject(type, latitude, longitude, heading), m_team{team} {
+             double heading)
+    : GameObject(type, latitude, longitude, heading), m_team{team} {
 	m_team.agentAdd(this);
 }
 
@@ -14,7 +14,7 @@ int32_t Agent::param_int(const char *str, bool &ok) {
 	char *endptr;
 	long int value = strtol(str, &endptr, 0);
 	ok = (*endptr == 0 && endptr != str && value <= INT32_MAX &&
-		  value >= INT32_MIN);
+	      value >= INT32_MIN);
 	return static_cast<int>(value);
 }
 

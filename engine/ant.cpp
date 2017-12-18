@@ -8,9 +8,9 @@
 const GameObjectCategory Ant::s_category{"ANT"};
 
 Ant::Ant(Team &team, int life, double latitude, double longitude,
-		 double heading, uint8_t ant_type, uint8_t memory1, uint8_t memory2)
-	: Agent{team, Ant::category(), latitude, longitude, heading}, m_life{life},
-	  m_ant_type{ant_type}, m_memory{memory1, memory2} {
+         double heading, uint8_t ant_type, uint8_t memory1, uint8_t memory2)
+    : Agent{team, Ant::category(), latitude, longitude, heading}, m_life{life},
+      m_ant_type{ant_type}, m_memory{memory1, memory2} {
 	m_teamBase = &team;
 }
 
@@ -37,7 +37,7 @@ bool Ant::prelude(std::ostream &os) {
 			if (sgo->distance(*this) <= 0.9) {
 				size_t gameObjectId = team().addId(sgo.get());
 				const char *zoneTxt =
-					(sgo->distance(*this) <= 0.4 ? " NEAR" : " FAR");
+				    (sgo->distance(*this) <= 0.4 ? " NEAR" : " FAR");
 
 				if (sgo->category() == Pheromone::category()) {
 					auto *pheromone = static_cast<Pheromone *>(sgo.get());
@@ -129,7 +129,7 @@ void Ant::actionPutPheromone(bool valid, uint8_t type) {
 	if (!actionPrelude(0, EXCLUSIVE, valid))
 		return;
 	team().scenario().addGameObject<Pheromone>(this->longitude(),
-											   this->latitude(), team(), type);
+	                                           this->latitude(), team(), type);
 }
 
 void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
@@ -237,7 +237,7 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		int m0 = param_int(argv[1], ok1, 0, 255);
 		int m1 = param_int(argv[2], ok2, 0, 255);
 		actionMemory(ok1 && ok2, static_cast<uint8_t>(m0),
-					 static_cast<uint8_t>(m1));
+		             static_cast<uint8_t>(m1));
 
 	} else if (!strncmp(argv[0], "SUICIDE", 8) && argc == 1) {
 		actionSuicide(true);

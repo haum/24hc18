@@ -15,22 +15,22 @@ int main(int argc, char *argv[]) {
 	// Check arguments
 	auto usage = [](const char *appname) {
 		std::cerr << "USAGE: " << appname << " -s scenario [OPTION] <ias...>\n"
-				  << "       -s, --scenario=file\tFile of the scenario\n"
-				  << "       -h, --host=ip_address\tIP of server\n"
-				  << "       -p, --port=port_number\tport of server\n"
-				  << "       -d, --debug=ia nb\tIA number for debug\n"
-				  << std::endl;
+		          << "       -s, --scenario=file\tFile of the scenario\n"
+		          << "       -h, --host=ip_address\tIP of server\n"
+		          << "       -p, --port=port_number\tport of server\n"
+		          << "       -d, --debug=ia nb\tIA number for debug\n"
+		          << std::endl;
 	};
 	if (argc > 1) {
 		struct option long_options[] = {
-			{"scenario", required_argument, nullptr, 's'},
-			{"host", required_argument, nullptr, 'h'},
-			{"port", required_argument, nullptr, 'p'},
-			{"debug", required_argument, nullptr, 'd'},
-			{nullptr, 0, nullptr, 0}};
+		    {"scenario", required_argument, nullptr, 's'},
+		    {"host", required_argument, nullptr, 'h'},
+		    {"port", required_argument, nullptr, 'p'},
+		    {"debug", required_argument, nullptr, 'd'},
+		    {nullptr, 0, nullptr, 0}};
 		int c, option_index;
 		while ((c = getopt_long(argc, argv, "s:d:h:p:", long_options,
-								&option_index)) != -1) {
+		                        &option_index)) != -1) {
 			switch (c) {
 			case 's':
 				scenario_name = optarg;
@@ -89,8 +89,8 @@ int main(int argc, char *argv[]) {
 	scenario.run();
 
 	std::cout << "==========\n"
-			  << "STATISTICS\n"
-			  << "==========\n";
+	          << "STATISTICS\n"
+	          << "==========\n";
 	for (auto &team : teams) {
 		team->printStats();
 		std::cout << "----------\n";

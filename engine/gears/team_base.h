@@ -1,7 +1,7 @@
 #ifndef TEAMBASE_H
 #define TEAMBASE_H
 
-class Agent;	// Forward declaration
+class Agent;    // Forward declaration
 class Scenario; // Forward declaration
 
 #include "lineparser.h"
@@ -17,7 +17,7 @@ class TeamBase {
 	 * @param debug    Should debug be printed or this team
 	 */
 	TeamBase(Scenario &scenario, const char *exe, bool debug)
-		: m_scenario{scenario}, m_exe{exe}, m_debug(debug) {
+	    : m_scenario{scenario}, m_exe{exe}, m_debug(debug) {
 		m_parser.setExecute([this](uint8_t argc, const char **argv) {
 			processLine(argc, argv);
 		});

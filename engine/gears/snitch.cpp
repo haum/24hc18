@@ -7,7 +7,7 @@
 #include <unistd.h>
 
 Snitch::Snitch(const char *const host, uint16_t port, Scenario &scenario)
-	: m_scenario(&scenario) {
+    : m_scenario(&scenario) {
 	bool toBeClosed = true;
 	int sock = socket(AF_INET, SOCK_STREAM, 0);
 	if (sock != -1) {
@@ -18,11 +18,11 @@ Snitch::Snitch(const char *const host, uint16_t port, Scenario &scenario)
 		hostinfo = gethostbyname(host);
 		if (hostinfo != nullptr) {
 			sin.sin_addr =
-				*reinterpret_cast<struct in_addr *>(hostinfo->h_addr);
+			    *reinterpret_cast<struct in_addr *>(hostinfo->h_addr);
 			sin.sin_port = htons(port);
 			sin.sin_family = AF_INET;
 			if (connect(sock, reinterpret_cast<struct sockaddr *>(&sin),
-						sizeof(struct sockaddr)) != -1) {
+			            sizeof(struct sockaddr)) != -1) {
 				m_fd = sock;
 				toBeClosed = false;
 			}
@@ -51,7 +51,7 @@ void Snitch::eventProcessRead() {
 		auto f = [](uint32_t *dest, float v) { ::memcpy(dest, &v, sizeof(v)); };
 		auto p = [](uint32_t *dest, void *ptr) {
 			uint32_t v = static_cast<uint32_t>(
-				reinterpret_cast<std::uintptr_t>(ptr)); // Quite ugly
+			    reinterpret_cast<std::uintptr_t>(ptr)); // Quite ugly
 			::memcpy(dest, &v, sizeof(v));
 		};
 

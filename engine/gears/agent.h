@@ -48,7 +48,7 @@ class Agent : public GameObject {
 	 * @param team Team whose agent belongs
 	 */
 	Agent(Team &team, GameObject_t type, double latitude, double longitude,
-		  double heading);
+	      double heading);
 
 	/** Agent's team **/
 	Team &m_team;

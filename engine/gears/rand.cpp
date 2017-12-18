@@ -11,7 +11,7 @@ struct random_init {
 	random_init() {
 		auto now = std::chrono::system_clock::now();
 		random_generator.seed(
-			static_cast<unsigned long>(now.time_since_epoch().count()));
+		    static_cast<unsigned long>(now.time_since_epoch().count()));
 	}
 } r;
 } // namespace
