@@ -16,8 +16,8 @@ class TeamBase {
 	 * @param exe      Executable command
 	 * @param debug    Should debug be printed or this team
 	 */
-	TeamBase(Scenario &scenario, const char *exe, bool debug)
-	    : m_scenario{scenario}, m_exe{exe}, m_debug(debug) {
+	TeamBase(Scenario &scenario, const char *exe, bool debug, bool nokill)
+	    : m_scenario{scenario}, m_exe{exe}, m_debug(debug), m_nokill(nokill) {
 		m_parser.setExecute([this](uint8_t argc, const char **argv) {
 			processLine(argc, argv);
 		});
@@ -78,6 +78,9 @@ class TeamBase {
 
 	/** Do we display debug informations **/
 	bool m_debug;
+
+	/** Do we kill randomly **/
+	bool m_nokill;
 
 	/** Is current agent dead **/
 	bool m_dead;

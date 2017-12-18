@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
 	const char *host = "";
 	uint16_t port = 2080;
 	int debug = -1;
+	bool nokill = false;
 
 	// Check arguments
 	auto usage = [](const char *appname) {
@@ -19,6 +20,7 @@ int main(int argc, char *argv[]) {
 		          << "       -h, --host=ip_address\tIP of server\n"
 		          << "       -p, --port=port_number\tport of server\n"
 		          << "       -d, --debug=ia nb\tIA number for debug\n"
+		          << "       -k, --nokill\tDo not random kill\n"
 		          << std::endl;
 	};
 	if (argc > 1) {
@@ -27,9 +29,10 @@ int main(int argc, char *argv[]) {
 		    {"host", required_argument, nullptr, 'h'},
 		    {"port", required_argument, nullptr, 'p'},
 		    {"debug", required_argument, nullptr, 'd'},
+		    {"nokill", no_argument, nullptr, 'k'},
 		    {nullptr, 0, nullptr, 0}};
 		int c, option_index;
-		while ((c = getopt_long(argc, argv, "s:d:h:p:", long_options,
+		while ((c = getopt_long(argc, argv, "s:d:h:p:k", long_options,
 		                        &option_index)) != -1) {
 			switch (c) {
 			case 's':
@@ -43,6 +46,9 @@ int main(int argc, char *argv[]) {
 				break;
 			case 'd':
 				debug = atoi(optarg);
+				break;
+			case 'k':
+				nokill = true;
 				break;
 			default:
 				std::cerr << "ERROR: Unknown option\n";
@@ -77,7 +83,8 @@ int main(int argc, char *argv[]) {
 	std::vector<std::unique_ptr<Team>> teams;
 	std::vector<Team *> teams_ptrs;
 	for (int i = 0, ind = optind; ind < argc; ++i, ++ind) {
-		auto team = std::make_unique<Team>(scenario, argv[ind], debug == i);
+		auto team =
+		    std::make_unique<Team>(scenario, argv[ind], debug == i, nokill);
 		teams_ptrs.push_back(team.get());
 		teams.push_back(std::move(team));
 		std::cout << "IA" << (i + 1) << ": " << argv[ind] << '\n';

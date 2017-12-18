@@ -127,7 +127,7 @@ void TeamBase::processLine(uint8_t argc, const char **argv) {
 			if (nextAgent()) {
 				trynext = !sendPrelude();
 			} else {
-				if (random_unit() < 1 / 15.0) {
+				if (!m_nokill && random_unit() < 1 / 15.0) {
 					kill("Random kill");
 					trynext = false;
 				} else {
