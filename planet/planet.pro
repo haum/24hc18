@@ -4,10 +4,18 @@ SOURCES += \
     gamecomm.cpp \
     main.cpp \
     pheromone.cpp \
+    nest.cpp \
+    ant.cpp \
+    food.cpp \
+    gameentity.cpp
 
 HEADERS += \
     gamecomm.h \
     pheromone.h \
+    nest.h \
+    ant.h \
+    food.h \
+    gameentity.h
 
 OTHER_FILES += \
     main.qml \
