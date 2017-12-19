@@ -36,7 +36,13 @@ class GameComm : public QObject {
 	QTcpServer m_server;
 	QTcpSocket *m_client{nullptr};
 	QTimer m_timer;
-	Ant *m_ant = nullptr;
+
+	struct EntitiesList {
+		std::vector<GameEntity *>::iterator it;
+		std::vector<GameEntity *> entities;
+	};
+	std::vector<std::array<EntitiesList, 4>> m_teamsData;
+	std::vector<uint32_t> m_teams;
 };
 
 #endif // GAMECOMM_H

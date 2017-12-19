@@ -3,6 +3,8 @@
 #include <QTcpSocket>
 #include <QTimer>
 #include <Qt3DExtras/QPhongMaterial>
+#include <math.h>
+#include <string.h>
 
 namespace {
 struct TeamMaterial : public Qt3DExtras::QPhongMaterial {
@@ -22,6 +24,15 @@ GameComm::GameComm(QObject *parent) : QObject(parent) {
 	onDisconnected();
 	QObject::connect(&m_server, &QTcpServer::newConnection, this, [this] {
 		m_client = m_server.nextPendingConnection();
+		for (auto &t : m_teamsData) {
+			for (auto &o : t) {
+				for (auto &e : o.entities) {
+					e->setVisible(false);
+				}
+				o.it = o.entities.begin();
+			}
+		}
+		m_teams.clear();
 		QObject::connect(m_client, &QTcpSocket::readyRead, this,
 		                 &GameComm::onReadyRead);
 		QObject::connect(m_client, &QTcpSocket::disconnected, this,
@@ -33,31 +44,90 @@ GameComm::GameComm(QObject *parent) : QObject(parent) {
 	connect(&m_timer, &QTimer::timeout, this, &GameComm::onTimeout);
 }
 
-void GameComm::onReadyRead() { qDebug() << "Read" << m_client->readAll(); }
+void GameComm::onReadyRead() {
+	constexpr int SZ = 6 * 4;
+	for (;;) {
+		auto data = m_client->read(SZ);
+		if (data.size() == SZ) {
+			uint32_t category, team;
+			float longitude, latitude, heading;
+			::memcpy(&category, &data.data()[0], sizeof(uint32_t));
+			::memcpy(&longitude, &data.data()[4], sizeof(float));
+			::memcpy(&latitude, &data.data()[8], sizeof(float));
+			::memcpy(&heading, &data.data()[12], sizeof(float));
+			::memcpy(&team, &data.data()[16], sizeof(uint32_t));
+			longitude *= 180 / M_PI;
+			latitude *= 180 / M_PI;
+			heading *= 180 / M_PI;
+
+			if (category == UINT32_MAX) {
+				for (auto &t : m_teamsData) {
+					for (auto &o : t) {
+						while (o.it != o.entities.end()) {
+							(*o.it)->setVisible(false);
+							++o.it;
+						}
+						o.it = o.entities.begin();
+					}
+				}
+				continue;
+			}
+
+			auto itfind =
+			    std::find(std::begin(m_teams), std::end(m_teams), team);
+			if (itfind == m_teams.end()) {
+				m_teams.push_back(team);
+				team = static_cast<uint32_t>(m_teams.size() - 1);
+			} else {
+				team = static_cast<uint32_t>(
+				    std::distance(m_teams.begin(), itfind));
+			}
+
+			if (category < 4) {
+				if (m_teamsData.size() <= team) {
+					m_teamsData.push_back({});
+					m_teamsData[team][category].it =
+					    m_teamsData[team][category].entities.begin();
+				}
+				auto &o = m_teamsData[team][category];
+				if (o.it == o.entities.end()) {
+					if (category == 0)
+						o.entities.push_back(
+						    new Ant(m_rootEntity, latitude, longitude, heading,
+						            teamMaterials[team % teamMaterialsSz]));
+					else if (category == 1)
+						o.entities.push_back(
+						    new Food(m_rootEntity, latitude, longitude));
+					else if (category == 2)
+						o.entities.push_back(
+						    new Nest(m_rootEntity, latitude, longitude,
+						             teamMaterials[team % teamMaterialsSz]));
+					else if (category == 3)
+						o.entities.push_back(new Pheromone(
+						    m_rootEntity, latitude, longitude,
+						    teamMaterials[team % teamMaterialsSz]));
+					o.it = o.entities.end();
+				} else {
+					(*o.it)->setVisible(true);
+					(*o.it)->setPosition(latitude, longitude, heading);
+					++o.it;
+				}
+			}
+		} else
+			break;
+	}
+}
 
 void GameComm::onDisconnected() {
 	m_server.listen(QHostAddress::Any, 2080);
+	m_client->deleteLater();
 	m_client = nullptr;
 	emit connectedChanged();
 }
 
 void GameComm::onTimeout() {
-	// Simple animated test
-	if (m_ant) {
-		static int p = 0;
-		p += 1;
-		m_ant->setVisible();
-		m_ant->setPosition(p, p, p);
-	} else {
-		for (int i = 0; i < 8; ++i) {
-            new Pheromone(m_rootEntity, 360 / 8 * i, 0, teamMaterials[0]);
-            new Pheromone(m_rootEntity, 0, 360 / 8 * i, teamMaterials[0]);
-		}
-        new Nest(m_rootEntity, 5, 16, teamMaterials[1]);
-		new Food(m_rootEntity, 5, 4);
-        m_ant = new Ant(m_rootEntity, 5, 8, 90, teamMaterials[2]);
-		m_ant->setVisible(false);
-	}
+	if (m_client)
+		m_client->write("\n", 1);
 }
 
 void GameComm::setRootEntity(Qt3DCore::QEntity *rootEntity) {
