@@ -1,5 +1,6 @@
 #include "agent.h"
 #include "../scenario.h"
+#include "utils.h"
 #include <sstream>
 
 Agent::Agent(Team &team, GameObject_t type, double latitude, double longitude,
@@ -11,22 +12,11 @@ Agent::Agent(Team &team, GameObject_t type, double latitude, double longitude,
 Agent::~Agent() { m_team.agentRm(this); }
 
 int32_t Agent::param_int(const char *str, bool &ok) {
-	char *endptr;
-	long int value = strtol(str, &endptr, 0);
-	ok = (*endptr == 0 && endptr != str && value <= INT32_MAX &&
-	      value >= INT32_MIN);
-	return static_cast<int>(value);
+	return parse_int(str, ok);
 }
 
 int32_t Agent::param_int(const char *str, bool &ok, int min, int max) {
-	int ret = param_int(str, ok);
-	if (ok) {
-		if (ret < min)
-			ok = false;
-		if (ret > max)
-			ok = false;
-	}
-	return ret;
+	return parse_int(str, ok, min, max);
 }
 
 void Agent::log(const char *msg) { m_team.log(msg); }
