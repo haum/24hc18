@@ -43,8 +43,9 @@ Window {
                 }
             }
 
-            Planet {
-                id: planet
+            Scene {
+                id: scene
+                Component.onCompleted: gcomm.setRootEntity(scene.planet)
             }
         }
     }
@@ -85,7 +86,7 @@ Window {
                     width: parent.width
                     visible: !cbRotation.checked
                     onActiveFocusChanged: if (activeFocus) scene3d.forceActiveFocus();
-                    onPositionChanged: planet.rotationAngle = position * 360
+                    onPositionChanged: scene.planetAngle = position * 360
                 }
                 Row {
                     CheckBox {
@@ -94,8 +95,8 @@ Window {
                         onActiveFocusChanged: if (activeFocus) scene3d.forceActiveFocus();
 
                         NumberAnimation {
-                            target: planet
-                            property: "rotationAngle"
+                            target: scene
+                            property: "planetAngle"
                             from: 0
                             to: 360
                             duration: 5*60*1000

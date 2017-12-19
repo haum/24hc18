@@ -5,7 +5,8 @@ import Qt3D.Input 2.0
 import Qt3D.Extras 2.0
 
 Entity {
-    property real rotationAngle: 0.0
+    property real planetAngle: 0.0
+    readonly property alias planet: sphereEntity
 
     OrbitCameraController {
         camera: Camera {
@@ -15,7 +16,7 @@ Entity {
             aspectRatio: 16/9
             nearPlane : 0.1
             farPlane : 1000.0
-            position: Qt.vector3d(-3.0, 0.0, 0.0)
+            position: Qt.vector3d(3.0, 0.0, 0.0)
             upVector: Qt.vector3d(0.0, 1.0, 0.0)
             viewCenter: Qt.vector3d(0.0, 0.0, 0.0)
         }
@@ -50,7 +51,7 @@ Entity {
             Transform {
                 matrix: {
                     var m = Qt.matrix4x4();
-                    m.rotate(rotationAngle, Qt.vector3d(0, 1, 0))
+                    m.rotate(planetAngle, Qt.vector3d(0, 1, 0))
                     return m;
                 }
             }
