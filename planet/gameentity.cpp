@@ -6,6 +6,7 @@ GameEntity::GameEntity(Qt3DCore::QEntity *parent, float latitude,
                        QMatrix4x4 (*fct)(QMatrix4x4))
     : Qt3DCore::QEntity(parent), m_initialTransform(fct) {
 	setPosition(latitude, longitude, azimut);
+	m_transform.setShareable(true);
 	addComponent(&m_transform);
 }
 

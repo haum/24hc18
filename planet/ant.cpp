@@ -9,8 +9,10 @@ struct AntMesh : public Qt3DExtras::QConeMesh {
 		setLength(0.02f);
 		setRings(2);
 		setSlices(3);
+		setShareable(true);
 	}
-} antMesh;
+};
+auto *antMesh = new AntMesh;
 } // namespace
 
 Ant::Ant(Qt3DCore::QEntity *parent, float latitude, float longitude,
@@ -19,6 +21,6 @@ Ant::Ant(Qt3DCore::QEntity *parent, float latitude, float longitude,
 	      m.rotate(-90, 1, 0, 0);
 	      return m;
       }) {
-	addComponent(&antMesh);
+	addComponent(antMesh);
 	addComponent(teamMaterial);
 }

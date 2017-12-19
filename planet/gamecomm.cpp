@@ -6,9 +6,16 @@
 
 namespace {
 struct TeamMaterial : public Qt3DExtras::QPhongMaterial {
-	TeamMaterial(const QColor c) { setAmbient(c); }
-} teamMaterials[] = {
-    {Qt::yellow}, {Qt::cyan}, {Qt::green}, {Qt::red}, {Qt::blue}};
+	TeamMaterial(const QColor c) {
+		setAmbient(c);
+		setShareable(true);
+	}
+};
+TeamMaterial *teamMaterials[] = {
+    new TeamMaterial{Qt::yellow}, new TeamMaterial{Qt::cyan},
+    new TeamMaterial{Qt::green}, new TeamMaterial{Qt::red},
+    new TeamMaterial{Qt::blue}};
+constexpr int teamMaterialsSz = sizeof(teamMaterials) / sizeof(*teamMaterials);
 } // namespace
 
 GameComm::GameComm(QObject *parent) : QObject(parent) {
@@ -43,12 +50,12 @@ void GameComm::onTimeout() {
 		m_ant->setPosition(p, p, p);
 	} else {
 		for (int i = 0; i < 8; ++i) {
-			new Pheromone(m_rootEntity, 360 / 8 * i, 0, &teamMaterials[0]);
-			new Pheromone(m_rootEntity, 0, 360 / 8 * i, &teamMaterials[0]);
+            new Pheromone(m_rootEntity, 360 / 8 * i, 0, teamMaterials[0]);
+            new Pheromone(m_rootEntity, 0, 360 / 8 * i, teamMaterials[0]);
 		}
-		new Nest(m_rootEntity, 5, 16, &teamMaterials[1]);
+        new Nest(m_rootEntity, 5, 16, teamMaterials[1]);
 		new Food(m_rootEntity, 5, 4);
-		m_ant = new Ant(m_rootEntity, 5, 8, 90, &teamMaterials[2]);
+        m_ant = new Ant(m_rootEntity, 5, 8, 90, teamMaterials[2]);
 		m_ant->setVisible(false);
 	}
 }

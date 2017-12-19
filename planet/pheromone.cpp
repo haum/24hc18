@@ -9,8 +9,10 @@ struct PheromoneMesh : public Qt3DExtras::QConeMesh {
 		setLength(0.03f);
 		setRings(2);
 		setSlices(8);
+		setShareable(true);
 	}
-} pheromoneMesh;
+};
+auto *pheromoneMesh = new PheromoneMesh;
 } // namespace
 
 Pheromone::Pheromone(Qt3DCore::QEntity *parent, float latitude, float longitude,
@@ -20,6 +22,6 @@ Pheromone::Pheromone(Qt3DCore::QEntity *parent, float latitude, float longitude,
 	      m.rotate(-90, 0, 0, 1);
 	      return m;
       }) {
-	addComponent(&pheromoneMesh);
+	addComponent(pheromoneMesh);
 	addComponent(teamMaterial);
 }

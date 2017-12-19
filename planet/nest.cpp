@@ -9,8 +9,10 @@ struct NestMesh : public Qt3DExtras::QConeMesh {
 		setLength(0.01f);
 		setRings(4);
 		setSlices(5);
+		setShareable(true);
 	}
-} nestMesh;
+};
+NestMesh *nestMesh = new NestMesh;
 } // namespace
 
 Nest::Nest(Qt3DCore::QEntity *parent, float latitude, float longitude,
@@ -20,6 +22,6 @@ Nest::Nest(Qt3DCore::QEntity *parent, float latitude, float longitude,
 	      m.rotate(-90, 0, 0, 1);
 	      return m;
       }) {
-	addComponent(&nestMesh);
+	addComponent(nestMesh);
 	addComponent(teamMaterial);
 }

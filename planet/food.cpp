@@ -8,15 +8,18 @@ struct FoodMesh : public Qt3DExtras::QCylinderMesh {
 		setRadius(0.01f);
 		setLength(0.02f);
 		setSlices(32);
+		setShareable(true);
 	}
-} foodMesh;
+};
+auto *foodMesh = new FoodMesh;
 struct FoodMaterial : public Qt3DExtras::QPhongMaterial {
 	FoodMaterial() { setAmbient(Qt::white); }
-} foodMaterial;
+};
+auto *foodMaterial = new FoodMaterial;
 } // namespace
 
 Food::Food(Qt3DCore::QEntity *parent, float latitude, float longitude)
     : GameEntity(parent, latitude, longitude, 0) {
-	addComponent(&foodMesh);
-	addComponent(&foodMaterial);
+	addComponent(foodMesh);
+	addComponent(foodMaterial);
 }
