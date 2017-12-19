@@ -6,6 +6,11 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include "../ant.h"
+#include "../food.h"
+#include "../nest.h"
+#include "../pheromone.h"
+
 Snitch::Snitch(const char *const host, uint16_t port, Scenario &scenario)
     : m_scenario(&scenario) {
 	bool toBeClosed = true;
@@ -55,7 +60,16 @@ void Snitch::eventProcessRead() {
 			::memcpy(dest, &v, sizeof(v));
 		};
 
-		data[0] = 0;
+		data[0] = UINT32_MAX - 1;
+		if (sgo->category() == Pheromone::category())
+			data[0] = 3;
+		if (sgo->category() == Ant::category())
+			data[0] = 0;
+		if (sgo->category() == Food::category())
+			data[0] = 1;
+		if (sgo->category() == Nest::category())
+			data[0] = 2;
+
 		f(&data[1], static_cast<float>(sgo->longitude()));
 		f(&data[2], static_cast<float>(sgo->latitude()));
 		f(&data[3], static_cast<float>(sgo->heading()));
