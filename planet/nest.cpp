@@ -18,7 +18,7 @@ NestMesh *nestMesh = new NestMesh;
 Nest::Nest(Qt3DCore::QEntity *parent, float latitude, float longitude,
            Qt3DRender::QMaterial *teamMaterial)
     : GameEntity(parent, latitude, longitude, 0, [](QMatrix4x4 m) {
-	      m.translate(0.025f, 0);
+	      m.translate(0.005f, 0);
 	      m.rotate(-90, 0, 0, 1);
 	      return m;
       }) {
