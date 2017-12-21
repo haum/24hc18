@@ -10,7 +10,7 @@
 
 TeamBase::~TeamBase() { kill("Team is destructed"); }
 
-void TeamBase::agentAdd(Agent *agent) { m_agents.push_back(agent); }
+void TeamBase::agentAdd(Agent *agent) { m_agentsToAdd.push_back(agent); }
 
 void TeamBase::agentRm(Agent *agent) {
 	if ((*m_currentAgent) == agent)
@@ -67,6 +67,9 @@ bool TeamBase::nextAgent() {
 				m_agents.pop_back();
 			}
 		}
+		std::copy(m_agentsToAdd.begin(), m_agentsToAdd.end(),
+		          std::back_inserter(m_agents));
+		m_agentsToAdd.clear();
 		m_currentAgent = m_agents.begin();
 		return false;
 	}

@@ -92,6 +92,9 @@ class TeamBase {
 	std::vector<Agent *> m_agents;
 
 	/** List of agents **/
+	std::vector<Agent *> m_agentsToAdd;
+
+	/** List of agents **/
 	std::vector<Agent *> m_agentsToRemove;
 
 	/** Current agent **/
