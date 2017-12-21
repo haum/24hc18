@@ -15,6 +15,7 @@ Marabunta
    deroulement
    trousse
    protocol
+   scenario
 
 
 .. Indices and tables
