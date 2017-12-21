@@ -153,6 +153,9 @@ void TeamBase::start_subprocess() {
 	if ((pid = fork()) == -1)
 		goto err_fork;
 
+	std::copy(m_agentsToAdd.begin(), m_agentsToAdd.end(),
+	          std::back_inserter(m_agents));
+
 	if (pid) { // Game manager
 		m_fdin = pipe0[1];
 		m_fdout = pipe1[0];
