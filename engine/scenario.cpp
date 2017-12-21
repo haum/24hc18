@@ -10,8 +10,8 @@
 #include "pheromone.h"
 
 namespace {
-constexpr int MIN_TEAMS = 1;
-constexpr int MAX_TEAMS = 20;
+constexpr int MIN_TEAM = 0;
+constexpr int MAX_TEAM = 20;
 constexpr int MIN_U8 = 0;
 constexpr int MAX_U8 = 255;
 constexpr int MIN_LATITUDE = -90;
@@ -107,7 +107,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 
 	bool ok;
 	if (!strncmp(argv[0], "ANT", 4) && argc == 9) {
-		auto team = parse_int(argv[1], ok, MIN_TEAMS, MAX_TEAMS);
+		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid team number"));
 		auto type = parse_int(argv[2], ok, MIN_U8, MAX_U8);
@@ -131,7 +131,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		          static_cast<uint8_t>(memory1), static_cast<uint8_t>(memory2));
 
 	} else if (!strncmp(argv[0], "PHEROMONE", 10) && argc == 5) {
-		auto team = parse_int(argv[1], ok, MIN_TEAMS, MAX_TEAMS);
+		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid team number"));
 		auto type = parse_int(argv[2], ok, MIN_U8, MAX_U8);
@@ -156,7 +156,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		actionFood(latitude, longitude);
 
 	} else if (!strncmp(argv[0], "NEST_POSITION", 14) && argc == 4) {
-		auto team = parse_int(argv[1], ok, MIN_TEAMS, MAX_TEAMS);
+		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid team number"));
 		auto latitude = parse_int(argv[2], ok, MIN_LATITUDE, MAX_LATITUDE);
@@ -168,7 +168,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		actionNestPosition(static_cast<uint8_t>(team), latitude, longitude);
 
 	} else if (!strncmp(argv[0], "NEST_FOOD", 10) && argc == 3) {
-		auto team = parse_int(argv[1], ok, MIN_TEAMS, MAX_TEAMS);
+		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid team number"));
 		auto amount =
@@ -178,7 +178,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		actionNestFood(static_cast<uint8_t>(team), amount);
 
 	} else if (!strncmp(argv[0], "NEST_POPULATION", 16) && argc == 4) {
-		auto team = parse_int(argv[1], ok, MIN_TEAMS, MAX_TEAMS);
+		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid team number"));
 		auto type = parse_int(argv[2], ok, MIN_U8, MAX_U8);
@@ -191,7 +191,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		                     static_cast<uint8_t>(type), nb);
 
 	} else if (!strncmp(argv[0], "MAXTEAMS", 9) && argc == 2) {
-		auto teams = parse_int(argv[1], ok, MIN_TEAMS, MAX_TEAMS);
+		auto teams = parse_int(argv[1], ok, 1, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid teams number"));
 		actionMaxteams(static_cast<uint8_t>(teams));
