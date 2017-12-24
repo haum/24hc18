@@ -40,6 +40,13 @@ certaines actions ne sont pas cumulables. Votre programme termine la liste des
 actions réalisées avec le marqueur `END` et se met en écoute d'un éventuel
 marqueur de début pour une nouvelle entité.
 
+.. WARNING::
+   Notez qu'il est important de respecter l'ordre de parole (i.e. bien attendre
+   d'avoir reçu `END` avant d'indiquer les actions) et de n'indiquer qu'un seul
+   `END` en fin de liste d'actions. Dans le cas contraire, le simulateur est
+   libre de faire ce qu'il veut comme attribuer certaines actions à d'autres
+   entités, ignorer les commandes ou même tuer vos fourmis.
+
 Perception de l'environnement
 -----------------------------
 
