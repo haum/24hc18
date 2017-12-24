@@ -51,25 +51,14 @@ Perception de l'environnement
 -----------------------------
 
 Les fourmis n'étant pas omniscientes, elles ont une perception limitée à leur
-environnement proche. Nous distinguons les éléments à portée avec lesquels il
-est possible d'interagir, et les éléments qui sont seulement dans le champ
-visuel. Au-delà, la fourmi ignore ce qu'il se passe.
+environnement proche. Nous distinguons les éléments à portée (`NEAR`) avec
+lesquels il est possible d'interagir (zone verte sur le schéma ci-dessous), et
+les éléments qui sont seulement dans le champ visuel (`FAR`) avec lesquels il
+est seulement possible de s'orienter (zone orange). Au-delà, la fourmi ignore
+ce qu'il se passe (zone blanche).
 
 .. image:: _static/images/ant.png
    :align: center
-
-
-= ============== ================================
-1 visible et non | *VISION [ant team=1 hp=3]*
-  interactif     | *INTERACTABLE []*
-- -------------- --------------------------------
-2 visible et     | *VISION []*
-  interactif     | *INTERACTABLE [ant team=1 hp=3[]*
-- -------------- --------------------------------
-3 non visible et | *VISION []*
-  non interactif | *INTERACTABLE []*
-= ============== ================================
-
 
 Fourmi
 ======
