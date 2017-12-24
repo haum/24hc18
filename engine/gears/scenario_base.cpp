@@ -65,6 +65,7 @@ void ScenarioBase::run() {
 			if (fd >= 0) {
 				fds[nbwait].fd = fd;
 				fds[nbwait].events = POLLIN;
+				fds[nbwait].revents = 0;
 				tm[nbwait] = t;
 				++nbwait;
 			}
@@ -73,15 +74,17 @@ void ScenarioBase::run() {
 		if (respoll < 0) {
 			usleep(100'000);
 		} else {
-			for (nfds_t i = 0; i < nbwait; ++i) {
-				if (tm[i]) {
-					if (fds[i].revents & POLLIN)
-						tm[i]->eventProcessRead();
-					if (fds[i].revents & POLLHUP)
-						tm[i]->eventProcessDied();
-				} else {
-					if (fds[i].revents & POLLIN)
-						m_snitch->eventProcessRead();
+			if (respoll > 0) {
+				for (nfds_t i = 0; i < nbwait; ++i) {
+					if (tm[i]) {
+						if (fds[i].revents & POLLIN)
+							tm[i]->eventProcessRead();
+						if (fds[i].revents & POLLHUP)
+							tm[i]->eventProcessDied();
+					} else {
+						if (fds[i].revents & POLLIN)
+							m_snitch->eventProcessRead();
+					}
 				}
 			}
 			while (chr::now() > periodic_tp) {
