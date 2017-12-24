@@ -18,3 +18,7 @@ int32_t parse_int(const char *str, bool &ok, int min, int max) {
 	}
 	return ret;
 }
+
+void breakAnchor(const char *name) {
+	(void)name; // Do nothing useful
+}
