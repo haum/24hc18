@@ -13,7 +13,7 @@ TeamBase::~TeamBase() { kill("Team is destructed"); }
 void TeamBase::agentAdd(Agent *agent) { m_agentsToAdd.push_back(agent); }
 
 void TeamBase::agentRm(Agent *agent) {
-	if ((*m_currentAgent) == agent)
+	if (m_currentAgent != m_agents.end() && (*m_currentAgent) == agent)
 		m_dead = true;
 	m_agentsToRemove.push_back(agent);
 }
@@ -50,7 +50,8 @@ void TeamBase::log(const char *msg) {
 
 void TeamBase::kill(const char *str) {
 	log(str);
-	::kill(m_pid, SIGKILL);
+	if (m_pid > 0)
+		::kill(m_pid, SIGKILL);
 	eventProcessDied();
 }
 
