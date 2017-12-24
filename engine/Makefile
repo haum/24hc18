@@ -1,4 +1,4 @@
-CXXFLAGS+=-std=c++14 -Wall -g -Og -Wextra -pipe -funsigned-char -fstrict-aliasing -Wchar-subscripts -Wundef -Wshadow -Wcast-align -Wwrite-strings -Wunused -Wuninitialized -Wpointer-arith -Wredundant-decls -Wformat -Wformat-security -Winit-self -Wmissing-include-dirs -Wmissing-declarations -MMD -MP
+CXXFLAGS+=-std=c++14 -Wall -gdwarf -Og -fkeep-inline-functions -Wextra -pipe -funsigned-char -fstrict-aliasing -Wchar-subscripts -Wundef -Wshadow -Wcast-align -Wwrite-strings -Wunused -Wuninitialized -Wpointer-arith -Wredundant-decls -Wformat -Wformat-security -Winit-self -Wmissing-include-dirs -Wmissing-declarations -MMD -MP
 
 CPPFILES+=$(wildcard *.cpp */*.cpp)
 OBJS=$(patsubst %.cpp,build/%.o,${CPPFILES})
