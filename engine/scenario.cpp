@@ -1,5 +1,5 @@
 #include "scenario.h"
-#include "gears/timeutils.h"
+#include "gears/gameclock.h"
 #include "gears/utils.h"
 #include <climits>
 #include <cmath>

@@ -1,5 +1,5 @@
 #include "scenario_base.h"
-#include "timeutils.h"
+#include "gameclock.h"
 #include <algorithm>
 #include <alloca.h>
 #include <cstdio>
@@ -44,12 +44,11 @@ void ScenarioBase::rmGameObject(GameObject *obj) {
 }
 
 void ScenarioBase::run() {
-	auto end_tp = chr::now() + m_duration;
-	auto periodic_tp = chr::now();
+	GameClock clock(m_duration);
 	size_t ianb = m_teams.size();
 	auto fds = reinterpret_cast<pollfd *>(alloca((ianb + 1) * sizeof(pollfd)));
 	auto tm = reinterpret_cast<Team **>(alloca((ianb + 1) * sizeof(Team *)));
-	while (chr::now() < end_tp) {
+	while (clock.running()) {
 		nfds_t nbwait = 0;
 		fds[nbwait].fd = m_snitch->eventFd();
 		fds[nbwait].events = POLLIN;
@@ -87,12 +86,13 @@ void ScenarioBase::run() {
 					}
 				}
 			}
-			while (chr::now() > periodic_tp) {
-				periodic_tp += 100ms;
+			uint32_t periodicCount = clock.periodicCount();
+			for (uint32_t i = 0; i < periodicCount; ++i) {
 				for (auto &go : m_gameObjectsStorage) {
 					go->periodic();
 				}
 			}
 		}
+		clock.update();
 	}
 }
