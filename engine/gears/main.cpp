@@ -93,7 +93,8 @@ int main(int argc, char *argv[]) {
 	scenario.set_teams(teams_ptrs);
 	scenario.set_snitch(&snitch);
 	scenario.load(scenario_name);
-	scenario.run();
+	GameClock clock;
+	scenario.run(clock);
 
 	std::cout << "==========\n"
 	          << "STATISTICS\n"

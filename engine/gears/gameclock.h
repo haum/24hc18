@@ -9,10 +9,13 @@ class GameClock {
 	typedef std::chrono::steady_clock::time_point tp;
 	typedef std::chrono::steady_clock::duration duration;
 
-	/** Constructor of game clock
+	/** Constructor of game clock **/
+	GameClock();
+
+	/** Set duration of simulation
 	 * @param d Duration of simulation
 	 */
-	GameClock(duration d);
+	void setDuration(duration d);
 
 	/** Is simulation running **/
 	bool running();
@@ -26,18 +29,39 @@ class GameClock {
 	/** Periodic calls to do **/
 	uint32_t periodicCount();
 
+	/** Execute one agent per team **/
+	void setOneShot();
+
+	/** Is oneshot ? **/
+	bool oneShot();
+
+	/** Go to normal run **/
+	void setNormalRun();
+
+	/** Is normal run ? **/
+	bool normalRun();
+
   private:
+	/** Add time to simulation (debugger version) **/
+	void addTime(int d) { addTime(d * 1ms); }
+
 	/** Duration of simulation **/
-	duration m_duration{0s};
+	duration m_duration = 0s;
 
 	/** Elapsed time of simulation **/
-	duration m_elapsed{0s};
+	duration m_elapsed = 0s;
 
 	/** Last periodic elapsed time **/
-	duration m_periodic{0s};
+	duration m_periodic = 0s;
 
 	/** last wall clock value **/
 	tp m_lastWallclock;
+
+	/** Is oneshot ? **/
+	bool m_oneShot = false;
+
+	/** Is normal run ? **/
+	bool m_normalRun = true;
 };
 
 #endif // GAMECLOCK_H

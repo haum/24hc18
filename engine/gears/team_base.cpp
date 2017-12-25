@@ -55,6 +55,16 @@ void TeamBase::kill(const char *str) {
 	eventProcessDied();
 }
 
+void TeamBase::oneShot(bool on) {
+	if (m_paused) {
+		m_paused = false;
+		while (!sendPrelude() && nextAgent()) {
+			// Nothing to do
+		}
+	}
+	m_oneshot = on;
+}
+
 bool TeamBase::nextAgent() {
 	m_dead = false;
 	if (m_currentAgent != m_agents.end())
@@ -78,6 +88,11 @@ bool TeamBase::nextAgent() {
 }
 
 bool TeamBase::sendPrelude() {
+	if (m_oneshot || m_paused) {
+		m_oneshot = false;
+		m_paused = true;
+		return true;
+	}
 	std::ostringstream os;
 	if (m_currentAgent != m_agents.end() && (*m_currentAgent)->prelude(os)) {
 		const auto data = os.str();

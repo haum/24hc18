@@ -50,6 +50,12 @@ class TeamBase {
 	 */
 	void kill(const char *str);
 
+	/** Execute one agent only **/
+	void oneShot(bool on);
+
+	/** Current agent is paused **/
+	bool paused() { return m_paused; }
+
 	/** Gets event file descriptor
 	 * @return File descriptor
 	 */
@@ -85,6 +91,12 @@ class TeamBase {
 
 	/** Is current agent dead **/
 	bool m_dead;
+
+	/** Is current agent paused **/
+	bool m_paused = false;
+
+	/** Do we execute one shot agent **/
+	bool m_oneshot = false;
 
 	/** Line parser **/
 	LineParser<80> m_parser;

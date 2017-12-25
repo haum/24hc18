@@ -2,13 +2,15 @@
 
 using chr = std::chrono::steady_clock;
 
-GameClock::GameClock(duration d) : m_duration(d), m_lastWallclock(chr::now()) {}
+GameClock::GameClock() : m_lastWallclock(chr::now()) {}
+
+void GameClock::setDuration(duration d) { m_duration = d; }
 
 bool GameClock::running() { return m_elapsed < m_duration; }
 
 void GameClock::update() {
 	tp now = chr::now();
-	if (now > m_lastWallclock) {
+	if (m_normalRun) {
 		addTime(now - m_lastWallclock);
 		m_lastWallclock = now;
 	}
@@ -25,3 +27,22 @@ uint32_t GameClock::periodicCount() {
 	}
 	return ret;
 }
+
+void GameClock::setOneShot() {
+	m_oneShot = true;
+	m_normalRun = false;
+}
+
+bool GameClock::oneShot() {
+	bool ret = m_oneShot;
+	m_oneShot = false;
+	return ret;
+}
+
+void GameClock::setNormalRun() {
+	m_oneShot = false;
+	m_normalRun = true;
+	m_lastWallclock = chr::now();
+}
+
+bool GameClock::normalRun() { return m_normalRun; }

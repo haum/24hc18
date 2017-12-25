@@ -1,5 +1,6 @@
 #include "scenario_base.h"
 #include "gameclock.h"
+#include "utils.h"
 #include <algorithm>
 #include <alloca.h>
 #include <cstdio>
@@ -43,8 +44,8 @@ void ScenarioBase::rmGameObject(GameObject *obj) {
 	}
 }
 
-void ScenarioBase::run() {
-	GameClock clock(m_duration);
+void ScenarioBase::run(GameClock &clock) {
+	clock.setDuration(m_duration);
 	size_t ianb = m_teams.size();
 	auto fds = reinterpret_cast<pollfd *>(alloca((ianb + 1) * sizeof(pollfd)));
 	auto tm = reinterpret_cast<Team **>(alloca((ianb + 1) * sizeof(Team *)));
@@ -54,6 +55,8 @@ void ScenarioBase::run() {
 		fds[nbwait].events = POLLIN;
 		tm[nbwait] = nullptr;
 		++nbwait;
+		bool paused = true;
+		bool oneShot = clock.oneShot();
 		for (auto *t : m_teams) {
 			int fd;
 			fd = t->eventFd();
@@ -68,7 +71,14 @@ void ScenarioBase::run() {
 				tm[nbwait] = t;
 				++nbwait;
 			}
+			if (oneShot)
+				t->oneShot(true);
+			else if (clock.normalRun())
+				t->oneShot(false);
+			paused &= t->paused();
 		}
+		if (paused)
+			breakAnchor("allTeamsArePaused");
 		int respoll = poll(fds, nbwait, 100);
 		if (respoll < 0) {
 			usleep(100'000);

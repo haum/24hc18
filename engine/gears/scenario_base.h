@@ -2,6 +2,7 @@
 #define SCENARIOBASE_H
 
 #include "../nest.h"
+#include "gameclock.h"
 #include "lineparser.h"
 #include "snitch.h"
 #include <chrono>
@@ -29,8 +30,10 @@ class ScenarioBase {
 	 */
 	void load(const char *scenario_name);
 
-	/** Run scenario **/
-	void run();
+	/** Run scenario
+	 * @param clock GameClock to use
+	 */
+	void run(GameClock &clock);
 
 	/** Process one line of scenario **/
 	virtual void processLine(uint8_t argc, const char **argv) = 0;
