@@ -156,6 +156,7 @@ void TeamBase::start_subprocess() {
 
 	std::copy(m_agentsToAdd.begin(), m_agentsToAdd.end(),
 	          std::back_inserter(m_agents));
+	m_agentsToAdd.clear();
 
 	if (pid) { // Game manager
 		m_fdin = pipe0[1];
