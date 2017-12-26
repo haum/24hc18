@@ -132,25 +132,25 @@ Informations
           Les phéromones des équipes adverses ne sont pas listées.
   ======  ======
 
-`SEE_ANT <id> <zone> <friend> <life>`
+`SEE_ANT <id> <zone> <friend> <stamina>`
   Indique la présence d'une fourmi à proximité.
 
-  ========  ======
-  `id`      Nombre temporaire utilisé pour faire référence à cet objet dans les
-            actions.
-  --------  ------
-  `zone`    Zone d'interaction.
+  =========  ======
+  `id`       Nombre temporaire utilisé pour faire référence à cet objet dans les
+             actions.
+  ---------  ------
+  `zone`     Zone d'interaction.
 
-            Prend les valeurs `FAR` ou `NEAR`.
-  --------  ------
-  `friend`  Indique si la fourmi est-elle de notre fourmillière.
+             Prend les valeurs `FAR` ou `NEAR`.
+  ---------  ------
+  `friend`   Indique si la fourmi est-elle de notre fourmillière.
 
-            Prend les valeurs `FRIEND` ou `ENEMY`.
-  --------  ------
-  `life`    Indique le niveau de vie de la fourmi.
+             Prend les valeurs `FRIEND` ou `ENEMY`.
+  ---------  ------
+  `stamina`  Indique le niveau d'endurance de la fourmi.
 
-            Nombre indiquant la vie restante. (À remplacer par des seuils ?)
-  ========  ======
+             Nombre indiquant l'endurance restante.
+  =========  ======
 
 `SEE_NEST <id> <zone> <friend>`
   Indique la présence d'une fourmillière à proximité.
