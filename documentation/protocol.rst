@@ -300,6 +300,18 @@ Informations
   `quantity`  Quantité de fourmis de ce type.
   ==========  ======
 
+`ANT_IN <type> <m0> <m1>`
+  Liste les fourmis rentrées à la fourmilière depuis le dernier appel à la
+  stratégie.
+
+  Il y a une ligne d'information par fourmi rentrée.
+
+  ==========  ======
+  `type`      Type de fourmi.
+  `m0`        Mémoire de la fourmi
+  `m1`        Mémoire de la fourmi
+  ==========  ======
+
 Actions
 -------
 
