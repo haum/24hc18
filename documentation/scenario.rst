@@ -89,10 +89,17 @@ Commandes
   `longitude`  Longitude de l'objet en degrés (-180 à 180).
   ===========  ======
 
-`FOOD <latitude> <longitude>`
+`FOOD <latitude> <longitude> <initialValue> <chargeRate> <chargeMax> <totalChargeMax> <deadIfEmpty>`
   Ajoute une source de nourriture dans la simulation.
 
-  ===========  ======
-  `latitude`   Latitude de l'objet en degrés (-90 à 90).
-  `longitude`  Longitude de l'objet en degrés (-180 à 180).
-  ===========  ======
+  ================  ======
+  `latitude`        Latitude de l'objet en degrés (-90 à 90).
+  `longitude`       Longitude de l'objet en degrés (-180 à 180).
+  `initialValue`    Quantité initiale dans la source.
+  `chargeRate`      Taux de rechargement en quantité par 100ms (peut être
+                    décimal, par exemple 0.1).
+  `chargeMax`       Quantité maximale.
+  `totalChargeMax`  Quantité maximale ajoutée pendant tout le match.
+  `deadIfEmpty`     La source doit-elle se tarir (1) ou continuer à se recharger
+                    (0) si elle est complètement consommée.
+  ================  ======
