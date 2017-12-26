@@ -46,16 +46,19 @@ fourmilière). Suivent ensuite l'ensemble des `informations` perçues puis la
 commande `END`.
 
 C'est ensuite à votre programme d'indiquer les actions à réaliser. Attention,
-certaines actions ne sont pas cumulables. Votre programme termine la liste des
-actions réalisées avec le marqueur `END` et se met en écoute d'un éventuel
-marqueur de début pour une nouvelle entité.
+les actions dites exclusives ne sont pas cumulables. Votre programme termine la
+liste des actions réalisées avec le marqueur `END` et se met en écoute d'un
+éventuel marqueur de début pour une nouvelle entité.
 
 .. WARNING::
    Notez qu'il est important de respecter l'ordre de parole (i.e. bien attendre
-   d'avoir reçu `END` avant d'indiquer les actions) et de n'indiquer qu'un seul
-   `END` en fin de liste d'actions. Dans le cas contraire, le simulateur est
-   libre de faire ce qu'il veut comme attribuer certaines actions à d'autres
-   entités, ignorer les commandes ou même tuer vos fourmis.
+   d'avoir reçu `END` avant d'indiquer les actions), de n'indiquer qu'un seul
+   `END` en fin de liste d'actions et de ne pas utiliser plusieurs commandes
+   exclusives.
+  
+   Dans le cas contraire, le simulateur est libre de faire ce qu'il veut comme
+   attribuer certaines actions à d'autres entités, ignorer les commandes ou même
+   tuer vos fourmis.
 
 Perception de l'environnement
 -----------------------------
@@ -318,6 +321,8 @@ Actions
 `ANT_NEW <type>`
   Crée une nouvelle fourmi dans la fourmilière.
 
+  Cette action est exclusive.
+
   ==========  ======
   `type`      Type de fourmi.
   ==========  ======
@@ -328,6 +333,8 @@ Actions
   Cette fourmi doit exister dans la fourmilière. Elle sort avec le maximum de
   stamina.
 
+  Cette action est exclusive.
+
   ==========  ======
   `type`      Type de fourmi.
   `m0`        Mémoire initiale de la fourmi
@@ -336,6 +343,8 @@ Actions
 
 `MEMORY <m0> <m1> ... <m19>`
   Modifie la mémoire de la fourmilière.
+
+  Cette action n'est pas exclusive.
 
   +------+--------------------------------------+
   | `m0` | Nombre compris entre 0 et 255 inclus.|
