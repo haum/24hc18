@@ -18,6 +18,23 @@ class Nest : public Agent {
 	/** Get category **/
 	static GameObject_t category() { return &s_category; }
 
+	/** Set nest position
+	 * @param latitude Latitude
+	 * @param longitude Longitude
+	 */
+	void setPosition(double latitude, double longitude);
+
+	/** Set population of a certain type of ants
+	 * @param type Type of ants
+	 * @param nb   Number of ants of that type
+	 */
+	void setPopulation(uint8_t type, int nb);
+
+	/** Set food amount
+	 * @param amount Amount of food
+	 */
+	void setFood(int amount);
+
 	/** Actions when command are wrong **/
 	void invalidAction();
 

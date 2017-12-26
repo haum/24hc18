@@ -29,26 +29,24 @@ void Scenario::actionMaxteams(uint8_t teams) {
 
 void Scenario::actionDuration(int s) { m_duration = s * 1s; }
 
-void Scenario::actionNestPosition(uint8_t team, int /*latitude*/,
-                                  int /*longitude*/) {
+void Scenario::actionNestPosition(uint8_t team, int latitude, int longitude) {
 	auto *nest = findNest(team);
 	if (nest) {
-		// nest->setPosition(latitude * M_PI / 180, longitude * M_PI / 180);
+		nest->setPosition(latitude * M_PI / 180, longitude * M_PI / 180);
 	}
 }
 
-void Scenario::actionNestPopulation(uint8_t team, uint8_t /*type*/,
-                                    int /*nb*/) {
+void Scenario::actionNestPopulation(uint8_t team, uint8_t type, int nb) {
 	auto *nest = findNest(team);
 	if (nest) {
-		// nest->setPopulation(type, nb);
+		nest->setPopulation(type, nb);
 	}
 }
 
-void Scenario::actionNestFood(uint8_t team, int /*amount*/) {
+void Scenario::actionNestFood(uint8_t team, int amount) {
 	auto *nest = findNest(team);
 	if (nest) {
-		// nest->setFood(amount);
+		nest->setFood(amount);
 	}
 }
 

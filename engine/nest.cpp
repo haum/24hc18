@@ -11,6 +11,25 @@ Nest::Nest(Team &team, double latitude, double longitude)
 	::memset(m_memory, 0, sizeof(m_memory));
 }
 
+void Nest::setPosition(double latitude, double longitude) {
+	m_latitude = latitude;
+	m_longitude = longitude;
+}
+
+void Nest::setPopulation(uint8_t type, int nb) {
+	if (nb > 0)
+		m_antNumber[type] = static_cast<uint32_t>(nb);
+	else
+		m_antNumber.erase(type);
+}
+
+void Nest::setFood(int amount) {
+	if (amount > 0)
+		m_stock = static_cast<uint32_t>(amount);
+	else
+		m_stock = 0;
+}
+
 bool Nest::prelude(std::ostream &os) {
 	os << "BEGIN NEST\n";
 	os << "STOCK " << static_cast<int>(m_stock) << '\n';
@@ -55,9 +74,7 @@ void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
 		team().scenario().addGameObject<Ant>(team(), 200, this->longitude(),
 		                                     this->latitude(), random_angle(),
 		                                     type, m0, m1);
-		m_antNumber[type] -= 1;
-		if (m_antNumber[type] == 0)
-			m_antNumber.erase(type);
+		setPopulation(type, m_antNumber[type] - 1);
 	}
 }
 
