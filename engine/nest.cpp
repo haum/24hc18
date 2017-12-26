@@ -29,25 +29,31 @@ bool Nest::prelude(std::ostream &os) {
 void Nest::invalidAction() { log("Invalid action, ignored"); }
 
 void Nest::periodic() {
-	unsigned int count = 0;
+	uint32_t count = 0;
 	for (auto &pair : m_antNumber)
 		count += pair.second;
-	unsigned int cost = (count / 100) + 1;
+	uint32_t cost = (count / 100) + 1;
 	if (m_stock > cost)
 		m_stock -= cost;
 	else
 		m_stock = 0;
 }
 
+bool Nest::hasAntType(uint8_t type) { return (m_antNumber.count(type) > 0); }
+
 void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
 	if (!valid) {
 		invalidAction();
 		return;
 	}
-	team().scenario().addGameObject<Ant>(team(), 200, this->longitude(),
-	                                     this->latitude(), random_angle(), type,
-	                                     m0, m1);
-	antQuantityChanger(type, -1);
+	if (hasAntType(type) && m_antNumber[type] > 0) {
+		team().scenario().addGameObject<Ant>(team(), 200, this->longitude(),
+		                                     this->latitude(), random_angle(),
+		                                     type, m0, m1);
+		m_antNumber[type] -= 1;
+		if (m_antNumber[type] == 0)
+			m_antNumber.erase(type);
+	}
 }
 
 void Nest::actionAntNew(bool valid, uint8_t type) {
@@ -55,11 +61,19 @@ void Nest::actionAntNew(bool valid, uint8_t type) {
 		invalidAction();
 		return;
 	}
-	if (checkAntType(type)) {
-		antQuantityChanger(type, 1);
+	if (hasAntType(type)) {
+		m_antNumber[type] += 1;
 	} else {
-		addNewAntType(type);
+		m_antNumber[type] = 1;
 	}
+}
+
+void Nest::actionMemory(bool valid, uint8_t mem[20]) {
+	if (!valid) {
+		invalidAction();
+		return;
+	}
+	::memcpy(m_memory, mem, sizeof(m_memory));
 }
 
 void Nest::execute(uint8_t argc, const char **argv) {
@@ -78,6 +92,16 @@ void Nest::execute(uint8_t argc, const char **argv) {
 		bool ok;
 		int type = param_int(argv[1], ok, 0, 255);
 		actionAntNew(ok, static_cast<uint8_t>(type));
+
+	} else if (!strncmp(argv[0], "MEMORY", 7) && argc == 21) {
+		bool ok = true;
+		uint8_t mem[20];
+		for (int i = 1; i < 21; ++i) {
+			bool ok_i;
+			mem[i - 1] = static_cast<uint8_t>(param_int(argv[i], ok_i, 0, 255));
+			ok &= ok_i;
+		}
+		actionMemory(ok, mem);
 
 	} else {
 		invalidAction();
