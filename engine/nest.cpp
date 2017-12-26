@@ -5,11 +5,8 @@
 
 const GameObjectCategory Nest::s_category{"NEST"};
 
-Nest::Nest(Team &team, double latitude, double longitude,
-           uint64_t initialAntNumber)
+Nest::Nest(Team &team, double latitude, double longitude)
     : Agent{team, Nest::category(), latitude, longitude, 0} {
-	addNewAntType(0);
-	antQuantityChanger(0, initialAntNumber);
 	m_teamBase = &team;
 }
 

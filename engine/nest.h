@@ -12,10 +12,8 @@ class Nest : public Agent {
 	 * @param team             Team whose agent belongs
 	 * @param latitude         Lattitude
 	 * @param longitude        Longitude
-	 * @param initialAntNumber Initial number of ants in nest
 	 */
-	Nest(Team &team, double latitude, double longitude,
-	     uint64_t initialAntNumber);
+	Nest(Team &team, double latitude, double longitude);
 
 	/** Get category **/
 	static GameObject_t category() { return &s_category; }
