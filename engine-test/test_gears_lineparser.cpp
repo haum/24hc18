@@ -101,10 +101,11 @@ TEST_F(GearsLineParser, DoubleSpace) {
 	EXPECT_EQ(output(), expected_out);
 }
 
-TEST_F(GearsLineParser, TwentyPlusArgs) {
-	input = "TWENTY 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21\n";
-	std::string expected_out =
-	    "TWENTY/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16/17/18/19 20 21@";
+TEST_F(GearsLineParser, TwentyFivePlusArgs) {
+	input = "TWENTYFIVE 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 "
+	        "22 23 24 25 26\n";
+	std::string expected_out = "TWENTYFIVE/1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/"
+	                           "16/17/18/19/20/21/22/23/24 25 26@";
 	READ();
 	for (auto e : err)
 		EXPECT_EQ(e, LineParserError::NO_ERROR);
