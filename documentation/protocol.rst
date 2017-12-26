@@ -266,24 +266,39 @@ recolonisée uniquement par sa propre équipe.
 Informations
 ------------
 
-========================== ====================================================
-Commande                   Description
-========================== ====================================================
-*BEGIN NEST*               | Informe du début de la communication
--------------------------- ----------------------------------------------------
-*ENERGY <quantity>*        | Informe du niveau d'énergie (qté) de la
-                           | fourmilière
--------------------------- ----------------------------------------------------
-*STOCK <quantity>*         | Informe de la quantité de nourriture stockée  
-                           | dans le fourmilière
--------------------------- ----------------------------------------------------
-*MEMORY [<u_int8> x20]*    | Informe du contenu de la mémoire de la
-                           | fourmilière sous la forme d'un tableau de 
-                           | 20 u_int8 (soit 20 octets)
--------------------------- ----------------------------------------------------
-*ANT_NUMBER <quantity>*    | Informe du nombre de fourmis à l'intérieur 
-                           | de la fourmilière
-========================== ====================================================
+`BEGIN NEST`
+  Informe du début de la communication. Cette commande est toujours envoyée en
+  premier.
+
+`STOCK <quantity>`
+  Indique le niveau du stock de nourritude dans la fourmilière.
+
+  ==========  ======
+  `quantity`  Niveau du stock de nourriture.
+  ==========  ======
+
+`MEMORY <m0> <m1> ... <m19>`
+  Indique le contenu de la mémoire de la fourmilière (20 éléments).
+
+  +------+--------------------------------------+
+  | `m0` | Nombre compris entre 0 et 255 inclus.|
+  +------+--------------------------------------+
+  | `m1` | Nombre compris entre 0 et 255 inclus.|
+  +------+--------------------------------------+
+  |             ...                             |
+  +------+--------------------------------------+
+  | `m19`| Nombre compris entre 0 et 255 inclus.|
+  +------+--------------------------------------+
+
+`ANT_COUNT <type> <quantity>`
+  Indique le nombre de fourmis dans la fourmilière.
+
+  Il y a une ligne d'information par type de fourmi présente.
+
+  ==========  ======
+  `type`      Type de fourmis.
+  `quantity`  Quantité de fourmis de ce type.
+  ==========  ======
 
 Actions
 -------
