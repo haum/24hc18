@@ -72,6 +72,9 @@ class Ant : public Agent {
 	/** Food stock **/
 	int m_stock;
 
+	/** Was ant attacked **/
+	bool m_attacked;
+
 	/** Type of ant **/
 	uint8_t m_ant_type;
 

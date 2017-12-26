@@ -10,8 +10,8 @@ const GameObjectCategory Ant::s_category{"ANT"};
 Ant::Ant(Team &team, int stamina, double latitude, double longitude,
          double heading, uint8_t ant_type, uint8_t memory1, uint8_t memory2)
     : Agent{team, Ant::category(), latitude, longitude, heading},
-      m_stamina{stamina}, m_stock{0}, m_ant_type{ant_type}, m_memory{memory1,
-                                                                     memory2} {
+      m_stamina{stamina}, m_stock{0}, m_attacked{false},
+      m_ant_type{ant_type}, m_memory{memory1, memory2} {
 	m_teamBase = &team;
 }
 
@@ -32,6 +32,10 @@ bool Ant::prelude(std::ostream &os) {
 	os << "TYPE " << static_cast<int>(m_ant_type) << '\n';
 	os << "MEMORY " << static_cast<int>(m_memory[0]) << ' '
 	   << static_cast<int>(m_memory[1]) << '\n';
+	if (m_attacked) {
+		os << "ATTACKED\n";
+		m_attacked = false;
+	}
 	os << "STAMINA " << static_cast<int>(m_stamina) << '\n';
 	os << "STOCK " << static_cast<int>(m_stock) << '\n';
 	team().resetIds();
