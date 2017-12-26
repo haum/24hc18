@@ -23,12 +23,6 @@ class Nest : public Agent {
 	/** Actions when command are wrong **/
 	void invalidAction();
 
-	/** Get nest life **/
-	int life() { return m_life; }
-
-	/** Set nest life **/
-	void setLife(int life) { this->m_life = life; }
-
 	/** Method called periodically by the engine **/
 	void periodic() override;
 
@@ -64,8 +58,8 @@ class Nest : public Agent {
 	}
 
   private:
-	/** Life of the nest**/
-	int m_life;
+	/** Stock of the nest**/
+	int m_stock = 0;
 
 	/** Number of ants currently in nest **/
 	std::map<uint8_t, uint32_t> m_antNumber;

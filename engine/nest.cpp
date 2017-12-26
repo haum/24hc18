@@ -21,12 +21,18 @@ bool Nest::prelude(std::ostream &os) {
 	return true;
 }
 
-void Nest::invalidAction() {
-	log("Invalid action, Energy divided by 2");
-	m_life /= 2;
-}
+void Nest::invalidAction() { log("Invalid action, ignored"); }
 
-void Nest::periodic() { this->setLife(m_life - 1); }
+void Nest::periodic() {
+	unsigned int count = 0;
+	for (auto &pair : m_antNumber)
+		count += pair.second;
+	unsigned int cost = (count / 100) + 1;
+	if (m_stock > cost)
+		m_stock -= cost;
+	else
+		m_stock = 0;
+}
 
 void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
 	if (!valid) {
