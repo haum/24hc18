@@ -96,6 +96,24 @@ Informations
   `m1`  Nombre compris entre 0 et 255 inclus.
   ====  ======
 
+`ATTACKED`
+  Cette information n'est présente que si la fourmi s'est faite attaquer depuis
+  le dernier appel à sa stratégie.
+
+`STAMINA <quantity>`
+  Indique le niveau d'endurance de la fourmi.
+
+  ==========  ======
+  `quantity`  Niveau d'endurance.
+  ==========  ======
+
+`STOCK <quantity>`
+  Indique le niveau du stock de nourritude transporté par la fourmi.
+
+  ==========  ======
+  `quantity`  Niveau du stock de nourriture.
+  ==========  ======
+
 `SEE_PHEROMONE <id> <zone> <type>`
   Indique la présence d'une phéromone à proximité.
 
@@ -165,23 +183,6 @@ Informations
 
             Nombre indiquant la quantité disponible restante.
   ========  ======
-
-
-Non implémenté :
-
-======================================== ======================================
-Commande                                 Description
-======================================== ======================================
-*ENERGY <qté>*                           | Informe du niveau d'énergie (`qté`)
-                                         | de la fourmi
----------------------------------------- --------------------------------------
-*STOCK <qté>*                            | Informe de la quantité de nourriture
-                                         | stockée par la fourmi
----------------------------------------- --------------------------------------
-*STATUS <state>*                         | Informe sur l'etat de situation
-                                         | courante d'une fourmi (ATTACKED,
-                                         | OCCUPED ou NONE).
-======================================== ======================================
 
 Actions
 -------
