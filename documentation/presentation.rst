@@ -5,8 +5,8 @@ De quoi s'agit-il ?
 L'univers
 =========
 
-La planète Apocrite est un monde peuplé de fourmis au sein du système
-Holométabole. Elle évolue au cœur d'un environnement numérique impitoyable
+La planète Apocrite est un monde isolé au sein du système Holométabole peuplé
+de fourmis. Elle évolue au cœur d'un environnement numérique impitoyable
 gouverné par un simulateur intransigeant.
 
 Fraîchement échouée sur la planète, votre colonie de fourmis va devoir faire
