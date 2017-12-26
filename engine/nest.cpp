@@ -8,11 +8,19 @@ const GameObjectCategory Nest::s_category{"NEST"};
 Nest::Nest(Team &team, double latitude, double longitude)
     : Agent{team, Nest::category(), latitude, longitude, 0} {
 	m_teamBase = &team;
+	::memset(m_memory, 0, sizeof(m_memory));
 }
 
 bool Nest::prelude(std::ostream &os) {
 	os << "BEGIN NEST\n";
-	os << "ANTS " << static_cast<int>(getAntNumberOfType(0)) << '\n';
+	os << "STOCK " << static_cast<int>(m_stock) << '\n';
+	os << "MEMORY";
+	for (auto m : m_memory)
+		os << ' ' << static_cast<int>(m);
+	os << '\n';
+	for (auto &pair : m_antNumber)
+		os << "ANT_COUNT " << static_cast<int>(pair.first) << ' '
+		   << static_cast<int>(pair.second) << '\n';
 	os << "END\n";
 	os.flush();
 	return true;

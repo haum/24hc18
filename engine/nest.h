@@ -62,6 +62,9 @@ class Nest : public Agent {
 	/** Number of ants currently in nest **/
 	std::map<uint8_t, uint32_t> m_antNumber;
 
+	/** Memory **/
+	uint8_t m_memory[20];
+
 	virtual bool prelude(std::ostream &os) override;
 	virtual void execute(uint8_t argc, const char **argv) override;
 
