@@ -243,29 +243,25 @@ Commande                           Description                         Coût
 Fourmilière
 ============
 
-La fourmilère abrite le stock de ressource de la colonie ainsi q'une partie de
-sa population.
+La fourmilère abrite le stock de ressources de la colonie ainsi qu'une partie de
+sa population. Le stock et la population de la fourmilière ne sont pas limités.
 
-La population vivant dans la fourmilère consome ses ressources. Par conséquent,
-le stock de ressources baisse proportionellement à la population selon le
-calcul suivant : 1 point de stock toutes les 100ms et par palier de 100
-fourmis.
-
-Voici un exemple:
+Cependant, la population vivant dans la fourmilère consomme ses ressources. Par
+conséquent, le stock de ressources baisse proportionellement à la population
+selon le calcul suivant : 1 point de stock toutes les 100ms et par palier de 100
+fourmis. Voici un exemple:
 
 ============== ================================================================
 Population     Coût en ressources
--------------- ----------------------------------------------------------------
-85 fourmis     1 point de stosck / 100ms
+============== ================================================================
+85 fourmis     1 point de stock / 100ms
 -------------- ----------------------------------------------------------------
 512 fourmis    6 points de stock / 100ms                                       
 ============== ================================================================
 
-Le stock et la population de la fourmilière ne sont pas limités.
-
-Lorsque la population où le stock de la fourmilière tombent à 0, cette dernière
-n'est pas détriute. Elle reste, désertée sur le terrain et peut être
-recolonisée par son équipe uniquement.
+Lorsque la population ou le stock de la fourmilière tombe à 0, cette dernière
+n'est pas détruite. Elle reste (désertée) sur le terrain et peut toutefois être
+recolonisée uniquement par sa propre équipe.
 
 Informations
 ------------
