@@ -18,6 +18,16 @@ Par commodité pour le programme de stratégie, la communication s'effectue à
 travers ses propres flux d'entrée et de sortie standards (`stdin`, `stdout`).
 Il s'agit d'un protocole au format textuel.
 
+.. NOTE::
+   Les flux d'entrée et de sortie standards sont les mêmes que vous utilisez
+   habituellement pour dialoguer avec votre programme en console ou via votre
+   IDE. Ne cherchez pas plus compliqué.
+
+.. NOTE::
+   Cela signifie aussi qu'il est facile de vérifier le comportement de votre
+   stratégie en lui envoyant vous-même des données avant de le soumettre au
+   simulateur.
+
 Les données sont transmises ligne par ligne (délimitées par un caractère
 LF=0x0A=10) avec un maximum de 80 caractères par ligne (saut de ligne inclus).
 Chaque ligne contient une seule commande avec des arguments séparés par des
