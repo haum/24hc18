@@ -65,19 +65,20 @@ void Nest::actionAntNew(bool valid, uint8_t type) {
 void Nest::execute(uint8_t argc, const char **argv) {
 	if (argc <= 0)
 		return;
+
 	if (!strncmp(argv[0], "ANT_OUT", 8) && argc == 4) {
-		bool ok_type;
+		bool ok_type, ok_m0, ok_m1;
 		int type = param_int(argv[1], ok_type, 0, 255);
-		bool ok_m0;
 		int m0 = param_int(argv[2], ok_m0, 0, 255);
-		bool ok_m1;
 		int m1 = param_int(argv[3], ok_m1, 0, 255);
-		bool ok = ok_type && ok_m0 && ok_m1;
-		actionAntOut(ok, type, m0, m1);
+		actionAntOut(ok_type && ok_m0 && ok_m1, static_cast<uint8_t>(type),
+		             static_cast<uint8_t>(m0), static_cast<uint8_t>(m1));
+
 	} else if (!strncmp(argv[0], "ANT_NEW", 8) && argc == 2) {
 		bool ok;
 		int type = param_int(argv[1], ok, 0, 255);
-		actionAntNew(ok, type);
+		actionAntNew(ok, static_cast<uint8_t>(type));
+
 	} else {
 		invalidAction();
 	}
