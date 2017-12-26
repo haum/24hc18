@@ -43,6 +43,16 @@ class Nest : public Agent {
 	/** Number of ants currently in nest **/
 	std::map<uint8_t, uint32_t> m_antNumber;
 
+	/** Things to remember about ants come home since last call to strategy **/
+	struct AntIn {
+		uint8_t type;
+		uint8_t m0;
+		uint8_t m1;
+	};
+
+	/** List of Ant come home since last call to strategy **/
+	std::vector<AntIn> m_antsIn;
+
 	/** Memory **/
 	uint8_t m_memory[20];
 

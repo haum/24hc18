@@ -21,6 +21,11 @@ bool Nest::prelude(std::ostream &os) {
 	for (auto &pair : m_antNumber)
 		os << "ANT_COUNT " << static_cast<int>(pair.first) << ' '
 		   << static_cast<int>(pair.second) << '\n';
+	for (auto &antin : m_antsIn)
+		os << "ANT_IN " << static_cast<int>(antin.type) << ' '
+		   << static_cast<int>(antin.m0) << ' ' << static_cast<int>(antin.m1)
+		   << '\n';
+	m_antsIn.clear();
 	os << "END\n";
 	os.flush();
 	return true;
