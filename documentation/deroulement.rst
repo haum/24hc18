@@ -1,45 +1,65 @@
-========================
-Tout va bien se passer ?
-========================
+===========
+Déroulement
+===========
 
-Enchaînement de matchs
-======================
+Enchaînement des matchs
+=======================
 
-Marabunta est un jeu entre équipes (et parfois contre le monde). Votre objectif
-est de marquer plus de points que les autres au cours d'une série de matchs. Ces 
-matchs proposeront des scenarii différents, de difficulté a priori croissante.
-Nous annoncerons les matchs à venir à l'avance, selon le planning prévu.
+Le défi s'étale sur une série de matchs se déroulant en plusieurs tournois tout
+au long de ces 24h. Ces matchs proposeront des scenarii différents, de
+difficulté a priori croissante.
+
+Nous annoncerons les prochains tournois à l'avance. Pour les premiers matchs,
+les caractéristiques principales des scénarii à jouer vous seront indiquées.
 
 Déroulement d'un match
 ======================
 
-La durée des matchs est pré-déterminée par le scénario.
+Dans un premier temps, le serveur de jeu récupère les sources des programmes de
+stratégie de chacune des équipes et les compile si besoin. Ils seront exécutés
+sur le serveur de jeu.
 
-Vous devrez produire un code (voir page environnement de développement), viable 
-pour chaque nouveau scénario. Nous récupérerons ce code pour le compiler/exécuter
-sur nos systèmes.
+Les équipes sont alors affectées aléatoirement dans les simulations. Les matchs
+se dérouleront d'après l'état initial de la planète défini par le scénario et en
+suivant les comportements des fourmis et fourmilières implémentés dans les
+différentes stratégies des équipes.
+
+La durée des matchs est déterminée par le scénario. Votre objectif est avant
+tout de produire une stratégie viable dans le temps imparti, même si prospérité
+et éventuellement belligérance peuvent être des atouts pour gagner la partie.
+
+Les statégies peuvent être différentes pour chaque tournoi, mais il ne faut pas
+oublier que chacun de ceux-ci pouvent comporter plusieurs scénarii que la même
+statégie devra affronter.
 
 Conditions de victoire et attribution des points
 ================================================
 
-À la fin d'une série de matchs, l'équipe victorieuse sera désignée en fonction
-de sa prospérité, calculée sur la somme des ressources accumulées dans le nid et 
-de la population en vie.
+Même si affronter la planète est un défi en soi, Marabunta est aussi un jeu
+entre équipes. Votre objectif sera de marquer plus de points que les autres
+fourmillières (i.e. remporter le plus de matchs) sur l'ensemble des tournois.
 
-Au terme d'un match des points sont attribués aux équipes:
+À la fin de chaque match, l'équipe victorieuse sera désignée en fonction de sa
+prospérité, calculée sur la somme des ressources accumulées dans la fourmilière
+et de la population en vie.
 
- - Votre code n'est pas récupérable/ne fonctionne pas : :point:`0 point`
- - Votre code permet à votre colonie de survivre sans gagner : :point:`1 point`
+Les points se gagnent ainsi à l'issue de chaque match:
+
+ - Votre code n'est pas récupérable, n'est pas compilable, ne fonctionne pas ou
+   ne permet pas de survivre : :point:`0 point`
+ - Votre code permet à votre colonie de survivre jusqu'au bout de la partie sans
+   toutefois gagner : :point:`1 point`
  - Votre code mène votre colonie à la victoire : :point:`2 points`
 
-En cas d'ex-aequo, les deux équipes marquent 2 points.
+En cas d'égalité, plusieurs équipes peuvent marquer les points de victoire.
 
 Et 24 heures plus tard
 ======================
 
-À la fin des 24h, l'équipe ayant le plus de points gagne, :red:`le dernier match se
-déroulant 1 heure avant la fin`. La dernière heure sera consacrée à un temps de 
-discussion entre les équipes ayant choisi le sujet et celle l'ayant préparé.
+À la fin des 24h, l'équipe ayant le plus de points gagne. Notez que :red:`le
+dernier match se déroulera 1 heure avant la fin`. La dernière heure sera
+consacrée à un temps de discussion entre les équipes ayant choisi le sujet et
+celle l'ayant préparé.
 
 Un dernier conseil
 ==================
