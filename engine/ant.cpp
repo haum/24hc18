@@ -32,6 +32,8 @@ bool Ant::prelude(std::ostream &os) {
 	os << "TYPE " << static_cast<int>(m_ant_type) << '\n';
 	os << "MEMORY " << static_cast<int>(m_memory[0]) << ' '
 	   << static_cast<int>(m_memory[1]) << '\n';
+	os << "STAMINA " << static_cast<int>(m_stamina) << '\n';
+	os << "STOCK " << static_cast<int>(m_stock) << '\n';
 	team().resetIds();
 	team().scenario().listObjects([this, &os](auto sgo) {
 		if (this != sgo.get()) {
