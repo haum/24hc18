@@ -32,8 +32,8 @@ class Ant : public Agent {
 	 */
 	void explore();
 
-	/** get ant Life **/
-	int life() { return m_life; }
+	/** get ant's stamina **/
+	int stamina() { return m_stamina; }
 
 	/** action MEMORY **/
 	void actionMemory(bool valid, uint8_t m0, uint8_t m1);
@@ -56,8 +56,8 @@ class Ant : public Agent {
 	/** action ATTACK **/
 	void actionAttack(bool valid, int id);
 
-	/** set ant Life **/
-	void setLife(int life) { this->m_life = life; }
+	/** set ant's stamina **/
+	void setStamina(int stamina) { this->m_stamina = stamina; }
 
 	/** action WALK **/
 	void actionTurnLeft(bool valid);
@@ -66,8 +66,8 @@ class Ant : public Agent {
 	void actionTurnRight(bool valid);
 
   private:
-	/** Life of an ant **/
-	int m_life;
+	/** Stamina **/
+	int m_stamina;
 
 	/** Type of ant **/
 	uint8_t m_ant_type;

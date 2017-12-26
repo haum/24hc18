@@ -7,10 +7,10 @@
 
 const GameObjectCategory Ant::s_category{"ANT"};
 
-Ant::Ant(Team &team, int life, double latitude, double longitude,
+Ant::Ant(Team &team, int stamina, double latitude, double longitude,
          double heading, uint8_t ant_type, uint8_t memory1, uint8_t memory2)
-    : Agent{team, Ant::category(), latitude, longitude, heading}, m_life{life},
-      m_ant_type{ant_type}, m_memory{memory1, memory2} {
+    : Agent{team, Ant::category(), latitude, longitude, heading},
+      m_stamina{stamina}, m_ant_type{ant_type}, m_memory{memory1, memory2} {
 	m_teamBase = &team;
 }
 
@@ -56,7 +56,7 @@ bool Ant::prelude(std::ostream &os) {
 					os << ' ' << gameObjectId;
 					os << zoneTxt;
 					os << (ownTeam ? " FRIEND" : " ENEMY");
-					os << ' ' << ant->life();
+					os << ' ' << ant->stamina();
 					os << '\n';
 
 				} else if (sgo->category() == Nest::category()) {
@@ -93,8 +93,8 @@ void Ant::invalidAction() {
 }
 
 bool Ant::actionPrelude(int cost, ActionType type, bool valid) {
-	m_life -= cost;
-	if (m_life < 0) {
+	m_stamina -= cost;
+	if (m_stamina < 0) {
 		destroy();
 		return false;
 	}
@@ -207,7 +207,7 @@ void Ant::actionAttack(bool valid, int id) {
 	if (ptr->distance(*this) <= 0.4) {
 		if (ptr->category() == Ant::category()) {
 			auto *ant = static_cast<Ant *>(ptr);
-			ant->setLife(ant->life() - 1);
+			ant->setStamina(ant->stamina() - 1);
 		}
 	}
 }
