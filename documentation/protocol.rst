@@ -303,15 +303,34 @@ Informations
 Actions
 -------
 
-============================ ========================================== =======
-Commande                     Description                                Coût
-============================ ========================================== =======
-*ANT_OUT <u_int8> <u_int8>*  | Sort une fourmi du nid. Les deux octets
-                             | de mémoire de la fourmi peuvent êtres    1
-                             | initialisés à ce moment. Par défaut, ces
-                             | deux octets sont initialisés à zéro.
----------------------------- ------------------------------------------ -------
-*ANT_NEW*                    | Crée une nouvelle fourmi.                5
-                             | Chaque fourmi née avec le maximum de 
-                             | ses points de stmina.
-============================ ========================================== =======
+`ANT_NEW <type>`
+  Crée une nouvelle fourmi dans la fourmilière.
+
+  ==========  ======
+  `type`      Type de fourmi.
+  ==========  ======
+
+`ANT_OUT <type> <m0> <m1>`
+  Sort une fourmi de la fourmilière.
+
+  Cette fourmi doit exister dans la fourmilière. Elle sort avec le maximum de
+  stamina.
+
+  ==========  ======
+  `type`      Type de fourmi.
+  `m0`        Mémoire initiale de la fourmi
+  `m1`        Mémoire initiale de la fourmi
+  ==========  ======
+
+`MEMORY <m0> <m1> ... <m19>`
+  Modifie la mémoire de la fourmilière.
+
+  +------+--------------------------------------+
+  | `m0` | Nombre compris entre 0 et 255 inclus.|
+  +------+--------------------------------------+
+  | `m1` | Nombre compris entre 0 et 255 inclus.|
+  +------+--------------------------------------+
+  |             ...                             |
+  +------+--------------------------------------+
+  | `m19`| Nombre compris entre 0 et 255 inclus.|
+  +------+--------------------------------------+
