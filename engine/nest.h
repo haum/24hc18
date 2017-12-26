@@ -35,9 +35,6 @@ class Nest : public Agent {
 	 */
 	void setFood(int amount);
 
-	/** Actions when command are wrong **/
-	void invalidAction();
-
 	/** Method called periodically by the engine **/
 	void periodic() override;
 
@@ -72,6 +69,21 @@ class Nest : public Agent {
 
 	/** Memory **/
 	uint8_t m_memory[20];
+
+	/** Is exclusive action done in this turn **/
+	bool m_exclusiveDone = false;
+
+	/** List of action types **/
+	enum ActionType {
+		ALWAYS_ALLOWED,
+		EXCLUSIVE,
+	};
+
+	/** Actions when command are wrong **/
+	void invalidAction();
+
+	/** Prelude of actions (to check state) **/
+	bool actionPrelude(int cost, ActionType type, bool valid);
 
 	virtual bool prelude(std::ostream &os) override;
 	virtual void execute(uint8_t argc, const char **argv) override;

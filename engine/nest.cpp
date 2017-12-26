@@ -47,10 +47,30 @@ bool Nest::prelude(std::ostream &os) {
 	m_antsIn.clear();
 	os << "END\n";
 	os.flush();
+	m_exclusiveDone = false;
 	return true;
 }
 
 void Nest::invalidAction() { log("Invalid action, ignored"); }
+
+bool Nest::actionPrelude(int cost, ActionType type, bool valid) {
+	setFood(static_cast<int>(m_stock) - cost);
+	if (m_stock == 0) {
+		return false;
+	}
+	if (type == EXCLUSIVE) {
+		if (m_exclusiveDone) {
+			invalidAction();
+			return false;
+		} else {
+			m_exclusiveDone = true;
+		}
+
+	} else if (type == ALWAYS_ALLOWED) {
+		// Nothing to do
+	}
+	return valid;
+}
 
 void Nest::periodic() {
 	uint32_t count = 0;
@@ -66,10 +86,8 @@ void Nest::periodic() {
 bool Nest::hasAntType(uint8_t type) { return (m_antNumber.count(type) > 0); }
 
 void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
-	if (!valid) {
-		invalidAction();
+	if (!actionPrelude(0, EXCLUSIVE, valid))
 		return;
-	}
 	if (hasAntType(type) && m_antNumber[type] > 0) {
 		team().scenario().addGameObject<Ant>(team(), 200, this->latitude(),
 		                                     this->longitude(), random_angle(),
@@ -79,10 +97,8 @@ void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
 }
 
 void Nest::actionAntNew(bool valid, uint8_t type) {
-	if (!valid) {
-		invalidAction();
+	if (!actionPrelude(0, EXCLUSIVE, valid))
 		return;
-	}
 	if (hasAntType(type)) {
 		m_antNumber[type] += 1;
 	} else {
@@ -91,10 +107,8 @@ void Nest::actionAntNew(bool valid, uint8_t type) {
 }
 
 void Nest::actionMemory(bool valid, uint8_t mem[20]) {
-	if (!valid) {
-		invalidAction();
+	if (!actionPrelude(0, ALWAYS_ALLOWED, valid))
 		return;
-	}
 	::memcpy(m_memory, mem, sizeof(m_memory));
 }
 
