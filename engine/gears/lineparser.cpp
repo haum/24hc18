@@ -42,8 +42,8 @@ void LineParserBase::processLine(char *line) {
 	char *stok;
 	char *sarg = strtok_r(line, " ", &stok);
 	uint8_t argc = 0;
-	constexpr size_t argslen = 20;
-	const char *args[20];
+	constexpr size_t argslen = 25;
+	const char *args[argslen];
 	while (sarg != nullptr && argc < argslen - 1) {
 		args[argc] = sarg;
 		++argc;
