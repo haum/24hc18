@@ -94,7 +94,7 @@ Nest *Scenario::findNest(uint8_t team) {
 		return true;
 	});
 	if (ret == nullptr) {
-		addGameObject<Nest>(*teamPtr, 0, 0);
+		ret = addGameObject<Nest>(*teamPtr, 0, 0);
 	}
 	return ret;
 }
