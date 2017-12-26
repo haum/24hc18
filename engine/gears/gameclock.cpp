@@ -20,8 +20,8 @@ void GameClock::addTime(duration d) { m_elapsed += d; }
 
 uint32_t GameClock::periodicCount() {
 	uint32_t ret = 0;
-	if (m_elapsed - m_periodic > 100ms) {
-		auto cnt = (m_elapsed - m_periodic).count() / (100ms).count();
+	if (m_elapsed - m_periodic >= 100ms) {
+		auto cnt = (m_elapsed - m_periodic) / 100ms;
 		ret = static_cast<uint32_t>(cnt);
 		m_periodic += ret * 100ms;
 	}
