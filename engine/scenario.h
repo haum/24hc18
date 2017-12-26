@@ -37,7 +37,9 @@ class Scenario : public ScenarioBase {
 	                     int longitude);
 
 	/** action FOOD **/
-	void actionFood(int latitude, int longitude);
+	void actionFood(int latitude, int longitude, int initialValue,
+	                float chargeRate, int chargeMax, int totalChargeMax,
+	                bool deadIfEmpty);
 
   private:
 	/** Find team

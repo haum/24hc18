@@ -2,5 +2,24 @@
 
 const GameObjectCategory Food::s_category{"FOOD"};
 
-Food::Food(double latitude, double longitude)
-    : GameObject{Food::category(), latitude, longitude, 0} {}
+Food::Food(double latitude, double longitude, float initialValue,
+           float chargeRate, int chargeMax, float totalChargeMax,
+           bool deadIfEmpty)
+    : GameObject{Food::category(), latitude, longitude, 0},
+      m_available{initialValue}, m_chargeRate{chargeRate},
+      m_chargeMax{chargeMax}, m_totalChargeMax{totalChargeMax},
+      m_deadIfEmpty{deadIfEmpty} {}
+
+void Food::periodic() {
+	if (m_deadIfEmpty && m_available <= 0)
+		return;
+	float taken = m_chargeMax - m_available;
+	if (taken > m_chargeRate)
+		taken = m_chargeRate;
+	if (taken > m_totalChargeMax)
+		taken = m_totalChargeMax;
+	if (taken > 0) {
+		m_available += taken;
+		m_totalChargeMax -= taken;
+	}
+}

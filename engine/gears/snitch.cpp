@@ -65,8 +65,11 @@ void Snitch::eventProcessRead() {
 			data[0] = 3;
 		if (sgo->category() == Ant::category())
 			data[0] = 0;
-		if (sgo->category() == Food::category())
+		if (sgo->category() == Food::category()) {
 			data[0] = 1;
+			if (static_cast<Food *>(sgo.get())->available() <= 0)
+				return true; // Do not send
+		}
 		if (sgo->category() == Nest::category())
 			data[0] = 2;
 

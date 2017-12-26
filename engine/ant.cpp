@@ -77,11 +77,14 @@ bool Ant::prelude(std::ostream &os) {
 
 				} else if (sgo->category() == Food::category()) {
 					auto *food = static_cast<Food *>(sgo.get());
-					os << "SEE_FOOD";
-					os << ' ' << gameObjectId;
-					os << zoneTxt;
-					os << ' ' << food->available();
-					os << '\n';
+					int amount = food->available();
+					if (amount > 0) {
+						os << "SEE_FOOD";
+						os << ' ' << gameObjectId;
+						os << zoneTxt;
+						os << ' ' << amount;
+						os << '\n';
+					}
 				}
 			}
 		}

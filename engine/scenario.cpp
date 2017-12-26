@@ -68,8 +68,12 @@ void Scenario::actionPheromone(uint8_t team, uint8_t type, int latitude,
 		                         *teamPtr, type);
 }
 
-void Scenario::actionFood(int latitude, int longitude) {
-	addGameObject<Food>(latitude * M_PI / 180, longitude * M_PI / 180);
+void Scenario::actionFood(int latitude, int longitude, int initialValue,
+                          float chargeRate, int chargeMax, int totalChargeMax,
+                          bool deadIfEmpty) {
+	addGameObject<Food>(latitude * M_PI / 180, longitude * M_PI / 180,
+	                    initialValue, chargeRate, chargeMax, totalChargeMax,
+	                    deadIfEmpty);
 }
 
 Team *Scenario::findTeam(uint8_t team) {
@@ -144,14 +148,33 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		actionPheromone(static_cast<uint8_t>(team), static_cast<uint8_t>(type),
 		                latitude, longitude);
 
-	} else if (!strncmp(argv[0], "FOOD", 5) && argc == 3) {
+	} else if (!strncmp(argv[0], "FOOD", 5) && argc == 8) {
 		auto latitude = parse_int(argv[1], ok, MIN_LATITUDE, MAX_LATITUDE);
 		if (!ok)
 			throw(std::runtime_error("Invalid latitude"));
 		auto longitude = parse_int(argv[2], ok, MIN_LONGITUDE, MAX_LONGITUDE);
 		if (!ok)
 			throw(std::runtime_error("Invalid longitude"));
-		actionFood(latitude, longitude);
+		auto initialValue =
+		    parse_int(argv[3], ok, 0, std::numeric_limits<int>::max());
+		if (!ok)
+			throw(std::runtime_error("Invalid initial value"));
+		float chargeRate = parse_float(argv[4], ok, 0, 100);
+		if (!ok)
+			throw(std::runtime_error("Invalid charge rate"));
+		auto chargeMax =
+		    parse_int(argv[5], ok, 0, std::numeric_limits<int>::max());
+		if (!ok)
+			throw(std::runtime_error("Invalid maximal charge"));
+		auto totalChargeMax =
+		    parse_int(argv[6], ok, 0, std::numeric_limits<int>::max());
+		if (!ok)
+			throw(std::runtime_error("Invalid total maximal charge"));
+		auto deadIfEmpty = parse_int(argv[7], ok, 0, 1);
+		if (!ok)
+			throw(std::runtime_error("Invalid total maximal charge"));
+		actionFood(latitude, longitude, initialValue, chargeRate, chargeMax,
+		           totalChargeMax, deadIfEmpty == 1);
 
 	} else if (!strncmp(argv[0], "NEST_POSITION", 14) && argc == 4) {
 		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
