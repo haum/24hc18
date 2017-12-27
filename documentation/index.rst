@@ -16,6 +16,7 @@ Marabunta
    trousse
    protocol
    scenario
+   simulateur
 
 
 .. Indices and tables
