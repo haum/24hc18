@@ -102,7 +102,7 @@ class TeamBase {
 	unsigned long m_stats_agents = 0;
 
 	/** Line parser **/
-	LineParser<80> m_parser;
+	LineParser<100> m_parser;
 
 	/** List of agents **/
 	std::vector<Agent *> m_agents;

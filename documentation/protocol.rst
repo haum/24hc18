@@ -29,7 +29,7 @@ Il s'agit d'un protocole au format textuel.
    simulateur.
 
 Les données sont transmises ligne par ligne (délimitées par un caractère
-LF=0x0A=10) avec un maximum de 80 caractères par ligne (saut de ligne inclus).
+LF=0x0A=10) avec un maximum de 100 caractères par ligne (saut de ligne inclus).
 Chaque ligne contient une seule commande avec des arguments séparés par des
 espaces.
 
