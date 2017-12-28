@@ -1,2 +1,7 @@
 *.qmlc
 *.user
+*.o
+planet
+Makefile
+moc_*
+.qmake.*
