@@ -7,7 +7,7 @@
 #include <sstream>
 
 int main(int argc, char *argv[]) {
-	const char *scenario_name = "";
+	const char *scenario_name = "scenarii/scenario.cfg";
 	const char *host = "";
 	uint16_t port = 2080;
 	int debug = -1;
@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 
 	// Check arguments
 	auto usage = [](const char *appname) {
-		std::cerr << "USAGE: " << appname << " -s scenario [OPTION] <ias...>\n"
+		std::cerr << "USAGE: " << appname << " [OPTIONS] <ias...>\n"
 		          << "       -s, --scenario=file\tFile of the scenario\n"
 		          << "       -h, --host=ip_address\tIP of server\n"
 		          << "       -p, --port=port_number\tport of server\n"
@@ -61,11 +61,6 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	} else {
 		usage("marabunta_engine");
-		exit(EXIT_FAILURE);
-	}
-	if (strcmp(scenario_name, "") == 0) {
-		std::cerr << "ERROR: Missing scenario\n";
-		usage(argv[0]);
 		exit(EXIT_FAILURE);
 	}
 	if (argc - optind < 1) {
