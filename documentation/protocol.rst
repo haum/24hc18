@@ -245,7 +245,7 @@ Commande                           Description                         Coût
                                    | une quantité de nourriture au     4
                                    | sol.
 ---------------------------------- ----------------------------------- --------
-*SAVE <u_int8> <u_int8>*           | Demande à une fourmi de mémoriser
+*SET_MEMORY <u_int8> <u_int8>*     | Demande à une fourmi de mémoriser
                                    | des données. 2 octets maxi sous   0
                                    | la forme de 2 u_int8.
 ---------------------------------- ----------------------------------- --------
@@ -360,7 +360,7 @@ Actions
   `m1`        Mémoire initiale de la fourmi
   ==========  ======
 
-`MEMORY <m0> <m1> ... <m19>`
+`SET_MEMORY <m0> <m1> ... <m19>`
   Modifie la mémoire de la fourmilière.
 
   Cette action n'est pas exclusive et coûte 0 unité de nourriture.

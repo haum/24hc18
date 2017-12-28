@@ -24,8 +24,8 @@ class Ant : public Agent {
 	/** get ant's stamina **/
 	int stamina() { return m_stamina; }
 
-	/** action MEMORY **/
-	void actionMemory(bool valid, uint8_t m0, uint8_t m1);
+	/** action SET_MEMORY **/
+	void actionSetMemory(bool valid, uint8_t m0, uint8_t m1);
 
 	/** action MEMORY **/
 	void actionSuicide(bool valid);

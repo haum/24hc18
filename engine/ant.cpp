@@ -110,7 +110,7 @@ bool Ant::actionPrelude(int cost, ActionType type, bool valid) {
 	return valid;
 }
 
-void Ant::actionMemory(bool valid, uint8_t m0, uint8_t m1) {
+void Ant::actionSetMemory(bool valid, uint8_t m0, uint8_t m1) {
 	if (!actionPrelude(0, ALWAYS_ALLOWED, valid))
 		return;
 	m_memory[0] = m0;
@@ -232,12 +232,12 @@ void Ant::actionTurnRight(bool valid) {
 void Ant::execute(uint8_t argc, const char **argv) {
 	if (argc <= 0)
 		return;
-	if (!strncmp(argv[0], "MEMORY", 7) && argc == 3) {
+	if (!strncmp(argv[0], "SET_MEMORY", 11) && argc == 3) {
 		bool ok1, ok2;
 		int m0 = param_int(argv[1], ok1, 0, 255);
 		int m1 = param_int(argv[2], ok2, 0, 255);
-		actionMemory(ok1 && ok2, static_cast<uint8_t>(m0),
-		             static_cast<uint8_t>(m1));
+		actionSetMemory(ok1 && ok2, static_cast<uint8_t>(m0),
+		                static_cast<uint8_t>(m1));
 
 	} else if (!strncmp(argv[0], "SUICIDE", 8) && argc == 1) {
 		actionSuicide(true);

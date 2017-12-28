@@ -106,7 +106,7 @@ void Nest::actionAntNew(bool valid, uint8_t type) {
 	}
 }
 
-void Nest::actionMemory(bool valid, uint8_t mem[20]) {
+void Nest::actionSetMemory(bool valid, uint8_t mem[20]) {
 	if (!actionPrelude(0, ALWAYS_ALLOWED, valid))
 		return;
 	::memcpy(m_memory, mem, sizeof(m_memory));
@@ -129,7 +129,7 @@ void Nest::execute(uint8_t argc, const char **argv) {
 		int type = param_int(argv[1], ok, 0, 255);
 		actionAntNew(ok, static_cast<uint8_t>(type));
 
-	} else if (!strncmp(argv[0], "MEMORY", 7) && argc == 21) {
+	} else if (!strncmp(argv[0], "SET_MEMORY", 11) && argc == 21) {
 		bool ok = true;
 		uint8_t mem[20];
 		for (int i = 1; i < 21; ++i) {
@@ -137,7 +137,7 @@ void Nest::execute(uint8_t argc, const char **argv) {
 			mem[i - 1] = static_cast<uint8_t>(param_int(argv[i], ok_i, 0, 255));
 			ok &= ok_i;
 		}
-		actionMemory(ok, mem);
+		actionSetMemory(ok, mem);
 
 	} else {
 		invalidAction();

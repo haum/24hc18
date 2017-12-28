@@ -47,8 +47,8 @@ class Nest : public Agent {
 	/** action ANT_OUT **/
 	void actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1);
 
-	/** action MEMORY **/
-	void actionMemory(bool valid, uint8_t mem[20]);
+	/** action SET_MEMORY **/
+	void actionSetMemory(bool valid, uint8_t mem[20]);
 
   private:
 	/** Stock of the nest**/
