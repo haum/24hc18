@@ -98,6 +98,9 @@ class TeamBase {
 	/** Do we execute one shot agent **/
 	bool m_oneshot = false;
 
+	/** Number of agents strategies executed (for stats) **/
+	unsigned long m_stats_agents = 0;
+
 	/** Line parser **/
 	LineParser<80> m_parser;
 

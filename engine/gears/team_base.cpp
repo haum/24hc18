@@ -97,6 +97,7 @@ bool TeamBase::sendPrelude() {
 	if (m_currentAgent != m_agents.end() && (*m_currentAgent)->prelude(os)) {
 		const auto data = os.str();
 		send(data.c_str(), data.length());
+		m_stats_agents++;
 		return true;
 	}
 	return false;
