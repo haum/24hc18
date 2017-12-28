@@ -73,6 +73,24 @@ ce qu'il se passe (zone blanche).
 .. image:: _static/images/ant.png
    :align: center
 
+Aléatoire
+---------
+
+Les fourmis n'explorent pas en ligne droite, la sortie de la fourmillière se
+fait avec un azimut indéterminé et changeant, les actions des autres équipes ne
+sont pas prédictibles, le système d'exploitation dispose de règles complexes
+pour choisir quels programmes vont être exécutés dans le prochain laps de temps,
+etc. En somme l'univers simulé est intrinsèquement aléatoire et chaque
+simulation est donc différente.
+
+Malgré la nature stochastique de ce jeu, il est possible de créer des stratégies
+robustes et contrôlées. La communication à travers les phéromones ou le retour
+à la fourmilière, la redondance d'initiatives hasardeuses, la mémorisation au
+sein des fourmis et de la fourmilère sont des exemples d'outils qui permettent
+de réduire l'incertitude.
+
+À vous d'être suffisamment astucieux pour transformer ce chaos en aubaine.
+
 Fourmi
 ======
 
