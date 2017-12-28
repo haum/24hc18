@@ -21,17 +21,6 @@ class Ant : public Agent {
 	/** Get category **/
 	static GameObject_t category() { return &s_category; }
 
-	/** Make ant to turn left **/
-	void turnLeft();
-
-	/** Make ant to turn right **/
-	void turnRight();
-
-	/** Make ant to go forward
-	 * @note Ants do not walk straight
-	 */
-	void explore();
-
 	/** get ant's stamina **/
 	int stamina() { return m_stamina; }
 

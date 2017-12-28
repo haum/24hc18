@@ -15,18 +15,6 @@ Ant::Ant(Team &team, int stamina, double latitude, double longitude,
 	m_teamBase = &team;
 }
 
-void Ant::turnLeft() { m_heading = fmod(m_heading + 2 * M_PI / 36, 2 * M_PI); }
-
-void Ant::turnRight() { m_heading = fmod(m_heading - 2 * M_PI / 36, 2 * M_PI); }
-
-void Ant::explore() {
-	const double dm = 2 * M_PI / 10000;
-	double dh = (random_angle() - M_PI) / 36;
-	m_heading = fmod(m_heading + dh, 2 * M_PI);
-	m_latitude = fmod(m_latitude + dm * cos(m_heading), 2 * M_PI);
-	m_longitude = fmod(m_longitude + dm * sin(m_heading), 2 * M_PI);
-}
-
 bool Ant::prelude(std::ostream &os) {
 	os << "BEGIN ANT\n";
 	os << "TYPE " << static_cast<int>(m_ant_type) << '\n';
@@ -224,19 +212,21 @@ void Ant::actionAttack(bool valid, int id) {
 void Ant::actionExplore(bool valid) {
 	if (!actionPrelude(0, EXCLUSIVE, valid))
 		return;
-	explore();
+	double dh = (random_angle() - M_PI) / 36;
+	m_heading = fmod(m_heading + dh, 2 * M_PI);
+	moveDistance(2 * M_PI / 10000);
 }
 
 void Ant::actionTurnLeft(bool valid) {
 	if (!actionPrelude(0, EXCLUSIVE, valid))
 		return;
-	turnLeft();
+	m_heading = fmod(m_heading + 2 * M_PI / 36, 2 * M_PI);
 }
 
 void Ant::actionTurnRight(bool valid) {
 	if (!actionPrelude(0, EXCLUSIVE, valid))
 		return;
-	turnRight();
+	m_heading = fmod(m_heading - 2 * M_PI / 36, 2 * M_PI);
 }
 
 void Ant::execute(uint8_t argc, const char **argv) {
