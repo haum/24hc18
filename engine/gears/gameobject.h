@@ -41,6 +41,9 @@ class GameObject {
 	/** Get heading **/
 	double heading() const { return m_heading; }
 
+	/** Move object of distance in current heading **/
+	void moveDistance(double distance);
+
 	/** Get type **/
 	GameObject_t category() const { return m_category; }
 
