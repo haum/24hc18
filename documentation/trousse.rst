@@ -9,7 +9,7 @@ Pour chaque match, c'est nous qui compilons/exécutons votre code sur nos systè
 Vous **devez** utiliser un système de gestion de version : Git.
 
 Vous avez accès à la présente documentation qui contient la description du 
-protocole de comunication que vous devez utiliser.
+protocole de communication que vous devez utiliser.
 
 Vous avez également accès au code source de notre simulateur, libre à vous de le
 compiler sur vos pc pour tester vos stratégies.

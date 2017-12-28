@@ -10,7 +10,7 @@ au long de ces 24h. Ces matchs proposeront des scenarii différents, de
 difficulté a priori croissante.
 
 Nous annoncerons les prochains tournois à l'avance. Pour les premiers matchs,
-les caractéristiques principales des scénarii à jouer vous seront indiquées.
+les caractéristiques principales des scenarii à jouer vous seront indiquées.
 
 Déroulement d'un match
 ======================
@@ -28,16 +28,16 @@ La durée des matchs est déterminée par le scénario. Votre objectif est avant
 tout de produire une stratégie viable dans le temps imparti, même si prospérité
 et éventuellement belligérance peuvent être des atouts pour gagner la partie.
 
-Les statégies peuvent être différentes pour chaque tournoi, mais il ne faut pas
-oublier que chacun de ceux-ci pouvent comporter plusieurs scénarii que la même
-statégie devra affronter.
+Les stratégies peuvent être différentes pour chaque tournoi, mais il ne faut pas
+oublier que chacun de ceux-ci peuvent comporter plusieurs scenarii que la même
+stratégie devra affronter.
 
 Conditions de victoire et attribution des points
 ================================================
 
 Même si affronter la planète est un défi en soi, Marabunta est aussi un jeu
 entre équipes. Votre objectif sera de marquer plus de points que les autres
-fourmillières (i.e. remporter le plus de matchs) sur l'ensemble des tournois.
+fourmilières (i.e. remporter le plus de matchs) sur l'ensemble des tournois.
 
 À la fin de chaque match, l'équipe victorieuse sera désignée en fonction de sa
 prospérité, calculée sur la somme des ressources accumulées dans la fourmilière

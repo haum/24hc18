@@ -2,7 +2,7 @@
 Simulateur
 ==========
 
-Ca chapitre fourni les instruction permettent de jouer un match avec le
+Ce chapitre fourni les instructions permettent de jouer un match avec le
 simulateur.
 
 
@@ -10,8 +10,8 @@ Pour cela vous disposez une machine virtuelle configurée pou les matchs.
  
 Cette machine est capable :
 
- - d'éxcuter le simulateur.
- - de compiler/interpreter le code des programmes de stratégies.
+ - d'éxécuter le simulateur.
+ - de compiler/interpréter le code des programmes de stratégies.
 
 .. WARNING::
     Notre machine, que nous utiliserons pour les matchs officiels est strictement identique à celle qui vous sera fournie. Si vous modifier sa configuration, nous ne seront pas responsable si votre code ne se comporte pas comme vous le souhaitez.
@@ -25,10 +25,10 @@ virtuelle. Cette dernière, fonctionnant sous GNU/Linux vous devrez utiliser des
 outils de transferts de fichiers adaptés (probablement en utilisant le protocole
 ssh).
 
-Si vous êtes familler de GNU/Linux, cela ne devrais pas vous poser de problème.
+Si vous êtes familier de GNU/Linux, cela ne devrait pas vous poser de problème.
 Dans le cas contraire, il existe plusieurs solutions. Dans les lignes suivantes
 vous trouverez deux méthodes simples à mettre en oeuvre sous MS Windows (MacOS
-dispose déjà des outils nécéssaires).
+dispose déjà des outils nécessaires).
 
 
  - Putty

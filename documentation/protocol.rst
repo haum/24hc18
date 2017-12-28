@@ -84,7 +84,7 @@ Informations
   premier.
 
 `TYPE <type>`
-  Type de fourmi. Ce type est défini par la fourmillière quand elle crée cette
+  Type de fourmi. Ce type est défini par la fourmilière quand elle crée cette
   fourmi.
 
   ======  ======
@@ -111,7 +111,7 @@ Informations
   ==========  ======
 
 `STOCK <quantity>`
-  Indique le niveau du stock de nourritude transporté par la fourmi.
+  Indique le niveau du stock de nourriture transporté par la fourmi.
 
   ==========  ======
   `quantity`  Niveau du stock de nourriture.
@@ -144,11 +144,11 @@ Informations
   ---------  ------
   `zone`     Zone d'interaction.
 
-             Prend les valeurs `FAR` ou `NEAR`.
+             Prends les valeurs `FAR` ou `NEAR`.
   ---------  ------
   `friend`   Indique si la fourmi est-elle de notre fourmillière.
 
-             Prend les valeurs `FRIEND` ou `ENEMY`.
+             Prends les valeurs `FRIEND` ou `ENEMY`.
   ---------  ------
   `stamina`  Indique le niveau d'endurance de la fourmi.
 
@@ -164,11 +164,11 @@ Informations
   --------  ------
   `zone`    Zone d'interaction.
 
-            Prend les valeurs `FAR` ou `NEAR`.
+            Prends les valeurs `FAR` ou `NEAR`.
   --------  ------
   `friend`  Indique si la fourmi est-elle de notre fourmillière.
 
-            Prend les valeurs `FRIEND` ou `ENEMY`.
+            Prends les valeurs `FRIEND` ou `ENEMY`.
   ========  ======
 
 `SEE_FOOD <id> <zone> <amount>`
@@ -180,7 +180,7 @@ Informations
   --------  ------
   `zone`    Zone d'interaction.
 
-            Prend les valeurs `FAR` ou `NEAR`.
+            Prends les valeurs `FAR` ou `NEAR`.
   --------  ------
   `amount`  Indique le niveau de nourriture.
 
@@ -246,11 +246,11 @@ Commande                           Description                         Coût
 Fourmilière
 ============
 
-La fourmilère abrite le stock de ressources de la colonie ainsi qu'une partie de
+La fourmilière abrite le stock de ressources de la colonie ainsi qu'une partie de
 sa population. Le stock et la population de la fourmilière ne sont pas limités.
 
-Cependant, la population vivant dans la fourmilère consomme ses ressources. Par
-conséquent, le stock de ressources baisse proportionellement à la population
+Cependant, la population vivant dans la fourmilière consomme ses ressources. Par
+conséquent, le stock de ressources baisse proportionnellement à la population
 selon le calcul suivant : 1 point de stock toutes les 100ms et par palier de 100
 fourmis. Voici un exemple:
 
