@@ -208,21 +208,51 @@ Informations
 Actions
 -------
 
+`PUT_PHEROMONE <type>`
+  Dépose une nouvelle phéromone.
+
+  Cette action est exclusive et coûte 3 unités de stamina.
+
+  ======  ======
+  `type`  Type de phéromone (0 à 255)
+  ======  ======
+
+`CHANGE_PHEROMONE <id> <type>`
+  Modifie le type d'une phéromone existante.
+
+  La phéromone doit être dans le champ d'action (`NEAR`). Elle n'est pas
+  rechargée à cette occasion.
+
+  Cette action est exclusive et coûte 2 unités de stamina.
+
+  ======  ======
+  `id`    Identifiant de l'objet indiqué par `SEE_PHEROMONE`
+  `type`  Type de phéromone (0 à 255)
+  ======  ======
+
+`RECHARGE_PHEROMONE <id>`
+  Recharge une phéromone existante.
+
+  La phéromone doit être dans le champ d'action (`NEAR`).
+
+  Cette action est exclusive et coûte 1 unité de stamina.
+
+  ======  ======
+  `id`    Identifiant de l'objet indiqué par `SEE_PHEROMONE`
+  ======  ======
+
+`EXPLORE`
+  Explore le terrain.
+
+  La fourmi n'explore pas en ligne droite.
+
+  Cette action est exclusive et coûte 1 unité de stamina.
+
+Autres actions :
+
 ================================== =================================== ========
 Commande                           Description                         Coût
 ================================== =================================== ========
-*PUT_PHEROMONE <type>*             | Demande à une fourmi de déposer 
-                                   | une phéromone.                    3
----------------------------------- ----------------------------------- --------
-*CHANGE_PHEROMONE <id> <type>*     | Demande à une fourmi de modifier 
-                                   | une phéromone.                    2
----------------------------------- ----------------------------------- --------
-*RECHARGE_PHEROMONE <id>*          | Demande à une fourmi de recharger
-                                   | une phéromone.                    1
----------------------------------- ----------------------------------- --------
-*EXPLORE*                          | Demande à une fourmi de ce
-                                   | déplacer                          1
----------------------------------- ----------------------------------- --------
 *ATTACK <id>*                      | Demande à une fourmi d'attaquer
                                    | une cible.
 ---------------------------------- ----------------------------------- --------
