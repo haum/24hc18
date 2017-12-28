@@ -18,7 +18,7 @@ auto *antMesh = new AntMesh;
 Ant::Ant(Qt3DCore::QEntity *parent, float latitude, float longitude,
          float azimut, Qt3DRender::QMaterial *teamMaterial)
     : GameEntity(parent, latitude, longitude, azimut, [](QMatrix4x4 m) {
-	      m.rotate(-90, 1, 0, 0);
+	      m.rotate(-90, 0, 1, 0);
 	      return m;
       }) {
 	addComponent(antMesh);

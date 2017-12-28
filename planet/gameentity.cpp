@@ -17,6 +17,6 @@ void GameEntity::setPosition(float latitude, float longitude, float azimut) {
 	m.rotate(longitude, 0, 1, 0);
 	m.rotate(latitude, 0, 0, 1);
 	m.translate(1, 0);
-	m.rotate(azimut, 1, 0, 0);
+	m.rotate(-azimut, 1, 0, 0);
 	m_transform.setMatrix(m_initialTransform(m));
 }
