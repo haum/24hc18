@@ -258,12 +258,12 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		int id = param_int(argv[1], ok, 0, 255);
 		actionRechargePheromone(ok, id);
 
-	} else if (!strncmp(argv[0], "ATTACK", 8) && argc == 2) {
+	} else if (!strncmp(argv[0], "ATTACK", 7) && argc == 2) {
 		bool ok;
 		int id = param_int(argv[1], ok, 0, 255);
 		actionAttack(ok, id);
 
-	} else if (!strncmp(argv[0], "EXPLORE", 7) && argc == 1) {
+	} else if (!strncmp(argv[0], "EXPLORE", 8) && argc == 1) {
 		actionExplore(true);
 
 	} else if (!strncmp(argv[0], "TURNLEFT", 9) && argc == 1) {
