@@ -124,14 +124,14 @@ void Ant::actionSuicide(bool valid) {
 }
 
 void Ant::actionPutPheromone(bool valid, uint8_t type) {
-	if (!actionPrelude(0, EXCLUSIVE, valid))
+	if (!actionPrelude(3, EXCLUSIVE, valid))
 		return;
-	team().scenario().addGameObject<Pheromone>(this->longitude(),
-	                                           this->latitude(), team(), type);
+	team().scenario().addGameObject<Pheromone>(this->latitude(),
+	                                           this->longitude(), team(), type);
 }
 
 void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
-	if (!actionPrelude(0, EXCLUSIVE, valid))
+	if (!actionPrelude(2, EXCLUSIVE, valid))
 		return;
 	if (id <= 0) {
 		invalidAction();
@@ -146,7 +146,8 @@ void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
 	GameObject *ptr = team().getIds()[index];
 	team().scenario().listObjects([this, ptr, type](auto sgo) {
 		if (ptr == sgo.get()) {
-			if (sgo->category() == Pheromone::category()) {
+			if (sgo->category() == Pheromone::category() &&
+			    ptr->distance(*this) <= 0.4) {
 				auto *pheromone = static_cast<Pheromone *>(sgo.get());
 				pheromone->setType(type);
 			} else {
