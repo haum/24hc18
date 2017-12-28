@@ -38,10 +38,14 @@ GameComm::GameComm(QObject *parent) : QObject(parent) {
 		QObject::connect(m_client, &QTcpSocket::disconnected, this,
 		                 &GameComm::onDisconnected);
 		m_server.close();
+		m_client->write("\n", 1);
 		emit connectedChanged();
 	});
-	m_timer.setInterval(500);
-	connect(&m_timer, &QTimer::timeout, this, &GameComm::onTimeout);
+}
+
+void GameComm::setRefreshRate(qreal percent) {
+	m_refreshRate = static_cast<int>(100 + (2000 - 100) * (1 - percent));
+	emit refreshRateChanged();
 }
 
 void GameComm::onReadyRead() {
@@ -116,6 +120,7 @@ void GameComm::onReadyRead() {
 		} else
 			break;
 	}
+	QTimer::singleShot(m_refreshRate, this, &GameComm::onTimeout);
 }
 
 void GameComm::onDisconnected() {
@@ -132,5 +137,4 @@ void GameComm::onTimeout() {
 
 void GameComm::setRootEntity(Qt3DCore::QEntity *rootEntity) {
 	m_rootEntity = rootEntity;
-	m_timer.start();
 }

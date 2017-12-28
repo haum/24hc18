@@ -14,17 +14,21 @@ class GameComm : public QObject {
 	Q_OBJECT
 
 	Q_PROPERTY(bool connected READ connected NOTIFY connectedChanged)
+	Q_PROPERTY(int refreshRate READ refreshRate NOTIFY refreshRateChanged)
 
   public:
 	explicit GameComm(QObject *parent = nullptr);
 
 	bool connected() { return m_client != nullptr; }
+	int refreshRate() { return m_refreshRate; }
 
   public slots:
 	void setRootEntity(Qt3DCore::QEntity *rootEntity);
+	void setRefreshRate(qreal percent);
 
   signals:
 	void connectedChanged();
+	void refreshRateChanged();
 
   private slots:
 	void onReadyRead();
@@ -35,7 +39,7 @@ class GameComm : public QObject {
 	Qt3DCore::QEntity *m_rootEntity;
 	QTcpServer m_server;
 	QTcpSocket *m_client{nullptr};
-	QTimer m_timer;
+	int m_refreshRate = 500;
 
 	struct EntitiesList {
 		std::vector<GameEntity *>::iterator it;

@@ -110,6 +110,17 @@ Window {
                         color: Qt.rgba(1, 1, 1, 1)
                     }
                 }
+
+                Text {
+                    text: qsTr("Refresh rate: %1ms").arg(gcomm.refreshRate)
+                    color: Qt.rgba(1, 1, 1, 1)
+                }
+                Slider {
+                    width: parent.width
+                    value: 0.8
+                    onActiveFocusChanged: if (activeFocus) scene3d.forceActiveFocus();
+                    onPositionChanged: gcomm.setRefreshRate(value)
+                }
             }
         }
     }
