@@ -14,10 +14,9 @@ Cette machine est capable :
  - de compiler/interpréter le code des programmes de stratégies.
 
 .. WARNING::
-    Notre machine, que nous utiliserons pour les matchs officiels est
-    strictement identique à celle qui vous sera fournie. Si vous modifier sa
-    configuration, nous ne seront pas responsable si votre code ne se comporte
-    pas comme vous le souhaitez.
+    La machine virtuelle que nous utiliserons pour les matchs officiels est
+    strictement identique à celle qui vous sera fournie. "Ouais, mais chez 
+    nous ça marche" ne sera pas recevable.
 
 Envoi de votre code vers la machine
 ===================================
@@ -28,16 +27,17 @@ virtuelle. Cette dernière, fonctionnant sous GNU/Linux vous devrez utiliser des
 outils de transferts de fichiers adaptés (probablement en utilisant le protocole
 ssh).
 
-Si vous êtes familier de GNU/Linux, cela ne devrait pas vous poser de problème.
-Dans le cas contraire, il existe plusieurs solutions. Dans les lignes suivantes
-vous trouverez deux méthodes simples à mettre en oeuvre sous MS Windows (MacOS
-dispose déjà des outils nécessaires).
+ - Si vous êtes familier de GNU/Linux, cela ne devrait pas vous poser de
+   problème.
+ - Si vous utilisez MacOS, vous disposez déjà des outils nécessaire. 
+ - Si vous utiliser MS Windows, vous aurez besoin d'un logiciel qui peut faire 
+   du transfert de fichiers via le protocole ssh, par example FileZilla.
 
+Dans les trois cas, vous avez besoin d'identifiants pour vous connecter sur la
+machine virtuelle.
 
- - Putty
-
-
- - WinSCP
+ - utilisateur  : marabunta
+ - mot de passe : marabunta
 
 
 Commandes
