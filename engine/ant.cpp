@@ -160,7 +160,7 @@ void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
 }
 
 void Ant::actionRechargePheromone(bool valid, int id) {
-	if (!actionPrelude(0, EXCLUSIVE, valid))
+	if (!actionPrelude(1, EXCLUSIVE, valid))
 		return;
 	if (id <= 0) {
 		invalidAction();
@@ -175,7 +175,8 @@ void Ant::actionRechargePheromone(bool valid, int id) {
 	GameObject *ptr = team().getIds()[index];
 	team().scenario().listObjects([this, ptr](auto sgo) {
 		if (ptr == sgo.get()) {
-			if (sgo->category() == Pheromone::category()) {
+			if (sgo->category() == Pheromone::category() &&
+			    ptr->distance(*this) <= 0.4) {
 				auto *pheromone = static_cast<Pheromone *>(sgo.get());
 				pheromone->setLife(100);
 			} else {
@@ -211,7 +212,7 @@ void Ant::actionAttack(bool valid, int id) {
 	}
 }
 void Ant::actionExplore(bool valid) {
-	if (!actionPrelude(0, EXCLUSIVE, valid))
+	if (!actionPrelude(1, EXCLUSIVE, valid))
 		return;
 	double dh = (random_angle() - M_PI) / 36;
 	m_heading = fmod(m_heading + dh, 2 * M_PI);
