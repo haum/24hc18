@@ -5,8 +5,8 @@ Ce que doit contenir votre trousse de survie ?
 Bien ranger et conserver votre travail
 ======================================
 
-Pour chaque match, c'est nous qui compilons/exécutons votre code sur nos systèmes.
-Vous **devez** utiliser un système de gestion de version : Git.
+Pour chaque match, c'est nous qui compilons/exécutons votre code sur nos
+systèmes. Vous **devez** utiliser un système de gestion de version : Git.
 
 Vous avez accès à la présente documentation qui contient la description du 
 protocole de communication que vous devez utiliser.
@@ -26,7 +26,8 @@ quelques exemples :
 Les outils que vous pouvez utiliser
 ===================================
 
-Vous êtes libre d'utiliser le langage qui vous conviens  parmi la liste suivante:
+Vous êtes libre d'utiliser le langage qui vous conviens  parmi la liste
+suivante:
  
  - AsciiDots
  - C
@@ -42,4 +43,7 @@ connaissez pas.
 Dernier avertissement
 =====================
 
-.. warning:: Lors des matchs, votre code tourne en environnement clos (jail). Essayer de s'échapper c'est être immédiatement disqualifié. L'environnement complet pourra être redémarré à l'envi par le système de jeu pour s'assurer de bon respect des consignes (à sa seule discrétion).
+.. warning:: Lors des matchs, votre code tourne en environnement clos (jail).
+   Essayer de s'échapper c'est être immédiatement disqualifié. L'environnement
+   complet pourra être redémarré à l'envi par le système de jeu pour s'assurer
+   de bon respect des consignes (à sa seule discrétion).

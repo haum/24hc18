@@ -14,7 +14,10 @@ Cette machine est capable :
  - de compiler/interpréter le code des programmes de stratégies.
 
 .. WARNING::
-    Notre machine, que nous utiliserons pour les matchs officiels est strictement identique à celle qui vous sera fournie. Si vous modifier sa configuration, nous ne seront pas responsable si votre code ne se comporte pas comme vous le souhaitez.
+    Notre machine, que nous utiliserons pour les matchs officiels est
+    strictement identique à celle qui vous sera fournie. Si vous modifier sa
+    configuration, nous ne seront pas responsable si votre code ne se comporte
+    pas comme vous le souhaitez.
 
 Envoi de votre code vers la machine
 ===================================

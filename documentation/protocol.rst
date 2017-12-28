@@ -246,8 +246,9 @@ Commande                           Description                         Coût
 Fourmilière
 ============
 
-La fourmilière abrite le stock de ressources de la colonie ainsi qu'une partie de
-sa population. Le stock et la population de la fourmilière ne sont pas limités.
+La fourmilière abrite le stock de ressources de la colonie ainsi qu'une partie
+de sa population. Le stock et la population de la fourmilière ne sont pas
+limités.
 
 Cependant, la population vivant dans la fourmilière consomme ses ressources. Par
 conséquent, le stock de ressources baisse proportionnellement à la population
