@@ -55,7 +55,7 @@ void Nest::invalidAction() { log("Invalid action, ignored"); }
 
 bool Nest::actionPrelude(int cost, ActionType type, bool valid) {
 	setFood(static_cast<int>(m_stock) - cost);
-	if (m_stock == 0) {
+	if (m_stock == 0 && cost != 0) {
 		return false;
 	}
 	if (type == EXCLUSIVE) {
