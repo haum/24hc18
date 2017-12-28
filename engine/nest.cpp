@@ -86,7 +86,7 @@ void Nest::periodic() {
 bool Nest::hasAntType(uint8_t type) { return (m_antNumber.count(type) > 0); }
 
 void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
-	if (!actionPrelude(0, EXCLUSIVE, valid))
+	if (!actionPrelude(1, EXCLUSIVE, valid))
 		return;
 	if (hasAntType(type) && m_antNumber[type] > 0) {
 		team().scenario().addGameObject<Ant>(team(), 200, this->latitude(),
@@ -97,7 +97,7 @@ void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
 }
 
 void Nest::actionAntNew(bool valid, uint8_t type) {
-	if (!actionPrelude(0, EXCLUSIVE, valid))
+	if (!actionPrelude(5, EXCLUSIVE, valid))
 		return;
 	if (hasAntType(type)) {
 		m_antNumber[type] += 1;

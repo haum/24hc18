@@ -340,7 +340,7 @@ Actions
 `ANT_NEW <type>`
   Crée une nouvelle fourmi dans la fourmilière.
 
-  Cette action est exclusive.
+  Cette action est exclusive et coûte 5 unités de nourriture.
 
   ==========  ======
   `type`      Type de fourmi.
@@ -352,7 +352,7 @@ Actions
   Cette fourmi doit exister dans la fourmilière. Elle sort avec le maximum de
   stamina.
 
-  Cette action est exclusive.
+  Cette action est exclusive et coûte 1 unité de nourriture.
 
   ==========  ======
   `type`      Type de fourmi.
@@ -363,7 +363,7 @@ Actions
 `MEMORY <m0> <m1> ... <m19>`
   Modifie la mémoire de la fourmilière.
 
-  Cette action n'est pas exclusive.
+  Cette action n'est pas exclusive et coûte 0 unité de nourriture.
 
   +------+--------------------------------------+
   | `m0` | Nombre compris entre 0 et 255 inclus.|
