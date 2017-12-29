@@ -57,19 +57,6 @@ liste des actions réalisées avec le marqueur `END` et se met en écoute d'un
    attribuer certaines actions à d'autres entités, ignorer les commandes ou même
    tuer vos fourmis.
 
-Perception de l'environnement
------------------------------
-
-Les fourmis n'étant pas omniscientes, elles ont une perception limitée à leur
-environnement proche. Nous distinguons les éléments à portée (`NEAR`) avec
-lesquels il est possible d'interagir (zone verte sur le schéma ci-dessous), et
-les éléments qui sont seulement dans le champ visuel (`FAR`) avec lesquels il
-est seulement possible de s'orienter (zone orange). Au-delà, la fourmi ignore
-ce qu'il se passe (zone blanche).
-
-.. image:: _static/images/ant.png
-   :align: center
-
 Aléatoire
 ---------
 
@@ -127,6 +114,27 @@ consommations interviennent à date fixe, peu importe les actions réalisées.
 
 Fourmi
 ======
+
+Généralités
+-----------
+
+Une fourmi est un agent mobile de la colonie. Elle dispose d'un niveau de
+stamina qui détermine les actions qu'elle peut effectuer et d'un stock de
+nourriture qu'elle transporte. Le stock de nourriture peut être partiellement
+converti en stamina si besoin.
+
+Les fourmis n'étant pas omniscientes, elles ont une perception limitée à leur
+environnement proche. Nous distinguons les éléments à portée (`NEAR`) avec
+lesquels il est possible d'interagir (zone verte sur le schéma ci-dessous), et
+les éléments qui sont seulement dans le champ visuel (`FAR`) avec lesquels il
+est seulement possible de s'orienter (zone orange). Au-delà, la fourmi ignore
+ce qu'il se passe (zone blanche).
+
+.. image:: _static/images/ant.png
+   :align: center
+
+Pour maintenir son métabolisme, chaque fourmi hors de la fourmilière  consomme 1
+unité de stamina toutes les 100 millisecondes.
 
 Informations
 ------------
@@ -381,6 +389,9 @@ Actions
 
 Fourmilière
 ============
+
+Généralités
+-----------
 
 La fourmilière abrite le stock de ressources de la colonie ainsi qu'une partie
 de sa population. Le stock et la population de la fourmilière ne sont pas
