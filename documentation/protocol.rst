@@ -379,17 +379,6 @@ Actions
   `m1`  Nombre compris entre 0 et 255 inclus.
   ====  ======
 
-Autres actions :
-
-================================== =================================== ========
-Commande                           Description                         Coût
-================================== =================================== ========
-*DROP <quantity>*                  | Demande à une fourmi de déposer
-                                   | une quantité de nourriture au     4
-                                   | sol.
-================================== =================================== ========
-
-
 Fourmilière
 ============
 
