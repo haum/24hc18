@@ -23,3 +23,17 @@ void Food::periodic() {
 		m_totalChargeMax -= taken;
 	}
 }
+
+int Food::eat(int quantity) {
+	if (quantity < 0)
+		return 0;
+
+	if (m_available >= quantity) {
+		m_available -= quantity;
+		return quantity;
+	} else {
+		quantity = static_cast<int>(m_available);
+		m_available = 0;
+		return quantity;
+	}
+}

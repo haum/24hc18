@@ -22,6 +22,12 @@ class Food : public GameObject {
 	/** Get food quantity **/
 	int available() const { return static_cast<int>(m_available); }
 
+	/** Eat food
+	 * @param quantity Requested quantity
+	 * @return Eaten quantity
+	 */
+	int eat(int quantity);
+
 	/** Get category **/
 	static GameObject_t category() { return &s_category; }
 
