@@ -291,6 +291,18 @@ Actions
   `angle`  Angle relatif en degrés (-180 à 180)
   =======  ======
 
+`ATTACK <id>`
+  Attaque une autre fourmi.
+
+  La fourmi attaquée doit être dans le champ d'action (`NEAR`).
+
+  Cette action est exclusive, coûte 2 unités de stamina et retire 3 unités de
+  stamina à la fourmi attaquée.
+
+  ======  ======
+  `id`    Identifiant de l'objet indiqué par `SEE_ANT`
+  ======  ======
+
 `SUICIDE`
   Suicide la fourmi
 
@@ -311,9 +323,6 @@ Autres actions :
 ================================== =================================== ========
 Commande                           Description                         Coût
 ================================== =================================== ========
-*ATTACK <id>*                      | Demande à une fourmi d'attaquer
-                                   | une cible.
----------------------------------- ----------------------------------- --------
 *MOVE_TO <id>*                     | Demande à une fourmi de se
                                    | diriger vers un emplacement.      2
 ---------------------------------- ----------------------------------- --------

@@ -45,9 +45,6 @@ class Ant : public Agent {
 	/** action ATTACK **/
 	void actionAttack(bool valid, int id);
 
-	/** set ant's stamina **/
-	void setStamina(int stamina) { this->m_stamina = stamina; }
-
 	/** action TURN **/
 	void actionTurn(bool valid, int angle);
 

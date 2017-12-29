@@ -200,7 +200,7 @@ void Ant::actionRechargePheromone(bool valid, int id) {
 }
 
 void Ant::actionAttack(bool valid, int id) {
-	if (!actionPrelude(0, EXCLUSIVE, valid)) {
+	if (!actionPrelude(2, EXCLUSIVE, valid)) {
 		return;
 	}
 
@@ -213,7 +213,10 @@ void Ant::actionAttack(bool valid, int id) {
 
 	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
 		auto *ant = static_cast<Ant *>(ptr);
-		ant->setStamina(ant->stamina() - 1);
+		ant->m_stamina -= 3;
+		ant->m_attacked = true;
+		if (ant->m_stamina < 0)
+			ant->destroy();
 	}
 }
 
