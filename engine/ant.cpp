@@ -220,6 +220,28 @@ void Ant::actionCollect(bool valid, int id, int quantity) {
 	}
 }
 
+void Ant::actionDoTrophallaxis(bool valid, int id, int quantity) {
+	if (!actionPrelude(2, EXCLUSIVE, valid)) {
+		return;
+	}
+
+	bool invalid;
+	GameObject *ptr = getObjectById(id, invalid);
+	if (invalid || ptr->category() != Ant::category()) {
+		invalidAction();
+		return;
+	}
+
+	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
+		auto *ant = static_cast<Ant *>(ptr);
+		quantity = std::max(0, quantity);
+		quantity = std::min(quantity, m_stock);
+		m_stock -= quantity;
+		quantity = std::min(quantity, MAX_STOCK - ant->m_stock);
+		ant->m_stock += quantity;
+	}
+}
+
 void Ant::actionAttack(bool valid, int id) {
 	if (!actionPrelude(2, EXCLUSIVE, valid)) {
 		return;
@@ -289,6 +311,12 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		int id = param_int(argv[1], ok1);
 		int quantity = param_int(argv[2], ok2);
 		actionCollect(ok1 && ok2, id, quantity);
+
+	} else if (!strncmp(argv[0], "DO_TROPHALLAXIS", 16) && argc == 3) {
+		bool ok1, ok2;
+		int id = param_int(argv[1], ok1);
+		int quantity = param_int(argv[2], ok2);
+		actionDoTrophallaxis(ok1 && ok2, id, quantity);
 
 	} else if (!strncmp(argv[0], "ATTACK", 7) && argc == 2) {
 		bool ok;

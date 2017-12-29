@@ -42,6 +42,9 @@ class Ant : public Agent {
 	/** action COLLECT **/
 	void actionCollect(bool valid, int id, int quantity);
 
+	/** action DO_TROPHALLAXIS **/
+	void actionDoTrophallaxis(bool valid, int id, int quantity);
+
 	/** action Explore **/
 	void actionExplore(bool valid);
 

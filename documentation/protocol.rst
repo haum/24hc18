@@ -303,6 +303,21 @@ Actions
   `quantity`  Quantité à prendre (limité par la capacité restante)
   ==========  ======
 
+`DO_TROPHALLAXIS <id> <quantity>`
+  Effectue une trophalaxie avec une autre fourmi.
+
+  La fourmi avec qui l'échange est fait doit être dans le champ d'action
+  (`NEAR`). La fourmi effectuant l'action perd du stock de nourriture, la fourmi
+  qui reçoit l'action en gagne. Si l'échange contient plus de quantité que la
+  fourmi ne peut en recevoir, l'excédant est perdu.
+
+  Cette action est exclusive et coûte 2 unités de stamina.
+
+  ==========  ======
+  `id`        Identifiant de l'objet indiqué par `SEE_ANT`
+  `quantity`  Quantité à donner
+  ==========  ======
+
 `ATTACK <id>`
   Attaque une autre fourmi.
 
@@ -337,10 +352,6 @@ Commande                           Description                         Coût
 ================================== =================================== ========
 *MOVE_TO <id>*                     | Demande à une fourmi de se
                                    | diriger vers un emplacement.      2
----------------------------------- ----------------------------------- --------
-*DO_TROPHALLAXIS <ant> <quantity>* | Demande à une fourmi de donner de
-                                   | la nourriture à une autre (by
-                                   | id).
 ---------------------------------- ----------------------------------- --------
 *DROP <quantity>*                  | Demande à une fourmi de déposer
                                    | une quantité de nourriture au     4
