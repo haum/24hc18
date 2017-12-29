@@ -242,6 +242,22 @@ Informations
 Actions
 -------
 
+`EXPLORE`
+  Explore le terrain.
+
+  La fourmi n'explore pas en ligne droite.
+
+  Cette action est exclusive et coûte 1 unité de stamina.
+
+`TURN <angle>`
+  Tourne sur soi-même.
+
+  Cette action est exclusive et coûte 1 unité de stamina.
+
+  =======  ======
+  `angle`  Angle relatif en degrés (-180 à 180)
+  =======  ======
+
 `PUT_PHEROMONE <type>`
   Dépose une nouvelle phéromone.
 
@@ -274,22 +290,6 @@ Actions
   ======  ======
   `id`    Identifiant de l'objet indiqué par `SEE_PHEROMONE`
   ======  ======
-
-`EXPLORE`
-  Explore le terrain.
-
-  La fourmi n'explore pas en ligne droite.
-
-  Cette action est exclusive et coûte 1 unité de stamina.
-
-`TURN <angle>`
-  Tourne sur soi-même.
-
-  Cette action est exclusive et coûte 1 unité de stamina.
-
-  =======  ======
-  `angle`  Angle relatif en degrés (-180 à 180)
-  =======  ======
 
 `ATTACK <id>`
   Attaque une autre fourmi.
