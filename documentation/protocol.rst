@@ -20,7 +20,7 @@ Il s'agit d'un protocole au format textuel.
    habituellement pour dialoguer avec votre programme en console ou via votre
    IDE. Ne cherchez pas plus compliqué.
 
-.. NOTE::
+.. TIP::
    Cela signifie aussi qu'il est facile de vérifier le comportement de votre
    stratégie en lui envoyant vous-même des données avant de le soumettre au
    simulateur.
@@ -47,7 +47,7 @@ les actions dites exclusives ne sont pas cumulables. Votre programme termine la
 liste des actions réalisées avec le marqueur `END` et se met en écoute d'un
 éventuel marqueur de début pour une nouvelle entité.
 
-.. WARNING::
+.. CAUTION::
    Notez qu'il est important de respecter l'ordre de parole (i.e. bien attendre
    d'avoir reçu `END` avant d'indiquer les actions), de n'indiquer qu'un seul
    `END` en fin de liste d'actions et de ne pas utiliser plusieurs commandes
@@ -96,7 +96,7 @@ identiques, et qu'une stratégie répond avant l'autre, celle-ci sera exécutée
 Un programme de stratégie qui répond plus rapidement peut alors réaliser
 davantage d'actions au cours de la partie.
 
-.. NOTE::
+.. TIP::
    Nous avons pu observer que deux stratégies identiques codées par deux
    personnes différentes dans le même langage pouvaient différer
    significativement en temps d'exécution, au point d'avoir un impact bien plus
@@ -126,7 +126,7 @@ Il y a ensuite la mémoire du programme de stratégie. Celle-ci peut être utili
 pour effectuer les calculs nécessaires aux décisions mais elle ne doit pas
 servir à stocker des données.
 
-.. WARNING::
+.. CAUTION::
   En particulier, votre programme de stratégie ne peut pas partager localement de
   la mémoire entre les entités : les fourmis ne sont pas télépathes. De même, il
   ne faut pas s'en servir pour étendre la capacité mémoire de la colonie ou pour
@@ -150,7 +150,7 @@ programme de stratégie, le simulateur dispose de petits mécanismes ci et là.
 L'un d'eux consiste à redémarrer votre programme occasionnellement entre deux
 entités jouées.
 
-.. NOTE::
+.. TIP::
   Vous êtes fortement encouragés à utiliser la mémoire des entités dans vos
   algorithmes et à profiter des mécanismes de la simulation pour échanger des
   données, par exemple en employant des phéromones.
