@@ -5,6 +5,16 @@
 #include "scenario.h"
 #include <cmath>
 
+namespace {
+constexpr const double WALK_DISTANCE = 2 * M_PI / 10000;
+constexpr const double NEAR_DISTANCE = 3 * WALK_DISTANCE;
+constexpr const double FAR_DISTANCE = 10 * WALK_DISTANCE;
+static_assert(WALK_DISTANCE <= NEAR_DISTANCE,
+              "WALK_DISTANCE should be smaller than NEAR_DISTANCE");
+static_assert(NEAR_DISTANCE < FAR_DISTANCE,
+              "NEAR_DISTANCE should be nearer than FAR_DISTANCE");
+} // namespace
+
 const GameObjectCategory Ant::s_category{"ANT"};
 
 Ant::Ant(Team &team, int stamina, double latitude, double longitude,
@@ -29,10 +39,10 @@ bool Ant::prelude(std::ostream &os) {
 	team().resetIds();
 	team().scenario().listObjects([this, &os](auto sgo) {
 		if (this != sgo.get()) {
-			if (sgo->distance(*this) <= 0.9) {
+			if (sgo->distance(*this) <= FAR_DISTANCE) {
 				size_t gameObjectId = team().addId(sgo.get());
 				const char *zoneTxt =
-				    (sgo->distance(*this) <= 0.4 ? " NEAR" : " FAR");
+				    (sgo->distance(*this) <= NEAR_DISTANCE ? " NEAR" : " FAR");
 
 				if (sgo->category() == Pheromone::category()) {
 					auto *pheromone = static_cast<Pheromone *>(sgo.get());
@@ -147,7 +157,7 @@ void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
 	team().scenario().listObjects([this, ptr, type](auto sgo) {
 		if (ptr == sgo.get()) {
 			if (sgo->category() == Pheromone::category() &&
-			    ptr->distance(*this) <= 0.4) {
+			    ptr->distance(*this) <= NEAR_DISTANCE) {
 				auto *pheromone = static_cast<Pheromone *>(sgo.get());
 				pheromone->setType(type);
 			} else {
@@ -176,7 +186,7 @@ void Ant::actionRechargePheromone(bool valid, int id) {
 	team().scenario().listObjects([this, ptr](auto sgo) {
 		if (ptr == sgo.get()) {
 			if (sgo->category() == Pheromone::category() &&
-			    ptr->distance(*this) <= 0.4) {
+			    ptr->distance(*this) <= NEAR_DISTANCE) {
 				auto *pheromone = static_cast<Pheromone *>(sgo.get());
 				pheromone->setLife(100);
 			} else {
@@ -204,7 +214,7 @@ void Ant::actionAttack(bool valid, int id) {
 
 	GameObject *ptr = team().getIds()[index];
 
-	if (ptr->distance(*this) <= 0.4) {
+	if (ptr->distance(*this) <= NEAR_DISTANCE) {
 		if (ptr->category() == Ant::category()) {
 			auto *ant = static_cast<Ant *>(ptr);
 			ant->setStamina(ant->stamina() - 1);
@@ -216,7 +226,7 @@ void Ant::actionExplore(bool valid) {
 		return;
 	double dh = (random_angle() - M_PI) / 36;
 	m_heading = fmod(m_heading + dh, 2 * M_PI);
-	moveDistance(2 * M_PI / 10000);
+	moveDistance(WALK_DISTANCE);
 }
 
 void Ant::actionTurnLeft(bool valid) {
