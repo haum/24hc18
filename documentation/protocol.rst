@@ -88,6 +88,43 @@ de réduire l'incertitude.
 
 À vous d'être suffisamment astucieux pour transformer ce chaos en aubaine.
 
+Partage du temps
+----------------
+
+Chaque colonie est traitée de manière équivalente du point de vue de l'OS et du
+simulateur (aux aléas près). Néanmoins, au sein d'une même colonie, les
+ressources en temps sont partagées entre la fourmilière et l'ensemble des
+fourmis sorties.
+
+Par exemple, si deux colonies A et B disposent respectivement de 3 et 7 fourmies
+hors de la fourmilière, et que deux copies du même programme de stratégie sont
+utilisées, l'ordonnancement sera par exemple : A0 B0 A1 B1 A2 B2 A3 B3 A0 B4 A1
+B5 A2 B6 A3 B7. Nous voyons que pour une exécution complète de B, A aura fait
+deux tours. Cependant, cet avantage relatif est contrebalancé par une
+consommation de ressources plus importante pour pouvoir affectuer lesdites
+actions.
+
+A contrario, lorsque les programmes ou simplement les situations ne sont pas
+identiques, et qu'une stratégie répond avant l'autre, celle-ci sera exécutée.
+Un programme de stratégie qui répond plus rapidement peut alors réaliser
+davantage d'actions au cours de la partie.
+
+.. NOTE::
+   Nous avons pu observer que deux stratégies identiques codées par deux
+   personnes différentes dans le même langage pouvaient différer
+   significativement en temps d'exécution, au point d'avoir un impact bien plus
+   grand que les aléas de l'OS ou même le nombre de fourmis à contrôler.
+
+   Ainsi, même si le code est a priori simple, les équipes réalisant une
+   programmation de qualité pourront être avantagées.
+
+En plus de ces considérations, il faut noter que le temps joue également un rôle
+dans la consommation des ressources. En effet, pour faire fonctionner leur
+métabolisme, les fourmis ont besoin de consommer de l'énergie. Cela se traduit
+par une consommation de stamina pour les fourmis hors de la fourmilière et de la
+consommation de nourriture dans la fourmilière pour les autres. Ces
+consommations interviennent à date fixe, peu importe les actions réalisées.
+
 Fourmi
 ======
 
