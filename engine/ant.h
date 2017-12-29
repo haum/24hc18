@@ -39,6 +39,9 @@ class Ant : public Agent {
 	/** action RECHARGE_PHEROMONE **/
 	void actionRechargePheromone(bool valid, int id);
 
+	/** action COLLECT **/
+	void actionCollect(bool valid, int id, int quantity);
+
 	/** action Explore **/
 	void actionExplore(bool valid);
 

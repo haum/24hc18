@@ -6,6 +6,7 @@
 #include <cmath>
 
 namespace {
+constexpr const int MAX_STOCK = 1000;
 constexpr const double WALK_DISTANCE = 2 * M_PI / 10000;
 constexpr const double NEAR_DISTANCE = 3 * WALK_DISTANCE;
 constexpr const double FAR_DISTANCE = 10 * WALK_DISTANCE;
@@ -199,6 +200,26 @@ void Ant::actionRechargePheromone(bool valid, int id) {
 	}
 }
 
+void Ant::actionCollect(bool valid, int id, int quantity) {
+	if (!actionPrelude(4, EXCLUSIVE, valid)) {
+		return;
+	}
+
+	bool invalid;
+	GameObject *ptr = getObjectById(id, invalid);
+	if (invalid || ptr->category() != Food::category()) {
+		invalidAction();
+		return;
+	}
+
+	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
+		auto *food = static_cast<Food *>(ptr);
+		quantity = std::min(quantity, MAX_STOCK - m_stock);
+		quantity = food->eat(quantity);
+		m_stock += quantity;
+	}
+}
+
 void Ant::actionAttack(bool valid, int id) {
 	if (!actionPrelude(2, EXCLUSIVE, valid)) {
 		return;
@@ -262,6 +283,12 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		bool ok;
 		int id = param_int(argv[1], ok, 0, 255);
 		actionRechargePheromone(ok, id);
+
+	} else if (!strncmp(argv[0], "COLLECT", 8) && argc == 3) {
+		bool ok1, ok2;
+		int id = param_int(argv[1], ok1);
+		int quantity = param_int(argv[2], ok2);
+		actionCollect(ok1 && ok2, id, quantity);
 
 	} else if (!strncmp(argv[0], "ATTACK", 7) && argc == 2) {
 		bool ok;
