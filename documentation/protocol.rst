@@ -296,6 +296,16 @@ Actions
 
   Cette action n'est pas exclusive et coûte 0 unité de stamina.
 
+`SET_MEMORY <m0> <m1>`
+  Modifie la mémoire de la fourmi.
+
+  Cette action n'est pas exclusive et coûte 0 unité de stamina.
+
+  ====  ======
+  `m0`  Nombre compris entre 0 et 255 inclus.
+  `m1`  Nombre compris entre 0 et 255 inclus.
+  ====  ======
+
 Autres actions :
 
 ================================== =================================== ========
@@ -318,10 +328,6 @@ Commande                           Description                         Coût
 *DROP <quantity>*                  | Demande à une fourmi de déposer
                                    | une quantité de nourriture au     4
                                    | sol.
----------------------------------- ----------------------------------- --------
-*SET_MEMORY <u_int8> <u_int8>*     | Demande à une fourmi de mémoriser
-                                   | des données. 2 octets maxi sous   0
-                                   | la forme de 2 u_int8.
 ---------------------------------- ----------------------------------- --------
 *NEST*                             | Demande à une fourmi de retourner
                                    | au nid. Cette action n'est        2
