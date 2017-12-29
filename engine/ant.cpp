@@ -274,6 +274,25 @@ void Ant::actionEat(bool valid, int quantity) {
 	m_stamina = std::min(m_stamina + 10 * quantity, MAX_STAMINA);
 }
 
+void Ant::actionMoveTo(bool valid, int id) {
+	if (!actionPrelude(2, EXCLUSIVE, valid)) {
+		return;
+	}
+
+	bool invalid;
+	GameObject *ptr = getObjectById(id, invalid);
+	if (invalid || ptr->category() != Nest::category()) {
+		invalidAction();
+		return;
+	}
+
+	if (ptr) {
+		orientToward(*ptr);
+		auto d = std::min(distance(*ptr), WALK_DISTANCE);
+		moveDistance(d);
+	}
+}
+
 void Ant::actionNest(bool valid, int id) {
 	if (!actionPrelude(2, EXCLUSIVE, valid)) {
 		return;
@@ -365,6 +384,11 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		bool ok;
 		int id = param_int(argv[1], ok);
 		actionNest(ok, id);
+
+	} else if (!strncmp(argv[0], "MOVE_TO", 8) && argc == 2) {
+		bool ok;
+		int id = param_int(argv[1], ok);
+		actionMoveTo(ok, id);
 
 	} else if (!strncmp(argv[0], "EXPLORE", 8) && argc == 1) {
 		actionExplore(true);

@@ -258,6 +258,16 @@ Actions
   `angle`  Angle relatif en degrés (-180 à 180)
   =======  ======
 
+`MOVE_TO <id>`
+  Se dirige vers un objet visible.
+
+  Cette action est exclusive et coûte 2 unités de stamina.
+
+  ====  ======
+  `id`  Identifiant de l'objet indiqué par `SEE_PHEROMONE`, `SEE_FOOD`,
+        `SEE_ANT` ou `SEE_NEST`
+  ====  ======
+
 `PUT_PHEROMONE <type>`
   Dépose une nouvelle phéromone.
 
@@ -374,9 +384,6 @@ Autres actions :
 ================================== =================================== ========
 Commande                           Description                         Coût
 ================================== =================================== ========
-*MOVE_TO <id>*                     | Demande à une fourmi de se
-                                   | diriger vers un emplacement.      2
----------------------------------- ----------------------------------- --------
 *DROP <quantity>*                  | Demande à une fourmi de déposer
                                    | une quantité de nourriture au     4
                                    | sol.

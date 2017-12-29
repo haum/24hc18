@@ -54,6 +54,9 @@ class Ant : public Agent {
 	/** action EAT **/
 	void actionEat(bool valid, int quantity);
 
+	/** action MOVE_TO **/
+	void actionMoveTo(bool valid, int id);
+
 	/** action NEST **/
 	void actionNest(bool valid, int id);
 
