@@ -30,3 +30,10 @@ void GameObject::moveDistance(double distance) {
 	                     M_PI,
 	                 2 * M_PI);
 }
+
+void GameObject::orientToward(const GameObject &go) {
+	m_heading = atan2(sin(go.m_longitude - m_longitude) * cos(go.m_latitude),
+	                  cos(m_latitude) * sin(go.m_latitude) -
+	                      sin(m_latitude) * cos(go.m_latitude) *
+	                          cos(go.m_longitude - m_longitude));
+}

@@ -44,6 +44,9 @@ class GameObject {
 	/** Move object of distance in current heading **/
 	void moveDistance(double distance);
 
+	/** Orient toward another object **/
+	void orientToward(const GameObject &go);
+
 	/** Get type **/
 	GameObject_t category() const { return m_category; }
 
