@@ -318,6 +318,17 @@ Actions
   `quantity`  Quantité à donner
   ==========  ======
 
+`EAT <quantity>`
+  Mange.
+
+  Cette action est exclusive et coûte `quantity` unités de nourriture. Elle
+  recharge de 10 × `quantity` unités de stamina dans la limite des capacités de
+  la fourmi.
+
+  ==========  ======
+  `quantity`  Quantité de nourriture consommée.
+  ==========  ======
+
 `NEST <id>`
   Rentre dans la fourmillière.
 
@@ -369,9 +380,6 @@ Commande                           Description                         Coût
 *DROP <quantity>*                  | Demande à une fourmi de déposer
                                    | une quantité de nourriture au     4
                                    | sol.
----------------------------------- ----------------------------------- --------
-*EAT <quantity>*                   | Demande à une fourmi de manger
-                                   | une quantité de nourriture.       0
 ================================== =================================== ========
 
 

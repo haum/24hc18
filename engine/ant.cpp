@@ -7,6 +7,7 @@
 
 namespace {
 constexpr const int MAX_STOCK = 1000;
+constexpr const int MAX_STAMINA = 10000;
 constexpr const double WALK_DISTANCE = 2 * M_PI / 10000;
 constexpr const double NEAR_DISTANCE = 3 * WALK_DISTANCE;
 constexpr const double FAR_DISTANCE = 10 * WALK_DISTANCE;
@@ -263,6 +264,16 @@ void Ant::actionAttack(bool valid, int id) {
 	}
 }
 
+void Ant::actionEat(bool valid, int quantity) {
+	if (!actionPrelude(0, EXCLUSIVE, valid)) {
+		return;
+	}
+	quantity = std::max(0, quantity);
+	quantity = std::min(m_stock, quantity);
+	m_stock -= quantity;
+	m_stamina = std::min(m_stamina + 10 * quantity, MAX_STAMINA);
+}
+
 void Ant::actionNest(bool valid, int id) {
 	if (!actionPrelude(2, EXCLUSIVE, valid)) {
 		return;
@@ -344,6 +355,11 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		bool ok;
 		int id = param_int(argv[1], ok, 0, 255);
 		actionAttack(ok, id);
+
+	} else if (!strncmp(argv[0], "EAT", 4) && argc == 2) {
+		bool ok;
+		int quantity = param_int(argv[1], ok);
+		actionEat(ok, quantity);
 
 	} else if (!strncmp(argv[0], "NEST", 5) && argc == 2) {
 		bool ok;
