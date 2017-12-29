@@ -282,6 +282,15 @@ Actions
 
   Cette action est exclusive et coûte 1 unité de stamina.
 
+`TURN <angle>`
+  Tourne sur soi-même.
+
+  Cette action est exclusive et coûte 1 unité de stamina.
+
+  =======  ======
+  `angle`  Angle relatif en degrés (-180 à 180)
+  =======  ======
+
 Autres actions :
 
 ================================== =================================== ========
@@ -292,10 +301,6 @@ Commande                           Description                         Coût
 ---------------------------------- ----------------------------------- --------
 *MOVE_TO <id>*                     | Demande à une fourmi de se
                                    | diriger vers un emplacement.      2
----------------------------------- ----------------------------------- --------
-*TURN <X>*                         | Demande à une fourmi d'effectuer
-                                   | une rotation sur elle-même de x°  1
-                                   | (de -180° à 180°).
 ---------------------------------- ----------------------------------- --------
 *COLLECT <id> <quantity>*          | Demande à une fourmi de collecter
                                    | une quantité de nourriture (by    4

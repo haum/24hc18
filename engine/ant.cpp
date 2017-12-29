@@ -229,16 +229,10 @@ void Ant::actionExplore(bool valid) {
 	moveDistance(WALK_DISTANCE);
 }
 
-void Ant::actionTurnLeft(bool valid) {
-	if (!actionPrelude(0, EXCLUSIVE, valid))
+void Ant::actionTurn(bool valid, int angle) {
+	if (!actionPrelude(1, EXCLUSIVE, valid))
 		return;
-	m_heading = fmod(m_heading + 2 * M_PI / 36, 2 * M_PI);
-}
-
-void Ant::actionTurnRight(bool valid) {
-	if (!actionPrelude(0, EXCLUSIVE, valid))
-		return;
-	m_heading = fmod(m_heading - 2 * M_PI / 36, 2 * M_PI);
+	m_heading = fmod(m_heading + angle * M_PI / 180, 2 * M_PI);
 }
 
 void Ant::execute(uint8_t argc, const char **argv) {
@@ -278,11 +272,10 @@ void Ant::execute(uint8_t argc, const char **argv) {
 	} else if (!strncmp(argv[0], "EXPLORE", 8) && argc == 1) {
 		actionExplore(true);
 
-	} else if (!strncmp(argv[0], "TURNLEFT", 9) && argc == 1) {
-		actionTurnLeft(true);
-
-	} else if (!strncmp(argv[0], "TURNRIGHT", 10) && argc == 1) {
-		actionTurnRight(true);
+	} else if (!strncmp(argv[0], "TURN", 5) && argc == 2) {
+		bool ok;
+		int angle = param_int(argv[1], ok, -180, 180);
+		actionTurn(ok, angle);
 
 	} else {
 		invalidAction();

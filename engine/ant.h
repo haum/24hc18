@@ -48,11 +48,8 @@ class Ant : public Agent {
 	/** set ant's stamina **/
 	void setStamina(int stamina) { this->m_stamina = stamina; }
 
-	/** action WALK **/
-	void actionTurnLeft(bool valid);
-
-	/** action WALK **/
-	void actionTurnRight(bool valid);
+	/** action TURN **/
+	void actionTurn(bool valid, int angle);
 
   private:
 	/** Stamina **/
