@@ -120,6 +120,31 @@ bool Ant::actionPrelude(int cost, ActionType type, bool valid) {
 	return valid;
 }
 
+GameObject *Ant::getObjectById(int id, bool &invalid) {
+	if (id <= 0) {
+		invalid = true;
+		return nullptr;
+	}
+	size_t index = static_cast<size_t>(id - 1);
+	if (index >= team().getIds().size()) {
+		invalid = true;
+		return nullptr;
+	}
+	invalid = false;
+	auto *ptr = team().getIds()[index];
+	bool found = false;
+	team().scenario().listObjects([ptr, &found](auto sgo) {
+		if (ptr == sgo.get()) {
+			found = true;
+			return false;
+		}
+		return true;
+	});
+	if (!found)
+		return nullptr;
+	return ptr;
+}
+
 void Ant::actionSetMemory(bool valid, uint8_t m0, uint8_t m1) {
 	if (!actionPrelude(0, ALWAYS_ALLOWED, valid))
 		return;
@@ -143,84 +168,55 @@ void Ant::actionPutPheromone(bool valid, uint8_t type) {
 void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
 	if (!actionPrelude(2, EXCLUSIVE, valid))
 		return;
-	if (id <= 0) {
-		invalidAction();
-		return;
-	}
-	size_t index = static_cast<size_t>(id - 1);
-	if (index >= team().getIds().size()) {
+
+	bool invalid;
+	GameObject *ptr = getObjectById(id, invalid);
+	if (invalid || ptr->category() != Pheromone::category()) {
 		invalidAction();
 		return;
 	}
 
-	GameObject *ptr = team().getIds()[index];
-	team().scenario().listObjects([this, ptr, type](auto sgo) {
-		if (ptr == sgo.get()) {
-			if (sgo->category() == Pheromone::category() &&
-			    ptr->distance(*this) <= NEAR_DISTANCE) {
-				auto *pheromone = static_cast<Pheromone *>(sgo.get());
-				pheromone->setType(type);
-			} else {
-				invalidAction();
-			}
-			return false;
-		}
-		return true;
-	});
+	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
+		auto *pheromone = static_cast<Pheromone *>(ptr);
+		pheromone->setType(type);
+	}
 }
 
 void Ant::actionRechargePheromone(bool valid, int id) {
 	if (!actionPrelude(1, EXCLUSIVE, valid))
 		return;
-	if (id <= 0) {
-		invalidAction();
-		return;
-	}
-	size_t index = static_cast<size_t>(id - 1);
-	if (index >= team().getIds().size()) {
+
+	bool invalid;
+	GameObject *ptr = getObjectById(id, invalid);
+	if (invalid || ptr->category() != Pheromone::category()) {
 		invalidAction();
 		return;
 	}
 
-	GameObject *ptr = team().getIds()[index];
-	team().scenario().listObjects([this, ptr](auto sgo) {
-		if (ptr == sgo.get()) {
-			if (sgo->category() == Pheromone::category() &&
-			    ptr->distance(*this) <= NEAR_DISTANCE) {
-				auto *pheromone = static_cast<Pheromone *>(sgo.get());
-				pheromone->setLife(100);
-			} else {
-				invalidAction();
-			}
-			return false;
-		}
-		return true;
-	});
+	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
+		auto *pheromone = static_cast<Pheromone *>(ptr);
+		pheromone->setLife(100);
+	}
 }
 
 void Ant::actionAttack(bool valid, int id) {
 	if (!actionPrelude(0, EXCLUSIVE, valid)) {
 		return;
 	}
-	if (id <= 0) {
-		invalidAction();
-		return;
-	}
-	size_t index = static_cast<size_t>(id - 1);
-	if (index >= team().getIds().size()) {
+
+	bool invalid;
+	GameObject *ptr = getObjectById(id, invalid);
+	if (invalid || ptr->category() != Ant::category()) {
 		invalidAction();
 		return;
 	}
 
-	GameObject *ptr = team().getIds()[index];
-
-	if (ptr->distance(*this) <= NEAR_DISTANCE) {
-		if (ptr->category() == Ant::category()) {
-			auto *ant = static_cast<Ant *>(ptr);
-			ant->setStamina(ant->stamina() - 1);
-		}
+	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
+		auto *ant = static_cast<Ant *>(ptr);
+		ant->setStamina(ant->stamina() - 1);
 	}
 }
+
 void Ant::actionExplore(bool valid) {
 	if (!actionPrelude(1, EXCLUSIVE, valid))
 		return;

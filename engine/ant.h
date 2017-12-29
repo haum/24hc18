@@ -82,6 +82,12 @@ class Ant : public Agent {
 	/** Prelude of actions (to check state) **/
 	bool actionPrelude(int cost, ActionType type, bool valid);
 
+	/** Get object by ID
+	 * @param id      ID to search
+	 * @param invalid (out) true if ID wad invalid, false otherwise
+	 */
+	GameObject *getObjectById(int id, bool &invalid);
+
 	virtual bool prelude(std::ostream &os) override;
 	virtual void execute(uint8_t argc, const char **argv) override;
 
