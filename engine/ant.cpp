@@ -402,3 +402,9 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		invalidAction();
 	}
 }
+
+void Ant::periodic() {
+	m_stamina -= 1;
+	if (m_stamina < 0)
+		destroy();
+}

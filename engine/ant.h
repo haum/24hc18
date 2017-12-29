@@ -105,6 +105,9 @@ class Ant : public Agent {
 
 	/** Ant category unique object **/
 	static const GameObjectCategory s_category;
+
+	/** Method called periodically by the engine **/
+	void periodic() override;
 };
 
 #endif // ANT_H
