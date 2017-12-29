@@ -408,15 +408,12 @@ Informations
 `MEMORY <m0> <m1> ... <m19>`
   Indique le contenu de la mémoire de la fourmilière (20 éléments).
 
-  +------+--------------------------------------+
-  | `m0` | Nombre compris entre 0 et 255 inclus.|
-  +------+--------------------------------------+
-  | `m1` | Nombre compris entre 0 et 255 inclus.|
-  +------+--------------------------------------+
-  | `...`| ...                                  |
-  +------+--------------------------------------+
-  | `m19`| Nombre compris entre 0 et 255 inclus.|
-  +------+--------------------------------------+
+  =====  ======
+  `m0`   Nombre compris entre 0 et 255 inclus.
+  `m1`   Nombre compris entre 0 et 255 inclus.
+  ...    ...
+  `m19`  Nombre compris entre 0 et 255 inclus.
+  =====  ======
 
 `ANT_COUNT <type> <quantity>`
   Indique le nombre de fourmis dans la fourmilière.
@@ -471,12 +468,9 @@ Actions
 
   Cette action n'est pas exclusive et coûte 0 unité de nourriture.
 
-  +------+--------------------------------------+
-  | `m0` | Nombre compris entre 0 et 255 inclus.|
-  +------+--------------------------------------+
-  | `m1` | Nombre compris entre 0 et 255 inclus.|
-  +------+--------------------------------------+
-  | `...`| ...                                  |
-  +------+--------------------------------------+
-  | `m19`| Nombre compris entre 0 et 255 inclus.|
-  +------+--------------------------------------+
+  =====  ======
+  `m0`   Nombre compris entre 0 et 255 inclus.
+  `m1`   Nombre compris entre 0 et 255 inclus.
+  ...    ...
+  `m19`  Nombre compris entre 0 et 255 inclus.
+  =====  ======
