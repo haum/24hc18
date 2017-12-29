@@ -291,6 +291,11 @@ Actions
   `angle`  Angle relatif en degrés (-180 à 180)
   =======  ======
 
+`SUICIDE`
+  Suicide la fourmi
+
+  Cette action n'est pas exclusive et coûte 0 unité de stamina.
+
 Autres actions :
 
 ================================== =================================== ========
@@ -317,8 +322,6 @@ Commande                           Description                         Coût
 *SET_MEMORY <u_int8> <u_int8>*     | Demande à une fourmi de mémoriser
                                    | des données. 2 octets maxi sous   0
                                    | la forme de 2 u_int8.
----------------------------------- ----------------------------------- --------
-*SUICIDE*                          | Tue la fourmi                     0
 ---------------------------------- ----------------------------------- --------
 *NEST*                             | Demande à une fourmi de retourner
                                    | au nid. Cette action n'est        2
