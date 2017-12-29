@@ -112,6 +112,49 @@ par une consommation de stamina pour les fourmis hors de la fourmilière et de l
 consommation de nourriture dans la fourmilière pour les autres. Ces
 consommations interviennent à date fixe, peu importe les actions réalisées.
 
+Mémoire
+-------
+
+Le sujet de la mémoire est délicat car il est facile de se fourvoyer.
+
+Notons tout d'abord que chaque entité dispose d'une petite mémoire personelle à
+long terme, c'est-à-dire qui persiste d'un tour à l'autre. C'est cette mémoire
+(accessible via les commandes `MEMORY` et `SET_MEMORY`) que vous devrez utiliser
+pour retenir l'information durablement.
+
+Il y a ensuite la mémoire du programme de stratégie. Celle-ci peut être utilisée
+pour effectuer les calculs nécessaires aux décisions mais elle ne doit pas
+servir à stocker des données.
+
+.. WARNING::
+  En particulier, votre programme de stratégie ne peut pas partager localement de
+  la mémoire entre les entités : les fourmis ne sont pas télépathes. De même, il
+  ne faut pas s'en servir pour étendre la capacité mémoire de la colonie ou pour
+  retenir des métadonnées supplémentaires.
+
+Imaginons par exemple que vous voulez faire sortir exactement 5 fourmis de la
+fourmilière. Une manière tantante serait de disposer d'un compteur dans un coin
+de l'application et d'utiliser celui-ci pour savoir s'il faut sortir une fourmi
+à ce tour ci : l'information est gardée dans le programme de stratégie, c'est
+erroné.
+
+À la place, il est possible par exemple définir que la mémoire m2 de la
+fourmilière sauvera le nombre de fourmis sorties : dans un premier temps il faut
+extraire ce nombre de l'information `MEMORY` de la fourmilière, sortir une
+fourmi si besoin, incrémenter localement ce compteur et enfin enregistrer la
+valeur modifiée avec la commande `SET_MEMORY`. L'information est gardée dans la
+mémoire de la fourmilière, c'est correct.
+
+Afin de réduire l'impact d'une information partagée accidentellement au sein du
+programme de stratégie, le simulateur dispose de petits mécanismes ci et là.
+L'un d'eux consiste à redémarrer votre programme occasionnellement entre deux
+entités jouées.
+
+.. NOTE::
+  Vous êtes fortement encouragés à utiliser la mémoire des entités dans vos
+  algorithmes et à profiter des mécanismes de la simulation pour échanger des
+  données, par exemple en employant des phéromones.
+
 Fourmi
 ======
 
