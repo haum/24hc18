@@ -30,6 +30,14 @@ class Nest : public Agent {
 	 */
 	void setPopulation(uint8_t type, int nb);
 
+	/** Ant enters in
+	 * @param type  Type of entred ant
+	 * @param m0    Memory 0 of ant
+	 * @param m1    Memory 1 of ant
+	 * @param stock Stock of ant
+	 */
+	void antIn(uint8_t type, uint8_t m0, uint8_t m1, unsigned int stock);
+
 	/** Set food amount
 	 * @param amount Amount of food
 	 */

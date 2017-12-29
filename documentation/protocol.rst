@@ -318,6 +318,19 @@ Actions
   `quantity`  Quantité à donner
   ==========  ======
 
+`NEST <id>`
+  Rentre dans la fourmillière.
+
+  La fourmilière doit être dans le champ d'action (`NEAR`) et être de la même
+  équipe que la fourmi. La mémoire et le stock de nourriture sont transphérés à
+  la fourmilière.
+
+  Cette action est exclusive et coûte 2 unités de stamina.
+
+  ====  ======
+  `id`  Identifiant de l'objet indiqué par `SEE_NEST`
+  ====  ======
+
 `ATTACK <id>`
   Attaque une autre fourmi.
 
@@ -356,11 +369,6 @@ Commande                           Description                         Coût
 *DROP <quantity>*                  | Demande à une fourmi de déposer
                                    | une quantité de nourriture au     4
                                    | sol.
----------------------------------- ----------------------------------- --------
-*NEST*                             | Demande à une fourmi de retourner
-                                   | au nid. Cette action n'est        2
-                                   | possible que lorsque le nid est
-                                   | dans la zone interactive.
 ---------------------------------- ----------------------------------- --------
 *EAT <quantity>*                   | Demande à une fourmi de manger
                                    | une quantité de nourriture.       0

@@ -23,6 +23,15 @@ void Nest::setPopulation(uint8_t type, int nb) {
 		m_antNumber.erase(type);
 }
 
+void Nest::antIn(uint8_t type, uint8_t m0, uint8_t m1, unsigned int stock) {
+	m_antsIn.push_back({type, m0, m1});
+	m_stock += stock;
+	if (hasAntType(type))
+		m_antNumber[type] += 1;
+	else
+		m_antNumber[type] = 1;
+}
+
 void Nest::setFood(int amount) {
 	if (amount > 0)
 		m_stock = static_cast<uint32_t>(amount);

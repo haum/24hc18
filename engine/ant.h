@@ -51,6 +51,9 @@ class Ant : public Agent {
 	/** action ATTACK **/
 	void actionAttack(bool valid, int id);
 
+	/** action NEST **/
+	void actionNest(bool valid, int id);
+
 	/** action TURN **/
 	void actionTurn(bool valid, int angle);
 

@@ -263,6 +263,28 @@ void Ant::actionAttack(bool valid, int id) {
 	}
 }
 
+void Ant::actionNest(bool valid, int id) {
+	if (!actionPrelude(2, EXCLUSIVE, valid)) {
+		return;
+	}
+
+	bool invalid;
+	GameObject *ptr = getObjectById(id, invalid);
+	if (invalid || ptr->category() != Nest::category()) {
+		invalidAction();
+		return;
+	}
+
+	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
+		auto *nest = static_cast<Nest *>(ptr);
+		if (&nest->team() == &team()) {
+			nest->antIn(m_ant_type, m_memory[0], m_memory[1],
+			            static_cast<unsigned int>(std::max(0, m_stock)));
+			destroy();
+		}
+	}
+}
+
 void Ant::actionExplore(bool valid) {
 	if (!actionPrelude(1, EXCLUSIVE, valid))
 		return;
@@ -322,6 +344,11 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		bool ok;
 		int id = param_int(argv[1], ok, 0, 255);
 		actionAttack(ok, id);
+
+	} else if (!strncmp(argv[0], "NEST", 5) && argc == 2) {
+		bool ok;
+		int id = param_int(argv[1], ok);
+		actionNest(ok, id);
 
 	} else if (!strncmp(argv[0], "EXPLORE", 8) && argc == 1) {
 		actionExplore(true);
