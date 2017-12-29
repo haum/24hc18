@@ -5,9 +5,6 @@ Protocole
 Ce document décrit le protocole de communication entre le programme de
 "stratégie" et le "simulateur".
 
-.. WARNING::
-    Les valeurs données dans les exemples le sont à titre indicatif.
-
 Généralités
 ===========
 
