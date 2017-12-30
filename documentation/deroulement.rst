@@ -32,8 +32,8 @@ Les stratégies peuvent être différentes pour chaque tournoi, mais il ne faut 
 oublier que chacun de ceux-ci peuvent comporter plusieurs scenarii que la même
 stratégie devra affronter.
 
-Conditions de victoire et attribution des points
-================================================
+Points et victoire
+==================
 
 Même si affronter la planète est un défi en soi, Marabunta est aussi un jeu
 entre équipes. Votre objectif sera de marquer plus de points que les autres
@@ -51,19 +51,31 @@ Les points se gagnent ainsi à l'issue de chaque match:
    toutefois gagner : :point:`1 point`
  - Votre code mène votre colonie à la victoire : :point:`2 points`
 
-En cas d'égalité, plusieurs équipes peuvent marquer les points de victoire.
+En cas d'égalité, plusieurs équipes peuvent marquer les points de victoire. À la
+fin des 24h, l'équipe ayant le plus de points gagne.
 
-Et 24 heures plus tard
+.. TIP::
+   À la lecture de ces précisions, comprenez bien qu'avoir un système
+   permettant à la colonie de survivre est **essentiel**. Il n'est pas
+   nécessaire de se battre pour gagner. 
+
+
+24 heures avec le HAUM
 ======================
 
-À la fin des 24h, l'équipe ayant le plus de points gagne. Notez que :red:`le
-dernier match se déroulera 1 heure avant la fin`. La dernière heure sera
-consacrée à un temps de discussion entre les équipes ayant choisi le sujet et
-celle l'ayant préparé.
+Les sujets proposés par le `HAUM <https://haum.org/>`_ n'ont pas l'habitude
+d'être à visée scolaire. Ce sujet-ci ne déroge pas à la règle et est tout à fait
+dans l'esprit du hackerspace : ce week-end, nous partageons collectivement une
+aventure expérimentale.
 
-Un dernier conseil
-==================
+Ce qui nous intéresse n'est pas votre capacité à résoudre un problème fermé mais
+bien l'ingéniosité que vous mettrez pour imaginer une solution possible à cette
+problématique atypique.
 
-À la lecture de ces précisions, comprenez bien qu'avoir un système permettant 
-à la colonie de survivre est **essentiel**. Il n'est pas nécessaire de se battre 
-pour gagner. 
+Plusieurs rendez-vous seront organisés pendant la durée de l'épreuve pour
+prendre du recul, discuter, se détendre. N'hésitez pas également à venir
+bavarder avec l'équipe du sujet et faire part de vos idées ingénieuses ou de vos
+difficultés. Nous serons avec vous toute la nuit.
+
+La dernière heure sera consacrée à un temps de discussion entre toutes les
+personnes ayant travaillé sur le sujet.
