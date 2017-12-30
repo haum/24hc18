@@ -1,6 +1,23 @@
-==============================================
-Ce que doit contenir votre trousse de survie ?
-==============================================
+=================
+Trousse de survie
+=================
+
+Langages de programmation
+=========================
+
+Le simulateur peut interagir avec tout programme exécutable sur le système mais
+le serveur de jeu ne supporte pas tous les langages imaginables. Nous avons
+limité notre support aux langages suivants :
+
+ - AsciiDots
+ - C
+ - C++
+ - Java
+ - Perl
+ - Python 2
+ - Python 3
+
+Vous êtes libres d'utiliser le langage qui vous convient parmi cette liste.
 
 Bien ranger et conserver votre travail
 ======================================
@@ -22,23 +39,6 @@ quelques exemples :
 
  - [noméquipe]_[scénario].extension
  - /noméquipe/scénario/votrecode
-
-Les outils que vous pouvez utiliser
-===================================
-
-Vous êtes libre d'utiliser le langage qui vous conviens  parmi la liste
-suivante:
- 
- - AsciiDots
- - C
- - C++
- - Java
- - Perl
- - Python 2
- - Python 3
-
-Nous vous invitons à vous documenter sur ces différents langages si vous ne les 
-connaissez pas.
 
 Dernier avertissement
 =====================
