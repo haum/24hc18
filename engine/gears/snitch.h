@@ -19,7 +19,11 @@ class Snitch {
 	void eventProcessRead();
 
   private:
+	/** Socket file descriptor **/
 	int m_fd{-1};
+
+	/** Send buffer **/
+	uint32_t m_sendBuffer[6 * 85];
 
 	/** Scenario in use **/
 	Scenario *m_scenario;

@@ -51,8 +51,8 @@ void Snitch::eventProcessRead() {
 	} while (poll(&fdp, 1, 0) != 0);
 
 	// Write output
-	m_scenario->listObjects([this](auto sgo) {
-		uint32_t data[6];
+	unsigned int sendIndex = 0;
+	m_scenario->listObjects([this, &sendIndex](auto sgo) {
 		auto f = [](uint32_t *dest, float v) { ::memcpy(dest, &v, sizeof(v)); };
 		auto p = [](uint32_t *dest, void *ptr) {
 			auto v = static_cast<uint32_t>(
@@ -60,28 +60,39 @@ void Snitch::eventProcessRead() {
 			::memcpy(dest, &v, sizeof(v));
 		};
 
-		data[0] = UINT32_MAX - 1;
-		if (sgo->category() == Pheromone::category())
-			data[0] = 3;
-		if (sgo->category() == Ant::category())
-			data[0] = 0;
-		if (sgo->category() == Food::category()) {
-			data[0] = 1;
+		m_sendBuffer[sendIndex + 0] = UINT32_MAX - 1;
+		if (sgo->category() == Pheromone::category()) {
+			m_sendBuffer[sendIndex + 0] = 3;
+
+		} else if (sgo->category() == Ant::category()) {
+			m_sendBuffer[sendIndex + 0] = 0;
+
+		} else if (sgo->category() == Food::category()) {
+			m_sendBuffer[sendIndex + 0] = 1;
 			if (static_cast<Food *>(sgo.get())->available() <= 0)
 				return true; // Do not send
-		}
-		if (sgo->category() == Nest::category())
-			data[0] = 2;
 
-		f(&data[1], static_cast<float>(sgo->longitude()));
-		f(&data[2], static_cast<float>(sgo->latitude()));
-		f(&data[3], static_cast<float>(sgo->heading()));
-		p(&data[4], sgo->teamBase());
-		p(&data[5], sgo.get());
-		write(m_fd, data, sizeof(data));
+		} else if (sgo->category() == Nest::category()) {
+			m_sendBuffer[sendIndex + 0] = 2;
+		}
+
+		f(&m_sendBuffer[sendIndex + 1], static_cast<float>(sgo->longitude()));
+		f(&m_sendBuffer[sendIndex + 2], static_cast<float>(sgo->latitude()));
+		f(&m_sendBuffer[sendIndex + 3], static_cast<float>(sgo->heading()));
+		p(&m_sendBuffer[sendIndex + 4], sgo->teamBase());
+		p(&m_sendBuffer[sendIndex + 5], sgo.get());
+		sendIndex += 6;
+		if (sendIndex >= (sizeof(m_sendBuffer) / sizeof(*m_sendBuffer))) {
+			write(m_fd, m_sendBuffer, sizeof(m_sendBuffer));
+			sendIndex = 0;
+		}
 		return true;
 	});
 
-	uint32_t data[6] = {UINT32_MAX, 0, 0, 0, 0, 0};
-	write(m_fd, data, sizeof(data));
+	m_sendBuffer[sendIndex + 0] = UINT32_MAX;
+	m_sendBuffer[sendIndex + 1] = m_sendBuffer[sendIndex + 2] = 0;
+	m_sendBuffer[sendIndex + 3] = m_sendBuffer[sendIndex + 4] = 0;
+	m_sendBuffer[sendIndex + 5] = 0;
+	sendIndex += 6;
+	write(m_fd, m_sendBuffer, sendIndex * sizeof(*m_sendBuffer));
 }
