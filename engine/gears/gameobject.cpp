@@ -1,12 +1,12 @@
 #include "gameobject.h"
-#include <math.h>
+#include <cmath>
 
 GameObject::GameObject(GameObject_t category, double latitude, double longitude,
                        double heading)
     : m_latitude{latitude}, m_longitude{longitude}, m_heading{heading},
       m_category{category} {}
 
-GameObject::~GameObject() {}
+GameObject::~GameObject() = default;
 
 double GameObject::distance(const GameObject &go) const {
 	double d = cos(latitude()) * cos(go.latitude());

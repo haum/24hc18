@@ -1,8 +1,8 @@
 #include "snitch.h"
 #include "../scenario.h"
+#include <cstring>
 #include <netdb.h>
 #include <poll.h>
-#include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
 
@@ -48,14 +48,14 @@ void Snitch::eventProcessRead() {
 			break;
 		fdp.fd = m_fd;
 		fdp.events = POLLIN;
-	} while (poll(&fdp, 1, 0));
+	} while (poll(&fdp, 1, 0) != 0);
 
 	// Write output
 	m_scenario->listObjects([this](auto sgo) {
 		uint32_t data[6];
 		auto f = [](uint32_t *dest, float v) { ::memcpy(dest, &v, sizeof(v)); };
 		auto p = [](uint32_t *dest, void *ptr) {
-			uint32_t v = static_cast<uint32_t>(
+			auto v = static_cast<uint32_t>(
 			    reinterpret_cast<std::uintptr_t>(ptr)); // Quite ugly
 			::memcpy(dest, &v, sizeof(v));
 		};

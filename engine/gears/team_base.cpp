@@ -2,9 +2,9 @@
 #include "agent.h"
 #include "rand.h"
 #include <algorithm>
+#include <csignal>
 #include <cstring>
 #include <iostream>
-#include <signal.h>
 #include <sstream>
 #include <unistd.h>
 
@@ -48,7 +48,7 @@ void TeamBase::send(const char *data, size_t len) {
 }
 
 void TeamBase::log(const char *msg) {
-	if (m_log != -1 && msg) {
+	if ((m_log != -1) && (msg != nullptr)) {
 		char prefix[] = "0 ! ";
 		prefix[0] = static_cast<char>(
 		    '0' + std::distance(m_teamManagers.begin(), m_currentManager));
@@ -87,6 +87,7 @@ bool TeamBase::nextAgent() {
 				m_agents.pop_back();
 			}
 		}
+		m_agentsToRemove.clear();
 		std::copy(m_agentsToAdd.begin(), m_agentsToAdd.end(),
 		          std::back_inserter(m_agents));
 		m_agentsToAdd.clear();
@@ -162,7 +163,7 @@ void TeamBase::processLine(uint8_t argc, const char **argv) {
 		write(m_log, &nl, 1);
 	}
 
-	if (argc == 1 && !strncmp(argv[0], "END", 3)) {
+	if ((argc == 1) && (strncmp(argv[0], "END", 3) == 0)) {
 		if (!m_dead)
 			(*m_currentAgent)->epilogue();
 		if (!m_nokill && random_unit() < 1 / 2000.0)
@@ -184,7 +185,7 @@ void TeamBase::start_subprocess() {
 	if ((pid = fork()) == -1)
 		goto err_fork;
 
-	if (pid) { // Game manager
+	if (pid != 0) { // Game manager
 		m_currentManager->m_fdin = pipe0[1];
 		m_currentManager->m_fdout = pipe1[0];
 		m_currentManager->m_fderr = pipe2[0];

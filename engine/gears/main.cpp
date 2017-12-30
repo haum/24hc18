@@ -1,9 +1,9 @@
 #include "../scenario.h"
 #include "rand.h"
+#include <csignal>
 #include <getopt.h>
 #include <iostream>
 #include <memory>
-#include <signal.h>
 #include <sstream>
 
 int main(int argc, char *argv[]) {

@@ -71,9 +71,8 @@ bool Nest::actionPrelude(int cost, ActionType type, bool valid) {
 		if (m_exclusiveDone) {
 			invalidAction();
 			return false;
-		} else {
-			m_exclusiveDone = true;
 		}
+		m_exclusiveDone = true;
 
 	} else if (type == ALWAYS_ALLOWED) {
 		// Nothing to do
@@ -101,7 +100,7 @@ void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
 		team().scenario().addGameObject<Ant>(team(), 200, this->latitude(),
 		                                     this->longitude(), random_angle(),
 		                                     type, m0, m1);
-		setPopulation(type, m_antNumber[type] - 1);
+		setPopulation(type, static_cast<int>(m_antNumber[type] - 1));
 	}
 }
 
@@ -125,7 +124,7 @@ void Nest::execute(uint8_t argc, const char **argv) {
 	if (argc <= 0)
 		return;
 
-	if (!strncmp(argv[0], "ANT_OUT", 8) && argc == 4) {
+	if ((argc == 4) && (strncmp(argv[0], "ANT_OUT", 8) == 0)) {
 		bool ok_type, ok_m0, ok_m1;
 		int type = param_int(argv[1], ok_type, 0, 255);
 		int m0 = param_int(argv[2], ok_m0, 0, 255);
@@ -133,12 +132,12 @@ void Nest::execute(uint8_t argc, const char **argv) {
 		actionAntOut(ok_type && ok_m0 && ok_m1, static_cast<uint8_t>(type),
 		             static_cast<uint8_t>(m0), static_cast<uint8_t>(m1));
 
-	} else if (!strncmp(argv[0], "ANT_NEW", 8) && argc == 2) {
+	} else if ((argc == 2) && (strncmp(argv[0], "ANT_NEW", 8) == 0)) {
 		bool ok;
 		int type = param_int(argv[1], ok, 0, 255);
 		actionAntNew(ok, static_cast<uint8_t>(type));
 
-	} else if (!strncmp(argv[0], "SET_MEMORY", 11) && argc == 21) {
+	} else if ((argc == 21) && (strncmp(argv[0], "SET_MEMORY", 11) == 0)) {
 		bool ok = true;
 		uint8_t mem[20];
 		for (int i = 1; i < 21; ++i) {

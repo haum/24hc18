@@ -1,27 +1,29 @@
 #include "lineparser.h"
 #include <cstring>
 
-LineParserError LineParserBase::read(ssize_t len) {
+LineParserError LineParserBase::read(size_t len) {
 	if (len <= 0) {
 		return LineParserError::READ_ERROR;
-	} else if (!strstr(m_buff, "\n")) {
-		if (len >= static_cast<ssize_t>(m_size - 1)) {
+	}
+	if (strstr(m_buff, "\n") == nullptr) {
+		if (len >= m_size - 1) {
 			m_too_long = true;
 			m_buff_len = 0;
 			return LineParserError::LINE_TOO_LONG;
-		} else if (m_too_long) {
+		}
+		if (m_too_long) {
 			m_buff_len = 0;
 			return LineParserError::LINE_TOO_LONG;
-		} else {
-			m_buff_len = static_cast<size_t>(len);
-			return LineParserError::NO_ERROR;
 		}
+		m_buff_len = static_cast<size_t>(len);
+		return LineParserError::NO_ERROR;
+
 	} else {
 		m_buff[len] = 0;
 		char *ntok;
 		char *narg = strtok_r(m_buff, "\n", &ntok);
 		while (narg != nullptr) {
-			bool uncut = strstr(ntok, "\n");
+			bool uncut = strstr(ntok, "\n") != nullptr;
 			if (!m_too_long)
 				processLine(narg);
 			else

@@ -31,21 +31,21 @@ void Scenario::actionDuration(int s) { m_duration = s * 1s; }
 
 void Scenario::actionNestPosition(uint8_t team, int latitude, int longitude) {
 	auto *nest = findNest(team);
-	if (nest) {
+	if (nest != nullptr) {
 		nest->setPosition(latitude * M_PI / 180, longitude * M_PI / 180);
 	}
 }
 
 void Scenario::actionNestPopulation(uint8_t team, uint8_t type, int nb) {
 	auto *nest = findNest(team);
-	if (nest) {
+	if (nest != nullptr) {
 		nest->setPopulation(type, nb);
 	}
 }
 
 void Scenario::actionNestFood(uint8_t team, int amount) {
 	auto *nest = findNest(team);
-	if (nest) {
+	if (nest != nullptr) {
 		nest->setFood(amount);
 	}
 }
@@ -108,7 +108,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		return;
 
 	bool ok;
-	if (!strncmp(argv[0], "ANT", 4) && argc == 9) {
+	if ((argc == 9) && (strncmp(argv[0], "ANT", 4) == 0)) {
 		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid team number"));
@@ -132,7 +132,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		          latitude, longitude, heading, stamina,
 		          static_cast<uint8_t>(memory1), static_cast<uint8_t>(memory2));
 
-	} else if (!strncmp(argv[0], "PHEROMONE", 10) && argc == 5) {
+	} else if ((argc == 5) && (strncmp(argv[0], "PHEROMONE", 10) == 0)) {
 		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid team number"));
@@ -148,7 +148,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		actionPheromone(static_cast<uint8_t>(team), static_cast<uint8_t>(type),
 		                latitude, longitude);
 
-	} else if (!strncmp(argv[0], "FOOD", 5) && argc == 8) {
+	} else if ((argc == 8) && (strncmp(argv[0], "FOOD", 5) == 0)) {
 		auto latitude = parse_int(argv[1], ok, MIN_LATITUDE, MAX_LATITUDE);
 		if (!ok)
 			throw(std::runtime_error("Invalid latitude"));
@@ -176,7 +176,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		actionFood(latitude, longitude, initialValue, chargeRate, chargeMax,
 		           totalChargeMax, deadIfEmpty == 1);
 
-	} else if (!strncmp(argv[0], "NEST_POSITION", 14) && argc == 4) {
+	} else if ((argc == 4) && (strncmp(argv[0], "NEST_POSITION", 14) == 0)) {
 		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid team number"));
@@ -188,7 +188,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 			throw(std::runtime_error("Invalid longitude"));
 		actionNestPosition(static_cast<uint8_t>(team), latitude, longitude);
 
-	} else if (!strncmp(argv[0], "NEST_FOOD", 10) && argc == 3) {
+	} else if ((argc == 3) && (strncmp(argv[0], "NEST_FOOD", 10) == 0)) {
 		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid team number"));
@@ -198,7 +198,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 			throw(std::runtime_error("Invalid amount"));
 		actionNestFood(static_cast<uint8_t>(team), amount);
 
-	} else if (!strncmp(argv[0], "NEST_POPULATION", 16) && argc == 4) {
+	} else if ((argc == 4) && (strncmp(argv[0], "NEST_POPULATION", 16) == 0)) {
 		auto team = parse_int(argv[1], ok, MIN_TEAM, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid team number"));
@@ -211,13 +211,13 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		actionNestPopulation(static_cast<uint8_t>(team),
 		                     static_cast<uint8_t>(type), nb);
 
-	} else if (!strncmp(argv[0], "MAXTEAMS", 9) && argc == 2) {
+	} else if ((argc == 2) && (strncmp(argv[0], "MAXTEAMS", 9) == 0)) {
 		auto teams = parse_int(argv[1], ok, 1, MAX_TEAM);
 		if (!ok)
 			throw(std::runtime_error("Invalid teams number"));
 		actionMaxteams(static_cast<uint8_t>(teams));
 
-	} else if (!strncmp(argv[0], "DURATION", 9) && argc == 2) {
+	} else if ((argc == 2) && (strncmp(argv[0], "DURATION", 9) == 0)) {
 		auto duration = parse_int(argv[1], ok, 1, INT_MAX);
 		if (!ok)
 			throw(std::runtime_error("Invalid duration"));

@@ -15,6 +15,9 @@ class ScenarioBase {
 	/** Constructor **/
 	ScenarioBase();
 
+	/** Destructor **/
+	virtual ~ScenarioBase() = default;
+
 	/** Set list of teams
 	 * @param teams List of teams
 	 */

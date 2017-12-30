@@ -7,23 +7,26 @@
 #include <poll.h>
 #include <stdexcept>
 #include <unistd.h>
+#include <utility>
 
 ScenarioBase::ScenarioBase() : m_duration{30s} {}
 
-void ScenarioBase::set_teams(std::vector<Team *> teams) { m_teams = teams; }
+void ScenarioBase::set_teams(std::vector<Team *> teams) {
+	m_teams = std::move(teams);
+}
 
 void ScenarioBase::set_snitch(Snitch *snitch) { m_snitch = snitch; }
 
 void ScenarioBase::load(const char *scenario_name) {
-	auto f = fopen(scenario_name, "r");
+	auto f = fopen(scenario_name, "re");
 	if (f == nullptr)
 		throw(std::runtime_error("scenario not found"));
 
 	m_parser.setExecute(
 	    [this](uint8_t argc, const char **argv) { processLine(argc, argv); });
-	while (!feof(f)) {
+	while (feof(f) == 0) {
 		auto r = m_parser.read(
-		    [f](char *buf, ssize_t len) { return fread(buf, 1, len, f); });
+		    [f](char *buf, size_t len) { return fread(buf, 1, len, f); });
 		if (r != LineParserError::NO_ERROR)
 			fprintf(stderr, "Error while reading scenario\n");
 	}
@@ -38,7 +41,8 @@ void ScenarioBase::rmGameObject(GameObject *obj) {
 	    m_gameObjectsStorage.begin(), m_gameObjectsStorage.end(),
 	    [obj](std::shared_ptr<GameObject> &gobj) { return gobj.get() == obj; });
 	if (it != m_gameObjectsStorage.end()) {
-		auto i = std::distance(m_gameObjectsStorage.begin(), it);
+		auto i = static_cast<size_t>(
+		    std::distance(m_gameObjectsStorage.begin(), it));
 		m_gameObjectsStorage[i] = m_gameObjectsStorage.back();
 		m_gameObjectsStorage.resize(m_gameObjectsStorage.size() - 1);
 	}
@@ -85,13 +89,13 @@ void ScenarioBase::run(GameClock &clock) {
 		} else {
 			if (respoll > 0) {
 				for (nfds_t i = 0; i < nbwait; ++i) {
-					if (tm[i]) {
-						if (fds[i].revents & POLLIN)
+					if (tm[i] != nullptr) {
+						if ((fds[i].revents & POLLIN) != 0)
 							tm[i]->eventProcessRead();
-						if (fds[i].revents & POLLHUP)
+						if ((fds[i].revents & POLLHUP) != 0)
 							tm[i]->eventProcessDied();
 					} else {
-						if (fds[i].revents & POLLIN)
+						if ((fds[i].revents & POLLIN) != 0)
 							m_snitch->eventProcessRead();
 					}
 				}

@@ -31,9 +31,8 @@ int Food::eat(int quantity) {
 	if (m_available >= quantity) {
 		m_available -= quantity;
 		return quantity;
-	} else {
-		quantity = static_cast<int>(m_available);
-		m_available = 0;
-		return quantity;
 	}
+	quantity = static_cast<int>(m_available);
+	m_available = 0;
+	return quantity;
 }

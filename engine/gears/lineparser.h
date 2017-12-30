@@ -25,7 +25,7 @@ class LineParserBase {
 	 *           should return number of read characters)
 	 */
 	template <typename Fct> LineParserError read(Fct fn) {
-		ssize_t len = 0;
+		size_t len = 0;
 		len = m_size - 1 - m_buff_len;
 		if (len <= 0)
 			return LineParserError::READ_ERROR;
@@ -46,7 +46,7 @@ class LineParserBase {
 
   private:
 	/** Private part of read operation **/
-	LineParserError read(ssize_t len);
+	LineParserError read(size_t len);
 
 	/** Cut line into tokens and call execute
 	 * @param line Null terminated line string

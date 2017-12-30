@@ -112,9 +112,8 @@ bool Ant::actionPrelude(int cost, ActionType type, bool valid) {
 		if (m_exclusiveDone) {
 			invalidAction();
 			return false;
-		} else {
-			m_exclusiveDone = true;
 		}
+		m_exclusiveDone = true;
 
 	} else if (type == ALWAYS_ALLOWED) {
 		// Nothing to do
@@ -127,7 +126,7 @@ GameObject *Ant::getObjectById(int id, bool &invalid) {
 		invalid = true;
 		return nullptr;
 	}
-	size_t index = static_cast<size_t>(id - 1);
+	auto index = static_cast<size_t>(id - 1);
 	if (index >= team().getIds().size()) {
 		invalid = true;
 		return nullptr;
@@ -178,8 +177,9 @@ void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
 		return;
 	}
 
-	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
-		auto *pheromone = static_cast<Pheromone *>(ptr);
+	if ((ptr != nullptr) && (ptr->distance(*this) <= NEAR_DISTANCE)) {
+		auto *pheromone =
+		    static_cast<Pheromone *>(ptr); // Dynamically checked previously
 		pheromone->setType(type);
 	}
 }
@@ -195,8 +195,9 @@ void Ant::actionRechargePheromone(bool valid, int id) {
 		return;
 	}
 
-	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
-		auto *pheromone = static_cast<Pheromone *>(ptr);
+	if ((ptr != nullptr) && (ptr->distance(*this) <= NEAR_DISTANCE)) {
+		auto *pheromone =
+		    static_cast<Pheromone *>(ptr); // Dynamically checked previously
 		pheromone->setLife(100);
 	}
 }
@@ -213,8 +214,8 @@ void Ant::actionCollect(bool valid, int id, int quantity) {
 		return;
 	}
 
-	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
-		auto *food = static_cast<Food *>(ptr);
+	if ((ptr != nullptr) && (ptr->distance(*this) <= NEAR_DISTANCE)) {
+		auto *food = static_cast<Food *>(ptr); // Dynamically checked previously
 		quantity = std::min(quantity, MAX_STOCK - m_stock);
 		quantity = food->eat(quantity);
 		m_stock += quantity;
@@ -233,8 +234,8 @@ void Ant::actionDoTrophallaxis(bool valid, int id, int quantity) {
 		return;
 	}
 
-	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
-		auto *ant = static_cast<Ant *>(ptr);
+	if ((ptr != nullptr) && (ptr->distance(*this) <= NEAR_DISTANCE)) {
+		auto *ant = static_cast<Ant *>(ptr); // Dynamically checked previously
 		quantity = std::max(0, quantity);
 		quantity = std::min(quantity, m_stock);
 		m_stock -= quantity;
@@ -255,8 +256,8 @@ void Ant::actionAttack(bool valid, int id) {
 		return;
 	}
 
-	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
-		auto *ant = static_cast<Ant *>(ptr);
+	if ((ptr != nullptr) && (ptr->distance(*this) <= NEAR_DISTANCE)) {
+		auto *ant = static_cast<Ant *>(ptr); // Dynamically checked previously
 		ant->m_stamina -= 3;
 		ant->m_attacked = true;
 		if (ant->m_stamina < 0)
@@ -286,7 +287,7 @@ void Ant::actionMoveTo(bool valid, int id) {
 		return;
 	}
 
-	if (ptr) {
+	if (ptr != nullptr) {
 		orientToward(*ptr);
 		auto d = std::min(distance(*ptr), WALK_DISTANCE);
 		moveDistance(d);
@@ -305,8 +306,8 @@ void Ant::actionNest(bool valid, int id) {
 		return;
 	}
 
-	if (ptr && ptr->distance(*this) <= NEAR_DISTANCE) {
-		auto *nest = static_cast<Nest *>(ptr);
+	if ((ptr != nullptr) && (ptr->distance(*this) <= NEAR_DISTANCE)) {
+		auto *nest = static_cast<Nest *>(ptr); // Dynamically checked previously
 		if (&nest->team() == &team()) {
 			nest->antIn(m_ant_type, m_memory[0], m_memory[1],
 			            static_cast<unsigned int>(std::max(0, m_stock)));
@@ -332,68 +333,69 @@ void Ant::actionTurn(bool valid, int angle) {
 void Ant::execute(uint8_t argc, const char **argv) {
 	if (argc <= 0)
 		return;
-	if (!strncmp(argv[0], "SET_MEMORY", 11) && argc == 3) {
+	if ((argc == 3) && (strncmp(argv[0], "SET_MEMORY", 11) == 0)) {
 		bool ok1, ok2;
 		int m0 = param_int(argv[1], ok1, 0, 255);
 		int m1 = param_int(argv[2], ok2, 0, 255);
 		actionSetMemory(ok1 && ok2, static_cast<uint8_t>(m0),
 		                static_cast<uint8_t>(m1));
 
-	} else if (!strncmp(argv[0], "SUICIDE", 8) && argc == 1) {
+	} else if ((argc == 1) && (strncmp(argv[0], "SUICIDE", 8) == 0)) {
 		actionSuicide(true);
 
-	} else if (!strncmp(argv[0], "PUT_PHEROMONE", 14) && argc == 2) {
+	} else if ((argc == 2) && (strncmp(argv[0], "PUT_PHEROMONE", 14) == 0)) {
 		bool ok = false;
 		int type = param_int(argv[1], ok, 0, 255);
 		actionPutPheromone(ok, static_cast<uint8_t>(type));
 
-	} else if (!strncmp(argv[0], "CHANGE_PHEROMONE", 17) && argc == 3) {
+	} else if ((argc == 3) && (strncmp(argv[0], "CHANGE_PHEROMONE", 17) == 0)) {
 		bool ok1, ok2;
 		int type = param_int(argv[1], ok1, 0, 255);
 		int id = param_int(argv[2], ok2, 0, 255);
 		actionChangePheromone(ok1 && ok2, static_cast<uint8_t>(type), id);
 
-	} else if (!strncmp(argv[0], "RECHARGE_PHEROMONE", 19) && argc == 2) {
+	} else if ((argc == 2) &&
+	           (strncmp(argv[0], "RECHARGE_PHEROMONE", 19) == 0)) {
 		bool ok;
 		int id = param_int(argv[1], ok, 0, 255);
 		actionRechargePheromone(ok, id);
 
-	} else if (!strncmp(argv[0], "COLLECT", 8) && argc == 3) {
+	} else if ((argc == 3) && (strncmp(argv[0], "COLLECT", 8) == 0)) {
 		bool ok1, ok2;
 		int id = param_int(argv[1], ok1);
 		int quantity = param_int(argv[2], ok2);
 		actionCollect(ok1 && ok2, id, quantity);
 
-	} else if (!strncmp(argv[0], "DO_TROPHALLAXIS", 16) && argc == 3) {
+	} else if ((argc == 3) && (strncmp(argv[0], "DO_TROPHALLAXIS", 16) == 0)) {
 		bool ok1, ok2;
 		int id = param_int(argv[1], ok1);
 		int quantity = param_int(argv[2], ok2);
 		actionDoTrophallaxis(ok1 && ok2, id, quantity);
 
-	} else if (!strncmp(argv[0], "ATTACK", 7) && argc == 2) {
+	} else if ((argc == 2) && (strncmp(argv[0], "ATTACK", 7) == 0)) {
 		bool ok;
 		int id = param_int(argv[1], ok, 0, 255);
 		actionAttack(ok, id);
 
-	} else if (!strncmp(argv[0], "EAT", 4) && argc == 2) {
+	} else if ((argc == 2) && (strncmp(argv[0], "EAT", 4) == 0)) {
 		bool ok;
 		int quantity = param_int(argv[1], ok);
 		actionEat(ok, quantity);
 
-	} else if (!strncmp(argv[0], "NEST", 5) && argc == 2) {
+	} else if ((argc == 2) && (strncmp(argv[0], "NEST", 5) == 0)) {
 		bool ok;
 		int id = param_int(argv[1], ok);
 		actionNest(ok, id);
 
-	} else if (!strncmp(argv[0], "MOVE_TO", 8) && argc == 2) {
+	} else if ((argc == 2) && (strncmp(argv[0], "MOVE_TO", 8) == 0)) {
 		bool ok;
 		int id = param_int(argv[1], ok);
 		actionMoveTo(ok, id);
 
-	} else if (!strncmp(argv[0], "EXPLORE", 8) && argc == 1) {
+	} else if ((argc == 1) && (strncmp(argv[0], "EXPLORE", 8) == 0)) {
 		actionExplore(true);
 
-	} else if (!strncmp(argv[0], "TURN", 5) && argc == 2) {
+	} else if ((argc == 2) && (strncmp(argv[0], "TURN", 5) == 0)) {
 		bool ok;
 		int angle = param_int(argv[1], ok, -180, 180);
 		actionTurn(ok, angle);
