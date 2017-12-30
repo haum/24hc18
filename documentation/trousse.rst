@@ -19,6 +19,23 @@ limité notre support aux langages suivants :
 
 Vous êtes libres d'utiliser le langage qui vous convient parmi cette liste.
 
+Flush
+=====
+
+Le dialogue entre le programme de stratégie et le simulateur se fait à travers
+des flux de données qui restent ouverts. Or les flux de données sont souvent
+bufferisés pour augmenter l'efficacité des transferts en minimisant les
+changements de contexte. Dans notre cas, ce mécanisme est également utile mais
+il faut veiller à bien envoyer les données aux moments opportuns.
+
+Pour cela, nous vous encourageons à trouver la commande qui permet de réaliser
+un flush (c'est le terme souvent utilisé dans les API) du buffer, c'est à dire
+qui envoie effectivement le contenu des mémoires tampon dans le flux.
+
+Vous pourrez ainsi le faire juste après avoir envoyé la commande `END` et ainsi
+être certains que le simulateur n'attendra pas indéfiniment des commandes qui
+seraient coincées dans un buffer intermédiaire.
+
 Bien ranger et conserver votre travail
 ======================================
 
