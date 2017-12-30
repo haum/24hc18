@@ -114,7 +114,7 @@ class TeamBase {
 	std::vector<Agent *> m_agentsToRemove;
 
 	/** Current agent **/
-	decltype(m_agents)::iterator m_currentAgent;
+	decltype(m_agents)::iterator m_currentAgent = m_agents.begin();
 
 	/** Go to next agent
 	 * @return true if sucessful
@@ -122,10 +122,8 @@ class TeamBase {
 	 */
 	bool nextAgent();
 
-	/** Send prelude to agent
-	 * @return true on success, false on failure
-	 */
-	bool sendPrelude();
+	/** Send prelude to current agent (or next one if needed) */
+	void sendPrelude();
 
 	/** Add an agent **/
 	void agentAdd(Agent *);

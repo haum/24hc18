@@ -58,9 +58,7 @@ void TeamBase::kill(const char *str) {
 void TeamBase::oneShot(bool on) {
 	if (m_paused) {
 		m_paused = false;
-		while (!sendPrelude() && nextAgent()) {
-			// Nothing to do
-		}
+		sendPrelude();
 	}
 	m_oneshot = on;
 }
@@ -87,20 +85,25 @@ bool TeamBase::nextAgent() {
 	return true;
 }
 
-bool TeamBase::sendPrelude() {
+void TeamBase::sendPrelude() {
 	if (m_oneshot || m_paused) {
 		m_oneshot = false;
 		m_paused = true;
-		return true;
+		return;
 	}
 	std::ostringstream os;
-	if (m_currentAgent != m_agents.end() && (*m_currentAgent)->prelude(os)) {
-		const auto data = os.str();
-		send(data.c_str(), data.length());
-		m_stats_agents++;
-		return true;
+	bool try_next = true;
+	while (try_next) {
+		if (m_currentAgent != m_agents.end() &&
+		    (*m_currentAgent)->prelude(os)) {
+			const auto data = os.str();
+			send(data.c_str(), data.length());
+			m_stats_agents++;
+			try_next = false;
+		} else {
+			nextAgent();
+		}
 	}
-	return false;
 }
 
 void TeamBase::eventProcessDied() {
@@ -142,19 +145,10 @@ void TeamBase::processLine(uint8_t argc, const char **argv) {
 	if (argc == 1 && !strncmp(argv[0], "END", 3)) {
 		if (!m_dead)
 			(*m_currentAgent)->epilogue();
-		bool trynext = true;
-		while (trynext) {
-			if (nextAgent()) {
-				trynext = !sendPrelude();
-			} else {
-				if (!m_nokill && random_unit() < 1 / 15.0) {
-					kill("Random kill");
-					trynext = false;
-				} else {
-					trynext = !sendPrelude();
-				}
-			}
-		}
+		if (!m_nokill && random_unit() < 1 / 2000.0)
+			kill("Random kill");
+		nextAgent();
+		sendPrelude();
 	} else if (!m_dead)
 		(*m_currentAgent)->execute(argc, argv);
 }
@@ -170,10 +164,6 @@ void TeamBase::start_subprocess() {
 	if ((pid = fork()) == -1)
 		goto err_fork;
 
-	std::copy(m_agentsToAdd.begin(), m_agentsToAdd.end(),
-	          std::back_inserter(m_agents));
-	m_agentsToAdd.clear();
-
 	if (pid) { // Game manager
 		m_fdin = pipe0[1];
 		m_fdout = pipe1[0];
@@ -184,10 +174,7 @@ void TeamBase::start_subprocess() {
 		close(pipe1[1]);
 		close(pipe2[1]);
 		m_pid = pid;
-		m_currentAgent = m_agents.begin();
-		while (!sendPrelude() && nextAgent()) {
-			// Nothing to do
-		}
+		sendPrelude();
 	} else { // Team manager
 		dup2(pipe0[0], 0);
 		dup2(pipe1[1], 1);
