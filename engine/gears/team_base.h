@@ -77,11 +77,20 @@ class TeamBase {
 	/** Executable command **/
 	std::string m_exe;
 
-	/** File descriptors to communicate with team manager **/
-	int m_fdin = -1, m_fdout = -1, m_fderr = -1, m_log = -1;
+	/** Log file descriptor **/
+	int m_log = -1;
 
-	/** Pid of subprocess **/
-	int m_pid = -1;
+	/** Team manager strategy program **/
+	struct TeamManager {
+		/** File descriptors to communicate with team manager **/
+		int m_fdin = -1, m_fdout = -1, m_fderr = -1;
+
+		/** Pid of subprocess **/
+		int m_pid = -1;
+	};
+
+	/** Team managers **/
+	std::array<TeamManager, 2> m_teamManagers;
 
 	/** Do we display debug informations **/
 	bool m_debug;
@@ -115,6 +124,10 @@ class TeamBase {
 
 	/** Current agent **/
 	decltype(m_agents)::iterator m_currentAgent = m_agents.begin();
+
+	/** Current team manager index **/
+	decltype(m_teamManagers)::iterator m_currentManager =
+	    m_teamManagers.begin();
 
 	/** Go to next agent
 	 * @return true if sucessful

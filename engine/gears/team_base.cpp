@@ -8,7 +8,12 @@
 #include <sstream>
 #include <unistd.h>
 
-TeamBase::~TeamBase() { kill("Team is destructed"); }
+TeamBase::~TeamBase() {
+	for (auto &m : m_teamManagers) {
+		m_currentManager = &m;
+		kill("Team is destructed");
+	}
+}
 
 void TeamBase::agentAdd(Agent *agent) { m_agentsToAdd.push_back(agent); }
 
@@ -18,7 +23,7 @@ void TeamBase::agentRm(Agent *agent) {
 	m_agentsToRemove.push_back(agent);
 }
 
-int TeamBase::eventFd() const { return m_fdout; }
+int TeamBase::eventFd() const { return m_currentManager->m_fdout; }
 
 void TeamBase::send(const char *data, size_t len) {
 	if (m_log != -1) {
@@ -26,22 +31,28 @@ void TeamBase::send(const char *data, size_t len) {
 		char *ntok;
 		char *narg = strtok_r(cpy, "\n", &ntok);
 		while (narg != nullptr) {
-			write(m_log, "@ ", 2);
+			char prefix[] = "0 @ ";
+			prefix[0] = static_cast<char>(
+			    '0' + std::distance(m_teamManagers.begin(), m_currentManager));
+			write(m_log, prefix, 4);
 			write(m_log, narg, strlen(narg));
 			char nl = '\n';
 			write(m_log, &nl, 1);
-			narg = strtok_r(NULL, "\n", &ntok);
+			narg = strtok_r(nullptr, "\n", &ntok);
 		}
 		free(cpy);
 	}
-	if (m_fdin > 0) {
-		write(m_fdin, data, len);
+	if (m_currentManager->m_fdin > 0) {
+		write(m_currentManager->m_fdin, data, len);
 	}
 }
 
 void TeamBase::log(const char *msg) {
 	if (m_log != -1 && msg) {
-		write(m_log, "! ", 2);
+		char prefix[] = "0 ! ";
+		prefix[0] = static_cast<char>(
+		    '0' + std::distance(m_teamManagers.begin(), m_currentManager));
+		write(m_log, prefix, 4);
 		write(m_log, msg, strlen(msg));
 		char nl = '\n';
 		write(m_log, &nl, 1);
@@ -50,8 +61,8 @@ void TeamBase::log(const char *msg) {
 
 void TeamBase::kill(const char *str) {
 	log(str);
-	if (m_pid > 0)
-		::kill(m_pid, SIGKILL);
+	if (m_currentManager->m_pid > 0)
+		::kill(m_currentManager->m_pid, SIGKILL);
 	eventProcessDied();
 }
 
@@ -96,6 +107,11 @@ void TeamBase::sendPrelude() {
 	while (try_next) {
 		if (m_currentAgent != m_agents.end() &&
 		    (*m_currentAgent)->prelude(os)) {
+			int managerIndex = std::min(
+			    static_cast<int>(m_teamManagers.size() - 1),
+			    static_cast<int>(random_unit() * (m_teamManagers.size())));
+			m_currentManager = m_teamManagers.begin();
+			std::advance(m_currentManager, managerIndex);
 			const auto data = os.str();
 			send(data.c_str(), data.length());
 			m_stats_agents++;
@@ -108,19 +124,20 @@ void TeamBase::sendPrelude() {
 
 void TeamBase::eventProcessDied() {
 	log("Process died");
-	close(m_fdin);
-	m_fdin = -1;
-	close(m_fdout);
-	m_fdout = -1;
-	close(m_fderr);
-	m_fderr = -1;
-	m_pid = -1;
+	close(m_currentManager->m_fdin);
+	m_currentManager->m_fdin = -1;
+	close(m_currentManager->m_fdout);
+	m_currentManager->m_fdout = -1;
+	close(m_currentManager->m_fderr);
+	m_currentManager->m_fderr = -1;
+	m_currentManager->m_pid = -1;
 	m_parser.reset();
 }
 
 void TeamBase::eventProcessRead() {
-	auto r = m_parser.read(
-	    [this](char *buf, ssize_t len) { return read(m_fdout, buf, len); });
+	auto r = m_parser.read([this](char *buf, size_t len) {
+		return read(m_currentManager->m_fdout, buf, len);
+	});
 	if (r == LineParserError::LINE_TOO_LONG) {
 		const char *errorstr = "Line too long, bye";
 		kill(errorstr);
@@ -132,7 +149,10 @@ void TeamBase::eventProcessRead() {
 
 void TeamBase::processLine(uint8_t argc, const char **argv) {
 	if (m_log != -1) {
-		write(m_log, ". ", 2);
+		char prefix[] = "0 . ";
+		prefix[0] = static_cast<char>(
+		    '0' + std::distance(m_teamManagers.begin(), m_currentManager));
+		write(m_log, prefix, 4);
 		for (int i = 0; i < argc; ++i) {
 			write(m_log, argv[i], strlen(argv[i]));
 			if (i != argc - 1)
@@ -165,15 +185,15 @@ void TeamBase::start_subprocess() {
 		goto err_fork;
 
 	if (pid) { // Game manager
-		m_fdin = pipe0[1];
-		m_fdout = pipe1[0];
-		m_fderr = pipe2[0];
+		m_currentManager->m_fdin = pipe0[1];
+		m_currentManager->m_fdout = pipe1[0];
+		m_currentManager->m_fderr = pipe2[0];
 		if (m_debug)
 			m_log = STDERR_FILENO;
 		close(pipe0[0]);
 		close(pipe1[1]);
 		close(pipe2[1]);
-		m_pid = pid;
+		m_currentManager->m_pid = pid;
 		sendPrelude();
 	} else { // Team manager
 		dup2(pipe0[0], 0);
@@ -189,9 +209,9 @@ void TeamBase::start_subprocess() {
 		       nullptr); // Here we change process
 		std::cerr << "Cannot start " << m_exe << ": " << strerror(errno)
 		          << std::endl;
-		m_fdin = -1;
-		m_fdout = -1;
-		m_fderr = -1;
+		m_currentManager->m_fdin = -1;
+		m_currentManager->m_fdout = -1;
+		m_currentManager->m_fderr = -1;
 	}
 	return;
 
