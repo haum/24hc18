@@ -49,9 +49,15 @@ void GameComm::setRefreshRate(qreal percent) {
 }
 
 void GameComm::onReadyRead() {
-	constexpr int SZ = 6 * 4;
 	for (;;) {
-		auto data = m_client->read(SZ);
+		QByteArray data;
+		if (m_cut_buffer.size() != 0) {
+			data = m_cut_buffer;
+			data += m_client->read(SZ - m_cut_buffer.size());
+			m_cut_buffer.clear();
+		} else {
+			data = m_client->read(SZ);
+		}
 		if (data.size() == SZ) {
 			uint32_t category, team;
 			float longitude, latitude, heading;
@@ -74,6 +80,7 @@ void GameComm::onReadyRead() {
 						o.it = o.entities.begin();
 					}
 				}
+				QTimer::singleShot(m_refreshRate, this, &GameComm::onTimeout);
 				continue;
 			}
 
@@ -117,10 +124,11 @@ void GameComm::onReadyRead() {
 					++o.it;
 				}
 			}
-		} else
+		} else {
+			m_cut_buffer = data;
 			break;
+		}
 	}
-	QTimer::singleShot(m_refreshRate, this, &GameComm::onTimeout);
 }
 
 void GameComm::onDisconnected() {

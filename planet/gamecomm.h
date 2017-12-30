@@ -47,6 +47,8 @@ class GameComm : public QObject {
 	};
 	std::vector<std::array<EntitiesList, 4>> m_teamsData;
 	std::vector<uint32_t> m_teams;
+	static constexpr const int SZ = 6 * 4;
+	QByteArray m_cut_buffer;
 };
 
 #endif // GAMECOMM_H
