@@ -1,6 +1,6 @@
 #include "ant.h"
 #include "food.h"
-#include "gears/rand.h"
+#include "gears/utils.h"
 #include "pheromone.h"
 #include "scenario.h"
 #include <cmath>

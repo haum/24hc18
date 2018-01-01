@@ -1,5 +1,5 @@
 #include "../scenario.h"
-#include "rand.h"
+#include "utils.h"
 #include <csignal>
 #include <getopt.h>
 #include <iostream>

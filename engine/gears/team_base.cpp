@@ -1,6 +1,6 @@
 #include "team_base.h"
 #include "agent.h"
-#include "rand.h"
+#include "utils.h"
 #include <algorithm>
 #include <csignal>
 #include <cstring>

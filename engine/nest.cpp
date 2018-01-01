@@ -1,6 +1,6 @@
 #include "nest.h"
 #include "ant.h"
-#include "gears/rand.h"
+#include "gears/utils.h"
 #include "scenario.h"
 
 const GameObjectCategory Nest::s_category{"NEST"};
