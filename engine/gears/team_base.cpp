@@ -209,7 +209,7 @@ void TeamBase::start_subprocess() {
 		close(pipe2[1]);
 		execlp("sh", "sh", "-c", m_exe.c_str(),
 		       nullptr); // Here we change process
-		std::cerr << "Cannot start " << m_exe << ": " << strerror(errno)
+		std::clog << "Cannot start " << m_exe << ": " << strerror(errno)
 		          << std::endl;
 		m_currentManager->m_fdin = -1;
 		m_currentManager->m_fdout = -1;

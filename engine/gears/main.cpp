@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
 
 	// Check arguments
 	auto usage = [](const char *appname) {
-		std::cerr << "USAGE: " << appname << " [OPTIONS] <ias...>\n"
+		std::clog << "USAGE: " << appname << " [OPTIONS] <ias...>\n"
 		          << "       -s, --scenario=file\tFile of the scenario\n"
 		          << "       -h, --host=ip_address\tIP of server\n"
 		          << "       -p, --port=port_number\tport of server\n"
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
 				nokill = true;
 				break;
 			default:
-				std::cerr << "ERROR: Unknown option\n";
+				std::clog << "ERROR: Unknown option\n";
 				usage(argv[0]);
 				exit(EXIT_FAILURE);
 			}
@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 	if (argc - optind < 1) {
-		std::cerr << "ERROR: No IA\n";
+		std::clog << "ERROR: No IA\n";
 		usage(argv[0]);
 		exit(EXIT_FAILURE);
 	}
