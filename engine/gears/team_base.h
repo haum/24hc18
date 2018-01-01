@@ -41,8 +41,9 @@ class TeamBase {
 	/** Write a line of debug information in team log
 	 * @note Do not use newline characters in message (not checked)
 	 * @param msg Null-terminated C-string message to display
+	 * @param prefix Prefix character
 	 */
-	void log(const char *msg);
+	void log(const char *msg, char prefix = '!');
 
 	/** Kill subprocess
 	 * @param str String to log

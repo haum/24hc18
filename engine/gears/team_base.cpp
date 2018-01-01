@@ -47,12 +47,13 @@ void TeamBase::send(const char *data, size_t len) {
 	}
 }
 
-void TeamBase::log(const char *msg) {
+void TeamBase::log(const char *msg, char prefix) {
 	if ((m_log != -1) && (msg != nullptr)) {
-		char prefix[] = "0 ! ";
-		prefix[0] = static_cast<char>(
-		    '0' + std::distance(m_teamManagers.begin(), m_currentManager));
-		write(m_log, prefix, 4);
+		char prefix_str[] = {
+		    static_cast<char>(
+		        '0' + std::distance(m_teamManagers.begin(), m_currentManager)),
+		    ' ', prefix, ' '};
+		write(m_log, prefix_str, 4);
 		write(m_log, msg, strlen(msg));
 		char nl = '\n';
 		write(m_log, &nl, 1);

@@ -19,7 +19,7 @@ int32_t Agent::param_int(const char *str, bool &ok, int min, int max) {
 	return parse_int(str, ok, min, max);
 }
 
-void Agent::log(const char *msg) { m_team.log(msg); }
+void Agent::log(const char *msg, char prefix) { m_team.log(msg, prefix); }
 
 void Agent::destroy(GameObject *obj) { m_team.scenario().rmGameObject(obj); }
 

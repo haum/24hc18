@@ -33,8 +33,9 @@ class Agent : public GameObject {
 	/** Write a line of debug information in team log
 	 * @note Do not use newline characters in message (not checked)
 	 * @param msg Null-terminated C-string message to display
+	 * @param prefix Prefix character
 	 */
-	void log(const char *msg);
+	void log(const char *msg, char prefix = '!');
 
 	/** Destroy a game object
 	 * @note The version without argument destroys the agent itself
