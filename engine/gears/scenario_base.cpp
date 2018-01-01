@@ -2,7 +2,7 @@
 #include "gameclock.h"
 #include "utils.h"
 #include <algorithm>
-#include <cstdio>
+#include <iostream>
 #include <poll.h>
 #include <stdexcept>
 #include <unistd.h>
@@ -27,7 +27,7 @@ void ScenarioBase::load(const char *scenario_name) {
 		auto r = m_parser.read(
 		    [f](char *buf, size_t len) { return fread(buf, 1, len, f); });
 		if (r != LineParserError::NO_ERROR)
-			fprintf(stderr, "Error while reading scenario\n");
+			std::clog << "Error while reading scenario" << std::endl;
 	}
 }
 
