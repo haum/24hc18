@@ -138,7 +138,7 @@ de l'application et d'utiliser celui-ci pour savoir s'il faut sortir une fourmi
 à ce tour ci : l'information est gardée dans le programme de stratégie, c'est
 erroné.
 
-À la place, il est possible par exemple définir que la mémoire m2 de la
+À la place, il est par exemple possible de définir que la mémoire m2 de la
 fourmilière sauvera le nombre de fourmis sorties : dans un premier temps il faut
 extraire ce nombre de l'information `MEMORY` de la fourmilière, sortir une
 fourmi si besoin, incrémenter localement ce compteur et enfin enregistrer la
@@ -394,7 +394,7 @@ Actions
   Rentre dans la fourmillière.
 
   La fourmilière doit être dans le champ d'action (`NEAR`) et être de la même
-  équipe que la fourmi. La mémoire et le stock de nourriture sont transphérés à
+  équipe que la fourmi. La mémoire et le stock de nourriture sont transférés à
   la fourmilière.
 
   Cette action est exclusive et coûte 2 unités de stamina.
