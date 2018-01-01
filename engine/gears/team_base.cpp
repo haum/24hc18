@@ -4,9 +4,14 @@
 #include <algorithm>
 #include <csignal>
 #include <cstring>
+#include <fstream>
 #include <iostream>
 #include <sstream>
 #include <unistd.h>
+
+namespace {
+std::ofstream nullstream;
+}
 
 TeamBase::~TeamBase() {
 	for (auto &m : m_teamManagers) {
@@ -26,20 +31,15 @@ void TeamBase::agentRm(Agent *agent) {
 int TeamBase::eventFd() const { return m_currentManager->m_fdout; }
 
 void TeamBase::send(const char *data, size_t len) {
-	if (m_log != -1) {
+	if (m_log != nullptr) {
 		char *cpy = strdup(data);
 		char *ntok;
 		char *narg = strtok_r(cpy, "\n", &ntok);
 		while (narg != nullptr) {
-			char prefix[] = "0 @ ";
-			prefix[0] = static_cast<char>(
-			    '0' + std::distance(m_teamManagers.begin(), m_currentManager));
-			write(m_log, prefix, 4);
-			write(m_log, narg, strlen(narg));
-			char nl = '\n';
-			write(m_log, &nl, 1);
+			log(TeamLogType::ENGINE_OUTPUT) << narg << '\n';
 			narg = strtok_r(nullptr, "\n", &ntok);
 		}
+		log() << std::flush;
 		free(cpy);
 	}
 	if (m_currentManager->m_fdin > 0) {
@@ -47,21 +47,20 @@ void TeamBase::send(const char *data, size_t len) {
 	}
 }
 
-void TeamBase::log(const char *msg, char prefix) {
-	if ((m_log != -1) && (msg != nullptr)) {
-		char prefix_str[] = {
-		    static_cast<char>(
-		        '0' + std::distance(m_teamManagers.begin(), m_currentManager)),
-		    ' ', prefix, ' '};
-		write(m_log, prefix_str, 4);
-		write(m_log, msg, strlen(msg));
-		char nl = '\n';
-		write(m_log, &nl, 1);
+std::ostream &TeamBase::log(TeamLogType prefix) {
+	if (m_log == nullptr)
+		return nullstream;
+	auto &l = *m_log;
+	if (prefix != TeamLogType::NO_PREFIX) {
+		l << static_cast<char>(
+		         '0' + std::distance(m_teamManagers.begin(), m_currentManager))
+		  << ' ' << static_cast<char>(prefix) << ' ';
 	}
+	return l;
 }
 
 void TeamBase::kill(const char *str) {
-	log(str);
+	log(TeamLogType::ENGINE_MSG) << str << std::endl;
 	if (m_currentManager->m_pid > 0)
 		::kill(m_currentManager->m_pid, SIGKILL);
 	eventProcessDied();
@@ -125,7 +124,7 @@ void TeamBase::sendPrelude() {
 }
 
 void TeamBase::eventProcessDied() {
-	log("Process died");
+	log(TeamLogType::ENGINE_MSG) << "Process died" << std::endl;
 	close(m_currentManager->m_fdin);
 	m_currentManager->m_fdin = -1;
 	close(m_currentManager->m_fdout);
@@ -150,18 +149,14 @@ void TeamBase::eventProcessRead() {
 }
 
 void TeamBase::processLine(uint8_t argc, const char **argv) {
-	if (m_log != -1) {
-		char prefix[] = "0 . ";
-		prefix[0] = static_cast<char>(
-		    '0' + std::distance(m_teamManagers.begin(), m_currentManager));
-		write(m_log, prefix, 4);
+	if (m_log != nullptr) {
+		auto &l = log(TeamLogType::USER_INPUT);
 		for (int i = 0; i < argc; ++i) {
-			write(m_log, argv[i], strlen(argv[i]));
+			l << argv[i];
 			if (i != argc - 1)
-				write(m_log, " ", 1);
+				l << ' ';
 		}
-		char nl = '\n';
-		write(m_log, &nl, 1);
+		l << std::endl;
 	}
 
 	if ((argc == 1) && (strncmp(argv[0], "END", 3) == 0)) {
@@ -191,7 +186,7 @@ void TeamBase::start_subprocess() {
 		m_currentManager->m_fdout = pipe1[0];
 		m_currentManager->m_fderr = pipe2[0];
 		if (m_debug)
-			m_log = STDERR_FILENO;
+			m_log = &std::clog;
 		close(pipe0[0]);
 		close(pipe1[1]);
 		close(pipe2[1]);

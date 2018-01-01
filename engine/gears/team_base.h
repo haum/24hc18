@@ -8,6 +8,13 @@ class Scenario; // Forward declaration
 #include <string>
 #include <vector>
 
+enum class TeamLogType : char {
+	NO_PREFIX,
+	ENGINE_OUTPUT = '@',
+	USER_INPUT = '.',
+	ENGINE_MSG = '!',
+};
+
 /** Class managing a team (gear part) **/
 class TeamBase {
   public:
@@ -38,12 +45,11 @@ class TeamBase {
 	 */
 	void send(const char *data, size_t len);
 
-	/** Write a line of debug information in team log
+	/** Get stream for outputing debug information in team log
 	 * @note Do not use newline characters in message (not checked)
-	 * @param msg Null-terminated C-string message to display
 	 * @param prefix Prefix character
 	 */
-	void log(const char *msg, char prefix = '!');
+	std::ostream &log(TeamLogType lvl = TeamLogType::NO_PREFIX);
 
 	/** Kill subprocess
 	 * @param str String to log
@@ -77,8 +83,8 @@ class TeamBase {
 	/** Executable command **/
 	std::string m_exe;
 
-	/** Log file descriptor **/
-	int m_log = -1;
+	/** Log stream **/
+	std::ostream *m_log = nullptr;
 
 	/** Team manager strategy program **/
 	struct TeamManager {

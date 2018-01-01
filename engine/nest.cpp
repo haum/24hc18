@@ -60,7 +60,10 @@ bool Nest::prelude(std::ostream &os) {
 	return true;
 }
 
-void Nest::invalidAction() { log("Invalid action, ignored"); }
+void Nest::invalidAction() {
+	team().log(TeamLogType::ENGINE_MSG)
+	    << "Invalid action, ignored" << std::endl;
+}
 
 bool Nest::actionPrelude(int cost, ActionType type, bool valid) {
 	setFood(static_cast<int>(m_stock) - cost);

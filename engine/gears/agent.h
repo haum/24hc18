@@ -30,13 +30,6 @@ class Agent : public GameObject {
 	/** Get team reference **/
 	Team &team() const { return m_team; }
 
-	/** Write a line of debug information in team log
-	 * @note Do not use newline characters in message (not checked)
-	 * @param msg Null-terminated C-string message to display
-	 * @param prefix Prefix character
-	 */
-	void log(const char *msg, char prefix = '!');
-
 	/** Destroy a game object
 	 * @note The version without argument destroys the agent itself
 	 * @param obj Object to destroy
