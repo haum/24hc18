@@ -2,7 +2,6 @@
 #include "gameclock.h"
 #include "utils.h"
 #include <algorithm>
-#include <alloca.h>
 #include <cstdio>
 #include <poll.h>
 #include <stdexcept>
@@ -51,8 +50,10 @@ void ScenarioBase::rmGameObject(GameObject *obj) {
 void ScenarioBase::run(GameClock &clock) {
 	clock.setDuration(m_duration);
 	size_t ianb = m_teams.size();
-	auto fds = reinterpret_cast<pollfd *>(alloca((ianb + 1) * sizeof(pollfd)));
-	auto tm = reinterpret_cast<Team **>(alloca((ianb + 1) * sizeof(Team *)));
+	std::vector<pollfd> fds;
+	std::vector<Team *> tm;
+	fds.reserve(ianb + 1);
+	tm.reserve(ianb + 1);
 	while (clock.running()) {
 		nfds_t nbwait = 0;
 		fds[nbwait].fd = m_snitch->eventFd();
@@ -83,7 +84,7 @@ void ScenarioBase::run(GameClock &clock) {
 		}
 		if (paused)
 			breakAnchor("allTeamsArePaused");
-		int respoll = poll(fds, nbwait, 100);
+		int respoll = poll(fds.data(), nbwait, 100);
 		if (respoll < 0) {
 			usleep(100'000);
 		} else {
