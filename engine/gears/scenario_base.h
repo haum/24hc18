@@ -69,8 +69,8 @@ class ScenarioBase {
 	 * });
 	 */
 	template <typename Fct> void listObjects(Fct fct) {
-		for (auto sgo : m_gameObjectsStorage) {
-			if (!fct(sgo))
+		for (auto sgo_loop_var : m_gameObjectsStorage) {
+			if (!fct(sgo_loop_var))
 				break;
 		}
 	}

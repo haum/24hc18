@@ -42,13 +42,13 @@ bool Ant::prelude(std::ostream &os) {
 	team().scenario().listObjects([this, &os](auto sgo) {
 		if (this != sgo.get()) {
 			if (sgo->distance(*this) <= FAR_DISTANCE) {
-				size_t gameObjectId = team().addId(sgo.get());
+				size_t gameObjectId = this->team().addId(sgo.get());
 				const char *zoneTxt =
 				    (sgo->distance(*this) <= NEAR_DISTANCE ? " NEAR" : " FAR");
 
 				if (sgo->category() == Pheromone::category()) {
 					auto *pheromone = static_cast<Pheromone *>(sgo.get());
-					if (&pheromone->team() == &team()) {
+					if (&pheromone->team() == &this->team()) {
 						os << "SEE_PHEROMONE";
 						os << ' ' << gameObjectId;
 						os << zoneTxt;
