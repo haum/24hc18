@@ -372,7 +372,7 @@ Actions
   qui reçoit l'action en gagne. Si l'échange contient plus de quantité que la
   fourmi ne peut en recevoir, l'excédant est perdu.
 
-  Cette action est exclusive et coûte 2 unités de stamina.
+  Cette action est exclusive et coûte `quantity` unités de stamina.
 
   ==========  ======
   `id`        Identifiant de l'objet indiqué par `SEE_ANT`

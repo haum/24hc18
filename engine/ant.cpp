@@ -224,7 +224,8 @@ void Ant::actionCollect(bool valid, int id, int quantity) {
 }
 
 void Ant::actionDoTrophallaxis(bool valid, int id, int quantity) {
-	if (!actionPrelude(2, EXCLUSIVE, valid)) {
+	int cost = quantity;
+	if (!actionPrelude(cost, EXCLUSIVE, valid)) {
 		return;
 	}
 
