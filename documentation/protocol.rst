@@ -47,6 +47,9 @@ les actions dites exclusives ne sont pas cumulables. Votre programme termine la
 liste des actions réalisées avec le marqueur `END` et se met en écoute d'un
 éventuel marqueur de début pour une nouvelle entité.
 
+.. IMAGE:: _static/images/diagramme_UML.png
+   :align: center
+
 .. CAUTION::
    Notez qu'il est important de respecter l'ordre de parole (i.e. bien attendre
    d'avoir reçu `END` avant d'indiquer les actions), de n'indiquer qu'un seul
