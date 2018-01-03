@@ -218,7 +218,7 @@ void Ant::actionCollect(bool valid, int id, int quantity) {
 	if ((ptr != nullptr) && (ptr->distance(*this) <= NEAR_DISTANCE)) {
 		auto *food = static_cast<Food *>(ptr); // Dynamically checked previously
 		quantity = std::min(quantity, MAX_STOCK - m_stock);
-		quantity = food->eat(quantity);
+                quantity = food->collect(quantity);
 		m_stock += quantity;
 	}
 }

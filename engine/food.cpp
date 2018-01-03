@@ -24,7 +24,7 @@ void Food::periodic() {
 	}
 }
 
-int Food::eat(int quantity) {
+int Food::collect(int quantity) {
 	if (quantity < 0)
 		return 0;
 
