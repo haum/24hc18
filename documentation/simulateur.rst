@@ -32,16 +32,14 @@ Envoi de votre code
 
 Cette procédure reste à définir.
 
-Pour jouer un match, vous devrez commencer par copier votre code vers la machine
-virtuelle. Cette dernière, fonctionnant sous GNU/Linux vous devrez utiliser des
-outils de transferts de fichiers adaptés (probablement en utilisant le protocole
-ssh).
+Pour commencer, il vous faut un depot `GIT` public. Il existe plusieurs services
+en ligne proposant cet outil comme `<https://framagit.org>`_ ou `<https://github.com>`_.
 
- - Si vous êtes familier de GNU/Linux, cela ne devrait pas vous poser de
-   problème.
- - Si vous utilisez MacOS, vous disposez déjà des outils nécessaire. 
- - Si vous utiliser MS Windows, vous aurez besoin d'un logiciel qui peut faire 
-   du transfert de fichiers via le protocole ssh, par example FileZilla.
+Après avoir deposé votre code dans votre dépot. Il vous reste à cloner ce dépot 
+sur la machine virtuelle.
+
+Si vous ne connaissez pas cet outil, nous vous recommendons de consulter la
+documentation officielle : `<https://git-scm.com>`_
 
 Utiliser le simulateur
 ======================
