@@ -36,7 +36,6 @@ en ligne proposant cet outil comme `<https://framagit.org>`_ ou
 
 Après la création de voter dépot `GIT`, vous pouvez y déposer votre code. Il
 vous reste ensuite à 'cloner'  ce dépot sur la machine virtuelle. 
-sur la machine virtuelle.
 
 Si vous ne connaissez pas cet outil, nous vous recommendons de consulter la
 documentation officielle : `<https://git-scm.com>`_
