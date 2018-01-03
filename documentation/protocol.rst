@@ -182,6 +182,9 @@ ce qu'il se passe (zone blanche).
 Pour maintenir son métabolisme, chaque fourmi hors de la fourmilière  consomme 1
 unité de stamina toutes les 100 millisecondes.
 
+Les coûts des actions sont imputées avant que l'action ait lieu. Si le niveau de
+stamina n'est pas suffisant, l'action n'est pas effectuée.
+
 Informations
 ------------
 
