@@ -26,7 +26,12 @@ class Food : public GameObject {
 	 * @param quantity Requested quantity
 	 * @return Eaten quantity
 	 */
-	int eat(int quantity);
+	int collect(int quantity);
+
+	/** Modify available food amound **/
+	void foodQuantityChanger(int value){
+		m_available += value;
+	}	
 
 	/** Get category **/
 	static GameObject_t category() { return &s_category; }
