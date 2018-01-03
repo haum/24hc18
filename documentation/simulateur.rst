@@ -30,12 +30,12 @@ Les identifiants pour le compte utilisateur sur la machine virtuelle sont :
 Envoi de votre code
 -------------------
 
-Cette procédure reste à définir.
-
 Pour commencer, il vous faut un depot `GIT` public. Il existe plusieurs services
-en ligne proposant cet outil comme `<https://framagit.org>`_ ou `<https://github.com>`_.
+en ligne proposant cet outil comme `<https://framagit.org>`_ ou 
+`<https://github.com>`_.
 
-Après avoir deposé votre code dans votre dépot. Il vous reste à cloner ce dépot 
+Après la création de voter dépot `GIT`, vous pouvez y déposer votre code. Il
+vous reste ensuite à 'cloner'  ce dépot sur la machine virtuelle. 
 sur la machine virtuelle.
 
 Si vous ne connaissez pas cet outil, nous vous recommendons de consulter la
