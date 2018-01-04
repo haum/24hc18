@@ -361,7 +361,15 @@ Actions
 `COLLECT <id> <quantity>`
   Collecte de la nourriture.
 
-  La source de nourriture doit être dans le champ d'action (`NEAR`).
+  La source de nourriture doit être dans le champ d'action (`NEAR`). La quantité
+  effectivement collectée est le minimum entre :
+
+  - la quantité demandée,
+  - la quantité restante dans la source de nourriture,
+  - ce que peut encore collecter la fourmi.
+
+  N'oubliez pas que certaines sources de nourriture peuvent se tarir si la
+  totalité de leurs ressources est consommée.
 
   Cette action est exclusive et coûte 4 unités de stamina.
 
