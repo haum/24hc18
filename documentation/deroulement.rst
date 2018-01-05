@@ -32,8 +32,8 @@ Les stratégies peuvent être différentes pour chaque tournoi, mais il ne faut 
 oublier que chacun de ceux-ci peuvent comporter plusieurs scenarii que la même
 stratégie devra affronter.
 
-Points et victoire
-==================
+Attribution des points
+======================
 
 Même si affronter la planète est un défi en soi, Marabunta est aussi un jeu
 entre équipes. Votre objectif sera de marquer plus de points que les autres
@@ -48,17 +48,15 @@ Les points se gagnent ainsi à l'issue de chaque match:
  - Votre code n'est pas récupérable, n'est pas compilable, ne fonctionne pas ou
    ne permet pas de survivre : :point:`0 point`
  - Votre code permet à votre colonie de survivre jusqu'au bout de la partie sans
-   toutefois gagner : :point:`1 point`
- - Votre code mène votre colonie à la victoire : :point:`2 points`
+   toutefois gagner : :point:`4 points`
+ - Votre code mène votre colonie à la victoire : :point:`6 points`
 
-En cas d'égalité, plusieurs équipes peuvent marquer les points de victoire. À la
-fin des 24h, l'équipe ayant le plus de points gagne.
+En cas d'égalité, plusieurs équipes peuvent marquer les points de victoire.
 
 .. TIP::
    À la lecture de ces précisions, comprenez bien qu'avoir un système
    permettant à la colonie de survivre est **essentiel**. Il n'est pas
    nécessaire de se battre pour gagner. 
-
 
 24 heures avec le HAUM
 ======================
@@ -79,3 +77,13 @@ difficultés. Nous serons avec vous toute la nuit.
 
 La dernière heure sera consacrée à un temps de discussion entre toutes les
 personnes ayant travaillé sur le sujet.
+
+Victoire
+========
+
+Votre performance aux tournois est importante. Néanmoins, ce n'est pas le seul
+critère que nous utiliserons pour désigner les vainqueurs du sujet.
+
+TODO: définir des critères additionnels (élégance du raisonnement, participation
+aux séances de groupe, état d'esprit, partage de solutions en discussions
+communes, plébiscite/opinion des autre équipes..?)
