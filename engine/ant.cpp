@@ -303,7 +303,7 @@ void Ant::actionNest(bool valid, int id) {
 
 	bool invalid;
 	GameObject *ptr = getObjectById(id, invalid);
-	if (invalid || ptr->category() != Nest::category()) {
+	if (invalid) {
 		invalidAction();
 		return;
 	}
