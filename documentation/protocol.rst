@@ -523,6 +523,9 @@ Actions
 `ANT_NEW <type>`
   Crée une nouvelle fourmi dans la fourmilière.
 
+  Le type choisi par cette commande restera le même tout au long de la vie de la
+  fourmi.
+
   Cette action est exclusive et coûte 5 unités de nourriture.
 
   ==========  ======
