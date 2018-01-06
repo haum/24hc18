@@ -66,7 +66,7 @@ Déverminage
 Il est possible d'avoir une trace du dialogue entre le simulateur et votre
 programme de stratégie pour analyser le comportement. Pour cela, il existe
 l'option `-d` qui prend en argument le numéro (commençant à 0) de la stratégie à
-espionner.
+espionner. Le log sort sur la sortie d'erreur standard.
 
 Extrait de trace en milieu de partie :
 
