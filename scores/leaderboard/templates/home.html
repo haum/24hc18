@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<a href="{% url 'register_team' %}">Register</a>
+
+<table>
+    <thead><tr>
+        <th>Team</th>
+        <th>Score</th>
+    </thead>
+    <tbody>
+        {% for t in teams %}
+        <tr>
+            <td><a href="{% url 'team_detail' t.id %}">{{t.name}}</a></td>
+            <td>{{t.points}}</td>
+        </td>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h1>Matches</h1>
+<ul>
+    {% for m in matchs %}
+    <li><a href="{% url 'match_detail' m.id %}">{{m}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
