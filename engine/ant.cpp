@@ -271,8 +271,9 @@ void Ant::actionDoTrophallaxis(bool valid, int id, int quantity) {
 	}
 }
 
-void Ant::actionAttack(bool valid, int id) {
-	if (!preludeActionHelper(2, EXCLUSIVE, valid))
+void Ant::actionAttack(bool valid, int id, int force) {
+	int cost = force;
+	if (!preludeActionHelper(cost, EXCLUSIVE, valid))
 		return;
 
 	bool invalid;
@@ -284,7 +285,8 @@ void Ant::actionAttack(bool valid, int id) {
 
 	if ((ptr != nullptr) && (ptr->distance(*this) <= NEAR_DISTANCE)) {
 		auto *ant = static_cast<Ant *>(ptr); // Dynamically checked previously
-		ant->m_stamina -= 3;
+		int damage = force * force / 2 + 1;
+		ant->m_stamina -= damage;
 		ant->m_attacked = true;
 		if (ant->m_stamina < 0)
 			ant->destroy();
@@ -410,10 +412,11 @@ void Ant::execute(uint8_t argc, const char **argv) {
 		int quantity = param_int(argv[2], ok2);
 		actionDoTrophallaxis(ok1 && ok2, id, quantity);
 
-	} else if ((argc == 2) && (strncmp(argv[0], "ATTACK", 7) == 0)) {
-		bool ok;
-		int id = param_int(argv[1], ok, 0, 255);
-		actionAttack(ok, id);
+	} else if ((argc == 3) && (strncmp(argv[0], "ATTACK", 7) == 0)) {
+		bool ok1, ok2;
+		int id = param_int(argv[1], ok1);
+		int force = param_int(argv[2], ok2, 1, 5);
+		actionAttack(ok1 && ok2, id, force);
 
 	} else if ((argc == 2) && (strncmp(argv[0], "EAT", 4) == 0)) {
 		bool ok;

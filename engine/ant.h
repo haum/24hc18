@@ -57,7 +57,7 @@ class Ant : public Agent {
 	void actionExplore(bool valid);
 
 	/** action ATTACK **/
-	void actionAttack(bool valid, int id);
+	void actionAttack(bool valid, int id, int force);
 
 	/** action EAT **/
 	void actionEat(bool valid, int quantity);

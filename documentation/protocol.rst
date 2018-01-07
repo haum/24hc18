@@ -427,17 +427,28 @@ Actions
   `id`  Identifiant de l'objet indiqué par `SEE_NEST`
   ====  ======
 
-`ATTACK <id>`
+`ATTACK <id> <force>`
   Attaque une autre fourmi.
 
   La fourmi attaquée doit être dans le champ d'action (`NEAR`).
 
-  Cette action est exclusive, coûte 2 unités de stamina et retire 3 unités de
-  stamina à la fourmi attaquée.
+  Cette action est exclusive, le coût en stamina et les dégâts infligés à la
+  stamina de la fourmi attaquée sont définis dans le tableau ci-dessous.
 
-  ======  ======
-  `id`    Identifiant de l'objet indiqué par `SEE_ANT`
-  ======  ======
+  =====  ====  ======
+  Force  Coût  Dégâts
+  =====  ====  ======
+  1      1     1
+  2      2     3
+  3      3     5
+  4      4     9
+  5      5     13
+  =====  ====  ======
+
+  =======  ======
+  `id`     Identifiant de l'objet indiqué par `SEE_ANT`
+  `force`  Force appliquée (voir tableau ci-dessus)
+  =======  ======
 
 `SUICIDE`
   Suicide la fourmi
