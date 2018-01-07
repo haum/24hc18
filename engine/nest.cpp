@@ -99,6 +99,8 @@ uint32_t Nest::antsCount() {
 void Nest::periodic() {
 	uint32_t count = antsCount();
 	uint32_t cost = (count / 100) + 1;
+	if (count == 0)
+		cost = 0;
 	if (m_stock > cost)
 		m_stock -= cost;
 	else
