@@ -21,6 +21,7 @@ class GameObjectCategory {
 };
 
 typedef const GameObjectCategory *GameObject_t;
+constexpr const GameObject_t undefined_category = nullptr;
 
 /** Game object base class (stores position) **/
 class GameObject {
