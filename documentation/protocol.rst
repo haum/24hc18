@@ -63,7 +63,7 @@ liste des actions réalisées avec le marqueur `END` et se met en écoute d'un
 Aléatoire
 ---------
 
-Les fourmis n'explorent pas en ligne droite, la sortie de la fourmillière se
+Les fourmis n'explorent pas en ligne droite, la sortie de la fourmilière se
 fait avec un azimut indéterminé et changeant, les actions des autres équipes ne
 sont pas prédictibles, le système d'exploitation dispose de règles complexes
 pour choisir quels programmes vont être exécutés dans le prochain laps de temps,
@@ -73,7 +73,7 @@ simulation est donc différente.
 Malgré la nature stochastique de ce jeu, il est possible de créer des stratégies
 robustes et contrôlées. La communication à travers les phéromones ou le retour
 à la fourmilière, la redondance d'initiatives hasardeuses, la mémorisation au
-sein des fourmis et de la fourmilère sont des exemples d'outils qui permettent
+sein des fourmis et de la fourmilière sont des exemples d'outils qui permettent
 de réduire l'incertitude.
 
 À vous d'être suffisamment astucieux pour transformer ce chaos en aubaine.
@@ -86,12 +86,12 @@ simulateur (aux aléas près). Néanmoins, au sein d'une même colonie, les
 ressources en temps sont partagées entre la fourmilière et l'ensemble des
 fourmis sorties.
 
-Par exemple, si deux colonies A et B disposent respectivement de 3 et 7 fourmies
+Par exemple, si deux colonies A et B disposent respectivement de 3 et 7 fourmis
 hors de la fourmilière, et que deux copies du même programme de stratégie sont
 utilisées, l'ordonnancement sera par exemple : A0 B0 A1 B1 A2 B2 A3 B3 A0 B4 A1
 B5 A2 B6 A3 B7. Nous voyons que pour une exécution complète de B, A aura fait
 deux tours. Cependant, cet avantage relatif est contrebalancé par une
-consommation de ressources plus importante pour pouvoir affectuer lesdites
+consommation de ressources plus importante pour pouvoir effectuer lesdites
 actions.
 
 A contrario, lorsque les programmes ou simplement les situations ne sont pas
@@ -118,15 +118,15 @@ consommations interviennent à date fixe, peu importe les actions réalisées.
 Mémoire
 -------
 
-Le sujet de la mémoire est délicat car il est facile de se fourvoyer.
+Le sujet de la mémoire est délicat, car il est facile de se fourvoyer.
 
-Notons tout d'abord que chaque entité dispose d'une petite mémoire personelle à
+Notons tout d'abord que chaque entité dispose d'une petite mémoire personnelle à
 long terme, c'est-à-dire qui persiste d'un tour à l'autre. C'est cette mémoire
 (accessible via les commandes `MEMORY` et `SET_MEMORY`) que vous devrez utiliser
 pour retenir l'information durablement.
 
 Il y a ensuite la mémoire du programme de stratégie. Celle-ci peut être utilisée
-pour effectuer les calculs nécessaires aux décisions mais elle ne doit pas
+pour effectuer les calculs nécessaires aux décisions, mais elle ne doit pas
 servir à stocker des données.
 
 .. CAUTION::
@@ -136,7 +136,7 @@ servir à stocker des données.
   retenir des métadonnées supplémentaires.
 
 Imaginons par exemple que vous voulez faire sortir exactement 5 fourmis de la
-fourmilière. Une manière tantante serait de disposer d'un compteur dans un coin
+fourmilière. Une manière tentante serait de disposer d'un compteur dans un coin
 de l'application et d'utiliser celui-ci pour savoir s'il faut sortir une fourmi
 à ce tour ci : l'information est gardée dans le programme de stratégie, c'est
 erroné.
@@ -237,7 +237,7 @@ Informations
   ------  ------
   `zone`  Zone d'interaction.
 
-          Prend les valeurs `FAR` ou `NEAR`.
+          Prends les valeurs `FAR` ou `NEAR`.
   ------  ------
   `dist`  Distance de 0 (très près) à 100 (le plus loin que la fourmi perçoit)
   ------  ------
@@ -260,7 +260,7 @@ Informations
   `dist`     Distance de 0 (très près) à 100 (le plus loin que la fourmi
              perçoit)
   ---------  ------
-  `friend`   Indique si la fourmi est de la même fourmillière.
+  `friend`   Indique si la fourmi est de la même fourmilière.
 
              Prends les valeurs `FRIEND` ou `ENEMY`.
   ---------  ------
@@ -270,7 +270,7 @@ Informations
   =========  ======
 
 `SEE_NEST <id> <zone> <dist> <friend>`
-  Indique la présence d'une fourmillière à proximité.
+  Indique la présence d'une fourmilière à proximité.
 
   ========  ======
   `id`      Nombre temporaire utilisé pour faire référence à cet objet dans les
@@ -288,7 +288,7 @@ Informations
   ========  ======
 
 `SEE_FOOD <id> <zone> <dist> <amount>`
-  Indique la présence d'une fourmillière à proximité.
+  Indique la présence d'une fourmilière à proximité.
 
   ========  ======
   `id`      Nombre temporaire utilisé pour faire référence à cet objet dans les
@@ -388,7 +388,7 @@ Actions
   ==========  ======
 
 `DO_TROPHALLAXIS <id> <quantity>`
-  Effectue une trophalaxie avec une autre fourmi.
+  Effectue une trophallaxie avec une autre fourmi.
 
   La fourmi avec qui l'échange est fait doit être dans le champ d'action
   (`NEAR`). La fourmi effectuant l'action perd du stock de nourriture, la fourmi
@@ -414,7 +414,7 @@ Actions
   ==========  ======
 
 `NEST <id>`
-  Rentre dans la fourmillière.
+  Rentre dans la fourmilière.
 
   La fourmilière doit être dans le champ d'action (`NEAR`) et être de la même
   équipe que la fourmi. La mémoire et le stock de nourriture sont transférés à
@@ -488,7 +488,7 @@ Informations
   premier.
 
 `STOCK <quantity>`
-  Indique le niveau du stock de nourritude dans la fourmilière.
+  Indique le niveau du stock de nourriture dans la fourmilière.
 
   ==========  ======
   `quantity`  Niveau du stock de nourriture.

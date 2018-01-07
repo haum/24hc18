@@ -25,11 +25,11 @@ Flush
 Le dialogue entre le programme de stratégie et le simulateur se fait à travers
 des flux de données qui restent ouverts. Or les flux de données sont souvent
 bufferisés pour augmenter l'efficacité des transferts en minimisant les
-changements de contexte. Dans notre cas, ce mécanisme est également utile mais
+changements de contexte. Dans notre cas, ce mécanisme est également utile, mais
 il faut veiller à bien envoyer les données aux moments opportuns.
 
 Pour cela, nous vous encourageons à trouver la commande qui permet de réaliser
-un flush (c'est le terme souvent utilisé dans les API) du buffer, c'est à dire
+un flush (c'est le terme souvent utilisé dans les API) du buffer, c'est-à-dire
 qui envoie effectivement le contenu des mémoires tampon dans le flux.
 
 Vous pourrez donc le faire juste après avoir envoyé la commande `END` et ainsi
