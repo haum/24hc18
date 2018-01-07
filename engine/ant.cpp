@@ -3,19 +3,11 @@
 #include "gears/utils.h"
 #include "pheromone.h"
 #include "scenario.h"
-#include <cmath>
 
-namespace {
-constexpr const int MAX_STOCK = 1000;
-constexpr const int MAX_STAMINA = 10000;
-constexpr const double WALK_DISTANCE = 2 * M_PI / 10000;
-constexpr const double NEAR_DISTANCE = 3 * WALK_DISTANCE;
-constexpr const double FAR_DISTANCE = 10 * WALK_DISTANCE;
-static_assert(WALK_DISTANCE <= NEAR_DISTANCE,
+static_assert(Ant::WALK_DISTANCE <= Ant::NEAR_DISTANCE,
               "WALK_DISTANCE should be smaller than NEAR_DISTANCE");
-static_assert(NEAR_DISTANCE < FAR_DISTANCE,
+static_assert(Ant::NEAR_DISTANCE < Ant::FAR_DISTANCE,
               "NEAR_DISTANCE should be nearer than FAR_DISTANCE");
-} // namespace
 
 const GameObjectCategory Ant::s_category{"ANT"};
 
@@ -281,7 +273,8 @@ void Ant::actionEat(bool valid, int quantity) {
 	quantity = std::max(0, quantity);
 	quantity = std::min(m_stock, quantity);
 	m_stock -= quantity;
-	m_stamina = std::min(m_stamina + 10 * quantity, MAX_STAMINA);
+	const auto max_stamina = MAX_STAMINA;
+	m_stamina = std::min(m_stamina + 10 * quantity, max_stamina);
 }
 
 void Ant::actionMoveTo(bool valid, int id) {
@@ -298,7 +291,8 @@ void Ant::actionMoveTo(bool valid, int id) {
 
 	if (ptr != nullptr) {
 		orientToward(*ptr);
-		auto d = std::min(distance(*ptr), WALK_DISTANCE);
+		const auto walk_distance = WALK_DISTANCE;
+		auto d = std::min(distance(*ptr), walk_distance);
 		moveDistance(d);
 	}
 }

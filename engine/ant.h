@@ -2,10 +2,17 @@
 #define ANT_H
 
 #include "gears/agent.h"
+#include <cmath>
 
 /** Class representing an ant **/
 class Ant : public Agent {
   public:
+	constexpr static const int MAX_STOCK = 1000;
+	constexpr static const int MAX_STAMINA = 10000;
+	constexpr static const double WALK_DISTANCE = 2 * M_PI / 10000;
+	constexpr static const double NEAR_DISTANCE = 3 * WALK_DISTANCE;
+	constexpr static const double FAR_DISTANCE = 10 * WALK_DISTANCE;
+
 	/** Constructor
 	 * @param team Team whose agent belongs
 	 * @param latitude Original lattitude
