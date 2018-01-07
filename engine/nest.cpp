@@ -89,10 +89,15 @@ bool Nest::preludeActionHelper(int cost, ActionType type, bool valid) {
 	return valid;
 }
 
-void Nest::periodic() {
+uint32_t Nest::antsCount() {
 	uint32_t count = 0;
 	for (auto &pair : m_antNumber)
 		count += pair.second;
+	return count;
+}
+
+void Nest::periodic() {
+	uint32_t count = antsCount();
 	uint32_t cost = (count / 100) + 1;
 	if (m_stock > cost)
 		m_stock -= cost;

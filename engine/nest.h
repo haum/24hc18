@@ -43,6 +43,9 @@ class Nest : public Agent {
 	 */
 	void setFood(int amount);
 
+	/** Number of ants inside nest **/
+	uint32_t antsCount();
+
 	/** Method called periodically by the engine **/
 	void periodic() override;
 
