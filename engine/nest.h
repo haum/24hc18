@@ -87,6 +87,9 @@ class Nest : public Agent {
 		EXCLUSIVE,
 	};
 
+	/** Engine message log function for convenience **/
+	std::ostream &w() { return team().log(TeamLogType::ENGINE_MSG); }
+
 	/** Actions when command are wrong **/
 	void invalidAction();
 

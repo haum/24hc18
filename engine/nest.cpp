@@ -68,10 +68,13 @@ void Nest::invalidAction() {
 bool Nest::preludeActionHelper(int cost, ActionType type, bool valid) {
 	setFood(static_cast<int>(m_stock) - cost);
 	if (m_stock == 0 && cost != 0) {
+		w() << "Not enough food, cannot perform action" << std::endl;
 		return false;
 	}
 	if (type == EXCLUSIVE) {
 		if (m_exclusiveDone) {
+			w() << "Exclusive action already done, cannot perform action"
+			    << std::endl;
 			invalidAction();
 			return false;
 		}
@@ -80,6 +83,9 @@ bool Nest::preludeActionHelper(int cost, ActionType type, bool valid) {
 	} else if (type == ALWAYS_ALLOWED) {
 		// Nothing to do
 	}
+	if (!valid)
+		w() << "Error in command parameters, cannot perform action"
+		    << std::endl;
 	return valid;
 }
 
@@ -104,6 +110,9 @@ void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
 		    team(), Ant::MAX_STAMINA, this->latitude(), this->longitude(),
 		    random_angle(), type, m0, m1);
 		setPopulation(type, static_cast<int>(m_antNumber[type] - 1));
+	} else {
+		w() << "There is no such ant type in nest, cannot perform action"
+		    << std::endl;
 	}
 }
 
