@@ -101,7 +101,7 @@ void Ant::invalidAction() {
 	destroy();
 }
 
-bool Ant::actionPrelude(int cost, ActionType type, bool valid) {
+bool Ant::preludeActionHelper(int cost, ActionType type, bool valid) {
 	m_stamina -= cost;
 	if (m_stamina < 0) {
 		destroy();
@@ -120,7 +120,7 @@ bool Ant::actionPrelude(int cost, ActionType type, bool valid) {
 	return valid;
 }
 
-GameObject *Ant::getObjectById(int id, bool &invalid) {
+GameObject *Ant::getObjectActionHelper(int id, bool &invalid) {
 	if (id <= 0) {
 		invalid = true;
 		return nullptr;
@@ -146,31 +146,31 @@ GameObject *Ant::getObjectById(int id, bool &invalid) {
 }
 
 void Ant::actionSetMemory(bool valid, uint8_t m0, uint8_t m1) {
-	if (!actionPrelude(0, ALWAYS_ALLOWED, valid))
+	if (!preludeActionHelper(0, ALWAYS_ALLOWED, valid))
 		return;
 	m_memory[0] = m0;
 	m_memory[1] = m1;
 }
 
 void Ant::actionSuicide(bool valid) {
-	if (!actionPrelude(0, ALWAYS_ALLOWED, valid))
+	if (!preludeActionHelper(0, ALWAYS_ALLOWED, valid))
 		return;
 	destroy();
 }
 
 void Ant::actionPutPheromone(bool valid, uint8_t type) {
-	if (!actionPrelude(3, EXCLUSIVE, valid))
+	if (!preludeActionHelper(3, EXCLUSIVE, valid))
 		return;
 	team().scenario().addGameObject<Pheromone>(this->latitude(),
 	                                           this->longitude(), team(), type);
 }
 
 void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
-	if (!actionPrelude(2, EXCLUSIVE, valid))
+	if (!preludeActionHelper(2, EXCLUSIVE, valid))
 		return;
 
 	bool invalid;
-	GameObject *ptr = getObjectById(id, invalid);
+	GameObject *ptr = getObjectActionHelper(id, invalid);
 	if (invalid || ptr->category() != Pheromone::category()) {
 		invalidAction();
 		return;
@@ -184,11 +184,11 @@ void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
 }
 
 void Ant::actionRechargePheromone(bool valid, int id) {
-	if (!actionPrelude(1, EXCLUSIVE, valid))
+	if (!preludeActionHelper(1, EXCLUSIVE, valid))
 		return;
 
 	bool invalid;
-	GameObject *ptr = getObjectById(id, invalid);
+	GameObject *ptr = getObjectActionHelper(id, invalid);
 	if (invalid || ptr->category() != Pheromone::category()) {
 		invalidAction();
 		return;
@@ -202,12 +202,11 @@ void Ant::actionRechargePheromone(bool valid, int id) {
 }
 
 void Ant::actionCollect(bool valid, int id, int quantity) {
-	if (!actionPrelude(4, EXCLUSIVE, valid)) {
+	if (!preludeActionHelper(4, EXCLUSIVE, valid))
 		return;
-	}
 
 	bool invalid;
-	GameObject *ptr = getObjectById(id, invalid);
+	GameObject *ptr = getObjectActionHelper(id, invalid);
 	if (invalid || ptr->category() != Food::category()) {
 		invalidAction();
 		return;
@@ -223,12 +222,11 @@ void Ant::actionCollect(bool valid, int id, int quantity) {
 
 void Ant::actionDoTrophallaxis(bool valid, int id, int quantity) {
 	int cost = quantity;
-	if (!actionPrelude(cost, EXCLUSIVE, valid)) {
+	if (!preludeActionHelper(cost, EXCLUSIVE, valid))
 		return;
-	}
 
 	bool invalid;
-	GameObject *ptr = getObjectById(id, invalid);
+	GameObject *ptr = getObjectActionHelper(id, invalid);
 	if (invalid || ptr->category() != Ant::category()) {
 		invalidAction();
 		return;
@@ -245,12 +243,11 @@ void Ant::actionDoTrophallaxis(bool valid, int id, int quantity) {
 }
 
 void Ant::actionAttack(bool valid, int id) {
-	if (!actionPrelude(2, EXCLUSIVE, valid)) {
+	if (!preludeActionHelper(2, EXCLUSIVE, valid))
 		return;
-	}
 
 	bool invalid;
-	GameObject *ptr = getObjectById(id, invalid);
+	GameObject *ptr = getObjectActionHelper(id, invalid);
 	if (invalid || ptr->category() != Ant::category()) {
 		invalidAction();
 		return;
@@ -266,9 +263,9 @@ void Ant::actionAttack(bool valid, int id) {
 }
 
 void Ant::actionEat(bool valid, int quantity) {
-	if (!actionPrelude(0, EXCLUSIVE, valid)) {
+	if (!preludeActionHelper(0, EXCLUSIVE, valid))
 		return;
-	}
+
 	quantity = std::max(0, quantity);
 	quantity = std::min(m_stock, quantity);
 	m_stock -= quantity;
@@ -277,12 +274,11 @@ void Ant::actionEat(bool valid, int quantity) {
 }
 
 void Ant::actionMoveTo(bool valid, int id) {
-	if (!actionPrelude(2, EXCLUSIVE, valid)) {
+	if (!preludeActionHelper(2, EXCLUSIVE, valid))
 		return;
-	}
 
 	bool invalid;
-	GameObject *ptr = getObjectById(id, invalid);
+	GameObject *ptr = getObjectActionHelper(id, invalid);
 	if (invalid || ptr->category() != Nest::category()) {
 		invalidAction();
 		return;
@@ -297,12 +293,11 @@ void Ant::actionMoveTo(bool valid, int id) {
 }
 
 void Ant::actionNest(bool valid, int id) {
-	if (!actionPrelude(2, EXCLUSIVE, valid)) {
+	if (!preludeActionHelper(2, EXCLUSIVE, valid))
 		return;
-	}
 
 	bool invalid;
-	GameObject *ptr = getObjectById(id, invalid);
+	GameObject *ptr = getObjectActionHelper(id, invalid);
 	if (invalid) {
 		invalidAction();
 		return;
@@ -319,7 +314,7 @@ void Ant::actionNest(bool valid, int id) {
 }
 
 void Ant::actionExplore(bool valid) {
-	if (!actionPrelude(1, EXCLUSIVE, valid))
+	if (!preludeActionHelper(1, EXCLUSIVE, valid))
 		return;
 	double dh = (random_angle() - M_PI) / 36;
 	m_heading = fmod(m_heading + dh, 2 * M_PI);
@@ -327,7 +322,7 @@ void Ant::actionExplore(bool valid) {
 }
 
 void Ant::actionTurn(bool valid, int angle) {
-	if (!actionPrelude(1, EXCLUSIVE, valid))
+	if (!preludeActionHelper(1, EXCLUSIVE, valid))
 		return;
 	m_heading = fmod(m_heading + angle * M_PI / 180, 2 * M_PI);
 }

@@ -91,7 +91,7 @@ class Nest : public Agent {
 	void invalidAction();
 
 	/** Prelude of actions (to check state) **/
-	bool actionPrelude(int cost, ActionType type, bool valid);
+	bool preludeActionHelper(int cost, ActionType type, bool valid);
 
 	virtual bool prelude(std::ostream &os) override;
 	virtual void execute(uint8_t argc, const char **argv) override;

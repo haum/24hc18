@@ -65,7 +65,7 @@ void Nest::invalidAction() {
 	    << "Invalid action, ignored" << std::endl;
 }
 
-bool Nest::actionPrelude(int cost, ActionType type, bool valid) {
+bool Nest::preludeActionHelper(int cost, ActionType type, bool valid) {
 	setFood(static_cast<int>(m_stock) - cost);
 	if (m_stock == 0 && cost != 0) {
 		return false;
@@ -97,7 +97,7 @@ void Nest::periodic() {
 bool Nest::hasAntType(uint8_t type) { return (m_antNumber.count(type) > 0); }
 
 void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
-	if (!actionPrelude(1, EXCLUSIVE, valid))
+	if (!preludeActionHelper(1, EXCLUSIVE, valid))
 		return;
 	if (hasAntType(type) && m_antNumber[type] > 0) {
 		team().scenario().addGameObject<Ant>(
@@ -108,7 +108,7 @@ void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
 }
 
 void Nest::actionAntNew(bool valid, uint8_t type) {
-	if (!actionPrelude(5, EXCLUSIVE, valid))
+	if (!preludeActionHelper(5, EXCLUSIVE, valid))
 		return;
 	if (hasAntType(type)) {
 		m_antNumber[type] += 1;
@@ -118,7 +118,7 @@ void Nest::actionAntNew(bool valid, uint8_t type) {
 }
 
 void Nest::actionSetMemory(bool valid, uint8_t mem[20]) {
-	if (!actionPrelude(0, ALWAYS_ALLOWED, valid))
+	if (!preludeActionHelper(0, ALWAYS_ALLOWED, valid))
 		return;
 	::memcpy(m_memory, mem, sizeof(m_memory));
 }
