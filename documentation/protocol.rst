@@ -229,6 +229,8 @@ Informations
 `SEE_PHEROMONE <id> <zone> <dist> <type>`
   Indique la présence d'une phéromone à proximité.
 
+  Les phéromones des équipes adverses ne sont pas listées.
+
   ======  ======
   `id`    Nombre temporaire utilisé pour faire référence à cet objet dans les
           actions.
@@ -242,8 +244,6 @@ Informations
   `type`  Type de phéromone détectée.
 
           Ce type est défini par la fourmi ayant déposé la phéromone.
-
-          Les phéromones des équipes adverses ne sont pas listées.
   ======  ======
 
 `SEE_ANT <id> <zone> <dist> <friend> <stamina>`
@@ -260,7 +260,7 @@ Informations
   `dist`     Distance de 0 (très près) à 100 (le plus loin que la fourmi
              perçoit)
   ---------  ------
-  `friend`   Indique si la fourmi est-elle de notre fourmillière.
+  `friend`   Indique si la fourmi est de la même fourmillière.
 
              Prends les valeurs `FRIEND` ou `ENEMY`.
   ---------  ------
@@ -282,7 +282,7 @@ Informations
   --------  ------
   `dist`    Distance de 0 (très près) à 100 (le plus loin que la fourmi perçoit)
   --------  ------
-  `friend`  Indique si la fourmi est-elle de notre fourmillière.
+  `friend`  Indique si la fourmilière est celle de la fourmi.
 
             Prends les valeurs `FRIEND` ou `ENEMY`.
   ========  ======
