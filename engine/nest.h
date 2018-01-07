@@ -43,6 +43,9 @@ class Nest : public Agent {
 	 */
 	void setFood(int amount);
 
+	/** Get food amount **/
+	uint32_t foodAmount() { return m_stock; }
+
 	/** Number of ants inside nest **/
 	uint32_t antsCount();
 
