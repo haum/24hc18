@@ -105,6 +105,9 @@ void Nest::periodic() {
 		m_stock -= cost;
 	else
 		m_stock = 0;
+	if (m_stock == 0) {
+		m_antNumber.clear();
+	}
 }
 
 bool Nest::hasAntType(uint8_t type) { return (m_antNumber.count(type) > 0); }
