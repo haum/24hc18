@@ -405,7 +405,7 @@ Actions
 `EAT <quantity>`
   Mange.
 
-  Cette action est exclusive et coûte `quantity` unités de nourriture. Elle
+  Cette action est exclusive et consomme `quantity` unités de nourriture. Elle
   recharge de 10 × `quantity` unités de stamina dans la limite des capacités de
   la fourmi.
 
@@ -547,7 +547,7 @@ Actions
   Cette fourmi doit exister dans la fourmilière. Elle sort avec le maximum de
   stamina.
 
-  Cette action est exclusive et coûte 1 unité de nourriture.
+  Cette action est exclusive et consomme 1 unité de nourriture.
 
   ==========  ======
   `type`      Type de fourmi.
