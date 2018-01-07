@@ -108,8 +108,10 @@ class Ant : public Agent {
 	/** Get object by ID
 	 * @param id      ID to search
 	 * @param invalid (out) true if ID wad invalid, false otherwise
+	 * @param cat     (optional) Expected category
 	 */
-	GameObject *getObjectActionHelper(int id, bool &invalid);
+	GameObject *getObjectActionHelper(int id, bool &invalid,
+	                                  GameObject_t cat = undefined_category);
 
 	virtual bool prelude(std::ostream &os) override;
 	virtual void execute(uint8_t argc, const char **argv) override;

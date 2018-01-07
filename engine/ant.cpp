@@ -104,11 +104,14 @@ void Ant::invalidAction() {
 bool Ant::preludeActionHelper(int cost, ActionType type, bool valid) {
 	m_stamina -= cost;
 	if (m_stamina < 0) {
+		w() << "No more stamina, cannot perform action" << std::endl;
 		destroy();
 		return false;
 	}
 	if (type == EXCLUSIVE) {
 		if (m_exclusiveDone) {
+			w() << "Exclusive action already done, cannot perform action"
+			    << std::endl;
 			invalidAction();
 			return false;
 		}
@@ -117,16 +120,22 @@ bool Ant::preludeActionHelper(int cost, ActionType type, bool valid) {
 	} else if (type == ALWAYS_ALLOWED) {
 		// Nothing to do
 	}
+	if (!valid)
+		w() << "Error in command parameters, cannot perform action"
+		    << std::endl;
 	return valid;
 }
 
-GameObject *Ant::getObjectActionHelper(int id, bool &invalid) {
+GameObject *Ant::getObjectActionHelper(int id, bool &invalid,
+                                       GameObject_t cat) {
 	if (id <= 0) {
+		w() << "Invalid object, cannot perform action" << std::endl;
 		invalid = true;
 		return nullptr;
 	}
 	auto index = static_cast<size_t>(id - 1);
 	if (index >= team().getIds().size()) {
+		w() << "Invalid object, cannot perform action" << std::endl;
 		invalid = true;
 		return nullptr;
 	}
@@ -142,6 +151,12 @@ GameObject *Ant::getObjectActionHelper(int id, bool &invalid) {
 	});
 	if (!found)
 		return nullptr;
+	if (cat != nullptr && ptr->category() != cat) {
+		w() << "Object is not of type " << cat->name()
+		    << ", cannot perform action" << std::endl;
+		invalid = true;
+		return nullptr;
+	}
 	return ptr;
 }
 
@@ -170,8 +185,8 @@ void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
 		return;
 
 	bool invalid;
-	GameObject *ptr = getObjectActionHelper(id, invalid);
-	if (invalid || ptr->category() != Pheromone::category()) {
+	GameObject *ptr = getObjectActionHelper(id, invalid, Pheromone::category());
+	if (invalid) {
 		invalidAction();
 		return;
 	}
@@ -180,6 +195,9 @@ void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
 		auto *pheromone =
 		    static_cast<Pheromone *>(ptr); // Dynamically checked previously
 		pheromone->setType(type);
+	} else {
+		w() << "Pheromone is no longer present, cannot perform action"
+		    << std::endl;
 	}
 }
 
@@ -188,8 +206,8 @@ void Ant::actionRechargePheromone(bool valid, int id) {
 		return;
 
 	bool invalid;
-	GameObject *ptr = getObjectActionHelper(id, invalid);
-	if (invalid || ptr->category() != Pheromone::category()) {
+	GameObject *ptr = getObjectActionHelper(id, invalid, Pheromone::category());
+	if (invalid) {
 		invalidAction();
 		return;
 	}
@@ -198,6 +216,9 @@ void Ant::actionRechargePheromone(bool valid, int id) {
 		auto *pheromone =
 		    static_cast<Pheromone *>(ptr); // Dynamically checked previously
 		pheromone->setLife(100);
+	} else {
+		w() << "Pheromone is no longer present, cannot perform action"
+		    << std::endl;
 	}
 }
 
@@ -206,17 +227,21 @@ void Ant::actionCollect(bool valid, int id, int quantity) {
 		return;
 
 	bool invalid;
-	GameObject *ptr = getObjectActionHelper(id, invalid);
-	if (invalid || ptr->category() != Food::category()) {
+	GameObject *ptr = getObjectActionHelper(id, invalid, Food::category());
+	if (invalid) {
 		invalidAction();
 		return;
 	}
 
 	if ((ptr != nullptr) && (ptr->distance(*this) <= NEAR_DISTANCE)) {
 		auto *food = static_cast<Food *>(ptr); // Dynamically checked previously
-		quantity = std::min(quantity, MAX_STOCK - m_stock);
-		quantity = food->collect(quantity);
-		m_stock += quantity;
+		int q = std::min(quantity, MAX_STOCK - m_stock);
+		q = food->collect(q);
+		m_stock += q;
+		if (q < quantity)
+			w() << "Less food collected than requested" << std::endl;
+	} else {
+		w() << "Food is no longer present, cannot perform action" << std::endl;
 	}
 }
 
@@ -226,19 +251,23 @@ void Ant::actionDoTrophallaxis(bool valid, int id, int quantity) {
 		return;
 
 	bool invalid;
-	GameObject *ptr = getObjectActionHelper(id, invalid);
-	if (invalid || ptr->category() != Ant::category()) {
+	GameObject *ptr = getObjectActionHelper(id, invalid, Ant::category());
+	if (invalid) {
 		invalidAction();
 		return;
 	}
 
 	if ((ptr != nullptr) && (ptr->distance(*this) <= NEAR_DISTANCE)) {
 		auto *ant = static_cast<Ant *>(ptr); // Dynamically checked previously
-		quantity = std::max(0, quantity);
-		quantity = std::min(quantity, m_stock);
-		m_stock -= quantity;
-		quantity = std::min(quantity, MAX_STOCK - ant->m_stock);
-		ant->m_stock += quantity;
+		int q = std::max(0, quantity);
+		q = std::min(q, m_stock);
+		m_stock -= q;
+		q = std::min(q, MAX_STOCK - ant->m_stock);
+		ant->m_stock += q;
+		if (q < quantity)
+			w() << "Less food given than requested" << std::endl;
+	} else {
+		w() << "Ant is no longer present, cannot perform action" << std::endl;
 	}
 }
 
@@ -247,8 +276,8 @@ void Ant::actionAttack(bool valid, int id) {
 		return;
 
 	bool invalid;
-	GameObject *ptr = getObjectActionHelper(id, invalid);
-	if (invalid || ptr->category() != Ant::category()) {
+	GameObject *ptr = getObjectActionHelper(id, invalid, Ant::category());
+	if (invalid) {
 		invalidAction();
 		return;
 	}
@@ -259,6 +288,8 @@ void Ant::actionAttack(bool valid, int id) {
 		ant->m_attacked = true;
 		if (ant->m_stamina < 0)
 			ant->destroy();
+	} else {
+		w() << "Ant is no longer present, cannot perform action" << std::endl;
 	}
 }
 
@@ -266,11 +297,14 @@ void Ant::actionEat(bool valid, int quantity) {
 	if (!preludeActionHelper(0, EXCLUSIVE, valid))
 		return;
 
-	quantity = std::max(0, quantity);
-	quantity = std::min(m_stock, quantity);
-	m_stock -= quantity;
+	int q = std::max(0, quantity);
+	q = std::min(m_stock, q);
+	m_stock -= q;
 	const auto max_stamina = MAX_STAMINA;
-	m_stamina = std::min(m_stamina + 10 * quantity, max_stamina);
+	const auto wanted_stamina = m_stamina + 10 * quantity;
+	m_stamina = std::min(m_stamina + 10 * q, max_stamina);
+	if (m_stamina < wanted_stamina)
+		w() << "Got less stamina than expected" << std::endl;
 }
 
 void Ant::actionMoveTo(bool valid, int id) {
@@ -279,7 +313,7 @@ void Ant::actionMoveTo(bool valid, int id) {
 
 	bool invalid;
 	GameObject *ptr = getObjectActionHelper(id, invalid);
-	if (invalid || ptr->category() != Nest::category()) {
+	if (invalid) {
 		invalidAction();
 		return;
 	}
@@ -289,6 +323,9 @@ void Ant::actionMoveTo(bool valid, int id) {
 		const auto walk_distance = WALK_DISTANCE;
 		auto d = std::min(distance(*ptr), walk_distance);
 		moveDistance(d);
+	} else {
+		w() << "Object is no longer present, cannot perform action"
+		    << std::endl;
 	}
 }
 
@@ -297,7 +334,7 @@ void Ant::actionNest(bool valid, int id) {
 		return;
 
 	bool invalid;
-	GameObject *ptr = getObjectActionHelper(id, invalid);
+	GameObject *ptr = getObjectActionHelper(id, invalid, Nest::category());
 	if (invalid) {
 		invalidAction();
 		return;
@@ -309,7 +346,11 @@ void Ant::actionNest(bool valid, int id) {
 			nest->antIn(m_ant_type, m_memory[0], m_memory[1],
 			            static_cast<unsigned int>(std::max(0, m_stock)));
 			destroy();
+		} else {
+			w() << "The nest is not friend, cannot perform action" << std::endl;
 		}
+	} else {
+		w() << "Nest is no longer present, cannot perform action" << std::endl;
 	}
 }
 
