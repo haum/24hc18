@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{t.name}}</h1>
+<ul>
+    <li>{{t.id}}</li>
+    <li>{{t.points}}</li>
+    <li>{{t.repo_url}}</li>
+    <li>{{t.place}}</li>
+    <li>{{t.valid_repo}}</li>
+    <li>{{t.valid_buildscript}}</li>
+    <li>{{t.valid_startscript}}</li>
+</ul>
+{% endblock %}
