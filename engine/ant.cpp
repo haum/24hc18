@@ -97,8 +97,7 @@ bool Ant::prelude(std::ostream &os) {
 }
 
 void Ant::invalidAction() {
-	team().log(TeamLogType::ENGINE_MSG)
-	    << "Invalid action, kill ant" << std::endl;
+	w() << "Invalid action, kill ant" << std::endl;
 	destroy();
 }
 

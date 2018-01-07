@@ -93,6 +93,9 @@ class Ant : public Agent {
 	/** Signal an invalide action **/
 	void invalidAction();
 
+	/** Engine message log function for convenience **/
+	std::ostream &w() { return team().log(TeamLogType::ENGINE_MSG); }
+
 	/** List of action types **/
 	enum ActionType {
 		ALWAYS_ALLOWED,
