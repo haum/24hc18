@@ -12,6 +12,7 @@ enum class TeamLogType : char {
 	NO_PREFIX,
 	ENGINE_OUTPUT = '@',
 	USER_INPUT = '.',
+	USER_COMMENT = ':',
 	ENGINE_MSG = '!',
 };
 

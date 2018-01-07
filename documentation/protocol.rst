@@ -28,7 +28,8 @@ Il s'agit d'un protocole au format textuel.
 Les données sont transmises ligne par ligne (délimitées par un caractère
 LF=0x0A=10) avec un maximum de 100 caractères par ligne (saut de ligne inclus).
 Chaque ligne contient une seule commande avec des arguments séparés par des
-espaces.
+espaces. Les lignes commençant par ": " (deux points, espace) sont considérées
+comme un commentaire.  Les lignes vides sont ignorées.
 
 Il y a deux types d'entités dont votre programme doit définir les actions selon
 votre stratégie : chaque fourmi et la fourmilière.

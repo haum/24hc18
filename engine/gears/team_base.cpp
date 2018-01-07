@@ -150,6 +150,17 @@ void TeamBase::eventProcessRead() {
 }
 
 void TeamBase::processLine(uint8_t argc, const char **argv) {
+	if ((argc >= 1) && (strncmp(argv[0], ":", 2) == 0)) {
+		auto &l = log(TeamLogType::USER_COMMENT);
+		for (int i = 1; i < argc; ++i) {
+			l << argv[i];
+			if (i != argc - 1)
+				l << ' ';
+		}
+		l << std::endl;
+		return;
+	}
+
 	if (m_log != nullptr) {
 		auto &l = log(TeamLogType::USER_INPUT);
 		for (int i = 0; i < argc; ++i) {
@@ -167,6 +178,7 @@ void TeamBase::processLine(uint8_t argc, const char **argv) {
 			kill("Random kill");
 		nextAgent();
 		sendPrelude();
+
 	} else if (!m_dead)
 		(*m_currentAgent)->execute(argc, argv);
 }

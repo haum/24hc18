@@ -110,9 +110,10 @@ Le second caractère peut être un des symboles suivants et indique la
 signification du reste de la ligne :
 
 === ==
-`@` Ce que le simulateur dit au programme de stratégie.
-`.` Ce que le simulateur a reçu du programme de stratégie.
-`!` Des informations complémentaires du simulateur.
+`@` Ce que le simulateur a dit au programme de stratégie.
+`.` Ce que le simulateur a reçu comme commande du programme de stratégie.
+`:` Ce que le simulateur a reçu comme commentaire du programme de stratégie.
+`!` Ce que le simulateur apporte comme informations complémentaires.
 === ==
 
 Scénario
