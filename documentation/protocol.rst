@@ -226,7 +226,7 @@ Informations
   `quantity`  Niveau du stock de nourriture.
   ==========  ======
 
-`SEE_PHEROMONE <id> <zone> <type>`
+`SEE_PHEROMONE <id> <zone> <dist> <type>`
   Indique la présence d'une phéromone à proximité.
 
   ======  ======
@@ -237,6 +237,8 @@ Informations
 
           Prend les valeurs `FAR` ou `NEAR`.
   ------  ------
+  `dist`  Distance de 0 (très près) à 100 (le plus loin que la fourmi perçoit)
+  ------  ------
   `type`  Type de phéromone détectée.
 
           Ce type est défini par la fourmi ayant déposé la phéromone.
@@ -244,7 +246,7 @@ Informations
           Les phéromones des équipes adverses ne sont pas listées.
   ======  ======
 
-`SEE_ANT <id> <zone> <friend> <stamina>`
+`SEE_ANT <id> <zone> <dist> <friend> <stamina>`
   Indique la présence d'une fourmi à proximité.
 
   =========  ======
@@ -255,6 +257,9 @@ Informations
 
              Prends les valeurs `FAR` ou `NEAR`.
   ---------  ------
+  `dist`     Distance de 0 (très près) à 100 (le plus loin que la fourmi
+             perçoit)
+  ---------  ------
   `friend`   Indique si la fourmi est-elle de notre fourmillière.
 
              Prends les valeurs `FRIEND` ou `ENEMY`.
@@ -264,7 +269,7 @@ Informations
              Nombre indiquant l'endurance restante.
   =========  ======
 
-`SEE_NEST <id> <zone> <friend>`
+`SEE_NEST <id> <zone> <dist> <friend>`
   Indique la présence d'une fourmillière à proximité.
 
   ========  ======
@@ -274,13 +279,15 @@ Informations
   `zone`    Zone d'interaction.
 
             Prends les valeurs `FAR` ou `NEAR`.
+  --------  ------
+  `dist`    Distance de 0 (très près) à 100 (le plus loin que la fourmi perçoit)
   --------  ------
   `friend`  Indique si la fourmi est-elle de notre fourmillière.
 
             Prends les valeurs `FRIEND` ou `ENEMY`.
   ========  ======
 
-`SEE_FOOD <id> <zone> <amount>`
+`SEE_FOOD <id> <zone> <dist> <amount>`
   Indique la présence d'une fourmillière à proximité.
 
   ========  ======
@@ -290,6 +297,8 @@ Informations
   `zone`    Zone d'interaction.
 
             Prends les valeurs `FAR` ou `NEAR`.
+  --------  ------
+  `dist`    Distance de 0 (très près) à 100 (le plus loin que la fourmi perçoit)
   --------  ------
   `amount`  Indique le niveau de nourriture.
 

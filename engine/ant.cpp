@@ -41,10 +41,13 @@ bool Ant::prelude(std::ostream &os) {
 	team().resetIds();
 	team().scenario().listObjects([this, &os](auto sgo) {
 		if (this != sgo.get()) {
-			if (sgo->distance(*this) <= FAR_DISTANCE) {
+			auto distance = sgo->distance(*this);
+			if (distance <= FAR_DISTANCE) {
 				size_t gameObjectId = this->team().addId(sgo.get());
 				const char *zoneTxt =
-				    (sgo->distance(*this) <= NEAR_DISTANCE ? " NEAR" : " FAR");
+				    (distance <= NEAR_DISTANCE ? " NEAR" : " FAR");
+				const int distPercentHorizon =
+				    static_cast<int>(distance / FAR_DISTANCE * 100);
 
 				if (sgo->category() == Pheromone::category()) {
 					auto *pheromone = static_cast<Pheromone *>(sgo.get());
@@ -52,6 +55,7 @@ bool Ant::prelude(std::ostream &os) {
 						os << "SEE_PHEROMONE";
 						os << ' ' << gameObjectId;
 						os << zoneTxt;
+						os << ' ' << distPercentHorizon;
 						os << ' ' << static_cast<int>(pheromone->type());
 						os << '\n';
 					}
@@ -62,6 +66,7 @@ bool Ant::prelude(std::ostream &os) {
 					os << "SEE_ANT";
 					os << ' ' << gameObjectId;
 					os << zoneTxt;
+					os << ' ' << distPercentHorizon;
 					os << (ownTeam ? " FRIEND" : " ENEMY");
 					os << ' ' << ant->stamina();
 					os << '\n';
@@ -72,6 +77,7 @@ bool Ant::prelude(std::ostream &os) {
 					os << "SEE_NEST";
 					os << ' ' << gameObjectId;
 					os << zoneTxt;
+					os << ' ' << distPercentHorizon;
 					os << (ownTeam ? " FRIEND" : " ENEMY");
 					os << '\n';
 
@@ -82,6 +88,7 @@ bool Ant::prelude(std::ostream &os) {
 						os << "SEE_FOOD";
 						os << ' ' << gameObjectId;
 						os << zoneTxt;
+						os << ' ' << distPercentHorizon;
 						os << ' ' << amount;
 						os << '\n';
 					}
