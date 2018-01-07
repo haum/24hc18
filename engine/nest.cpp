@@ -100,9 +100,9 @@ void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
 	if (!actionPrelude(1, EXCLUSIVE, valid))
 		return;
 	if (hasAntType(type) && m_antNumber[type] > 0) {
-		team().scenario().addGameObject<Ant>(team(), 200, this->latitude(),
-		                                     this->longitude(), random_angle(),
-		                                     type, m0, m1);
+		team().scenario().addGameObject<Ant>(
+		    team(), Ant::MAX_STAMINA, this->latitude(), this->longitude(),
+		    random_angle(), type, m0, m1);
 		setPopulation(type, static_cast<int>(m_antNumber[type] - 1));
 	}
 }
