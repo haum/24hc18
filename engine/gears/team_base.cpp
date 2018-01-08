@@ -103,6 +103,8 @@ void TeamBase::sendPrelude() {
 		m_paused = true;
 		return;
 	}
+	if (m_currentManager->m_fdin <= 0)
+		return;
 	std::ostringstream os;
 	bool try_next = true;
 	while (try_next) {
