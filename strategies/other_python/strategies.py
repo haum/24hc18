@@ -15,9 +15,6 @@ FOOD 25 5 5 1 200 1000000 0
 
 import sys
 
-def do_nothing():
-    return
-
 isAnt = False
 isNest =False
 
@@ -29,9 +26,9 @@ for line in sys.stdin:
         if line:
             line = line.split()
             if line[0] == "STOCK":
-                do_nothing()
+                pass
             elif line[0] == "MEMORY":
-                do_nothing()
+                pass
             elif line[0] == "ANT_COUNT": # infos fourmis
                 if ((line[1] == "10") & (int(line[2]) > 0)): #si type 10 et qu'il y'en a encore
                     repNest ="ANT_OUT 10 0 0" # elle sort du nid
@@ -43,7 +40,7 @@ for line in sys.stdin:
         if line:
             line = line.split()
             if line[0] == "TYPE":
-                do_nothing()
+                pass
             elif line[0] == "MEMORY":
                 if int(line[1]) < 10: # la fourmis explore 10 fois
                     steep_move = int(line[1])+1
