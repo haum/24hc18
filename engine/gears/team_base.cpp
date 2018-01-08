@@ -31,18 +31,18 @@ void TeamBase::agentRm(Agent *agent) {
 int TeamBase::eventFd() const { return m_currentManager->m_fdout; }
 
 void TeamBase::send(const char *data, size_t len) {
-	if (m_log != nullptr) {
-		char *cpy = strdup(data);
-		char *ntok;
-		char *narg = strtok_r(cpy, "\n", &ntok);
-		while (narg != nullptr) {
-			log(TeamLogType::ENGINE_OUTPUT) << narg << '\n';
-			narg = strtok_r(nullptr, "\n", &ntok);
-		}
-		log() << std::flush;
-		free(cpy);
-	}
 	if (m_currentManager->m_fdin > 0) {
+		if (m_log != nullptr) {
+			char *cpy = strdup(data);
+			char *ntok;
+			char *narg = strtok_r(cpy, "\n", &ntok);
+			while (narg != nullptr) {
+				log(TeamLogType::ENGINE_OUTPUT) << narg << '\n';
+				narg = strtok_r(nullptr, "\n", &ntok);
+			}
+			log() << std::flush;
+			free(cpy);
+		}
 		write(m_currentManager->m_fdin, data, len);
 	}
 }
