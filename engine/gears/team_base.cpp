@@ -114,7 +114,6 @@ void TeamBase::sendPrelude() {
 			    static_cast<int>(m_teamManagers.size() - 1),
 			    static_cast<int>(random_unit() * (m_teamManagers.size())));
 			m_currentManager = m_teamManagers.begin();
-			managerIndex = 0; // Disable randomness because of bug
 			std::advance(m_currentManager, managerIndex);
 			const auto data = os.str();
 			send(data.c_str(), data.length());
