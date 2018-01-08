@@ -113,8 +113,11 @@ void TeamBase::sendPrelude() {
 			int managerIndex = std::min(
 			    static_cast<int>(m_teamManagers.size() - 1),
 			    static_cast<int>(random_unit() * (m_teamManagers.size())));
+			auto *oldManager = &(*m_currentManager);
 			m_currentManager = m_teamManagers.begin();
 			std::advance(m_currentManager, managerIndex);
+			if (oldManager != &(*m_currentManager))
+				m_stats_balancing++;
 			const auto data = os.str();
 			send(data.c_str(), data.length());
 			m_stats_agents++;
@@ -175,8 +178,10 @@ void TeamBase::processLine(uint8_t argc, const char **argv) {
 	if ((argc == 1) && (strncmp(argv[0], "END", 3) == 0)) {
 		if (!m_dead)
 			(*m_currentAgent)->epilogue();
-		if (!m_nokill && random_unit() < 1 / 2000.0)
+		if (!m_nokill && random_unit() < 1 / 2000.0) {
+			m_stats_kills++;
 			kill("Random kill");
+		}
 		nextAgent();
 		sendPrelude();
 

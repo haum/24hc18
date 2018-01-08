@@ -117,6 +117,12 @@ class TeamBase {
 	/** Number of agents strategies executed (for stats) **/
 	unsigned long m_stats_agents = 0;
 
+	/** Number of strategy balancing (for stats) **/
+	unsigned long m_stats_balancing = 0;
+
+	/** Number of random kills (for stats) **/
+	unsigned long m_stats_kills = 0;
+
 	/** Line parser **/
 	LineParser<100> m_parser;
 

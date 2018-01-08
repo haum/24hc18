@@ -18,6 +18,8 @@ void Team::printStats() {
 
 	std::cout << "Team executable: " << m_exe << '\n';
 	std::cout << "Executed strategies: " << m_stats_agents << '\n';
+	std::cout << "Strategy balances: " << m_stats_balancing << '\n';
+	std::cout << "Random kills: " << m_stats_kills << '\n';
 	std::cout << "Alive agents: " << m_agents.size() << '\n';
 	if (nest) {
 		size_t score = nest->foodAmount() + nest->antsCount();
