@@ -535,7 +535,7 @@ Actions
   Le type choisi par cette commande restera le même tout au long de la vie de la
   fourmi.
 
-  Cette action est exclusive et coûte 5 unités de nourriture.
+  Cette action est exclusive et consomme 5 unités de nourriture.
 
   ==========  ======
   `type`      Type de fourmi.
@@ -558,7 +558,7 @@ Actions
 `SET_MEMORY <m0> <m1> ... <m19>`
   Modifie la mémoire de la fourmilière.
 
-  Cette action n'est pas exclusive et coûte 0 unité de nourriture.
+  Cette action n'est pas exclusive et consomme 0 unité de nourriture.
 
   =====  ======
   `m0`   Nombre compris entre 0 et 255 inclus.
