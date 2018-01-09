@@ -159,6 +159,120 @@ entités jouées.
   algorithmes et à profiter des mécanismes de la simulation pour échanger des
   données, par exemple en employant des phéromones.
 
+Fourmilière
+============
+
+Généralités
+-----------
+
+La fourmilière abrite le stock de ressources de la colonie ainsi qu'une partie
+de sa population. Le stock et la population de la fourmilière ne sont pas
+limités.
+
+Cependant, la population vivant dans la fourmilière consomme ses ressources. Par
+conséquent, le stock de ressources baisse proportionnellement à la population
+selon le calcul suivant : 1 point de stock toutes les 100ms et par palier de 100
+fourmis. Voici un exemple:
+
+============== ================================================================
+Population     Coût en ressources
+============== ================================================================
+85 fourmis     1 point de stock / 100ms
+-------------- ----------------------------------------------------------------
+512 fourmis    6 points de stock / 100ms
+============== ================================================================
+
+Lorsque la population ou le stock de la fourmilière tombe à 0, cette dernière
+n'est pas détruite. Elle reste (désertée) sur le terrain et peut toutefois être
+recolonisée uniquement par sa propre équipe.
+
+Informations
+------------
+
+`BEGIN NEST`
+  Informe du début de la communication. Cette commande est toujours envoyée en
+  premier.
+
+`STOCK <quantity>`
+  Indique le niveau du stock de nourriture dans la fourmilière.
+
+  ==========  ======
+  `quantity`  Niveau du stock de nourriture.
+  ==========  ======
+
+`MEMORY <m0> <m1> ... <m19>`
+  Indique le contenu de la mémoire de la fourmilière (20 éléments).
+
+  =====  ======
+  `m0`   Nombre compris entre 0 et 255 inclus.
+  `m1`   Nombre compris entre 0 et 255 inclus.
+  ...    ...
+  `m19`  Nombre compris entre 0 et 255 inclus.
+  =====  ======
+
+`ANT_COUNT <type> <quantity>`
+  Indique le nombre de fourmis dans la fourmilière.
+
+  Il y a une ligne d'information par type de fourmi présente.
+
+  ==========  ======
+  `type`      Type de fourmis.
+  `quantity`  Quantité de fourmis de ce type.
+  ==========  ======
+
+`ANT_IN <type> <m0> <m1>`
+  Liste les fourmis rentrées à la fourmilière depuis le dernier appel à la
+  stratégie.
+
+  Il y a une ligne d'information par fourmi rentrée.
+
+  ==========  ======
+  `type`      Type de fourmi.
+  `m0`        Mémoire de la fourmi
+  `m1`        Mémoire de la fourmi
+  ==========  ======
+
+Actions
+-------
+
+`ANT_NEW <type>`
+  Crée une nouvelle fourmi dans la fourmilière.
+
+  Le type choisi par cette commande restera le même tout au long de la vie de la
+  fourmi.
+
+  Cette action est exclusive et consomme 5 unités de nourriture.
+
+  ==========  ======
+  `type`      Type de fourmi.
+  ==========  ======
+
+`ANT_OUT <type> <m0> <m1>`
+  Sort une fourmi de la fourmilière.
+
+  Cette fourmi doit exister dans la fourmilière. Elle sort avec le maximum de
+  stamina.
+
+  Cette action est exclusive et consomme 1 unité de nourriture.
+
+  ==========  ======
+  `type`      Type de fourmi.
+  `m0`        Mémoire initiale de la fourmi
+  `m1`        Mémoire initiale de la fourmi
+  ==========  ======
+
+`SET_MEMORY <m0> <m1> ... <m19>`
+  Modifie la mémoire de la fourmilière.
+
+  Cette action n'est pas exclusive et consomme 0 unité de nourriture.
+
+  =====  ======
+  `m0`   Nombre compris entre 0 et 255 inclus.
+  `m1`   Nombre compris entre 0 et 255 inclus.
+  ...    ...
+  `m19`  Nombre compris entre 0 et 255 inclus.
+  =====  ======
+
 Fourmi
 ======
 
@@ -464,117 +578,3 @@ Actions
   `m0`  Nombre compris entre 0 et 255 inclus.
   `m1`  Nombre compris entre 0 et 255 inclus.
   ====  ======
-
-Fourmilière
-============
-
-Généralités
------------
-
-La fourmilière abrite le stock de ressources de la colonie ainsi qu'une partie
-de sa population. Le stock et la population de la fourmilière ne sont pas
-limités.
-
-Cependant, la population vivant dans la fourmilière consomme ses ressources. Par
-conséquent, le stock de ressources baisse proportionnellement à la population
-selon le calcul suivant : 1 point de stock toutes les 100ms et par palier de 100
-fourmis. Voici un exemple:
-
-============== ================================================================
-Population     Coût en ressources
-============== ================================================================
-85 fourmis     1 point de stock / 100ms
--------------- ----------------------------------------------------------------
-512 fourmis    6 points de stock / 100ms                                       
-============== ================================================================
-
-Lorsque la population ou le stock de la fourmilière tombe à 0, cette dernière
-n'est pas détruite. Elle reste (désertée) sur le terrain et peut toutefois être
-recolonisée uniquement par sa propre équipe.
-
-Informations
-------------
-
-`BEGIN NEST`
-  Informe du début de la communication. Cette commande est toujours envoyée en
-  premier.
-
-`STOCK <quantity>`
-  Indique le niveau du stock de nourriture dans la fourmilière.
-
-  ==========  ======
-  `quantity`  Niveau du stock de nourriture.
-  ==========  ======
-
-`MEMORY <m0> <m1> ... <m19>`
-  Indique le contenu de la mémoire de la fourmilière (20 éléments).
-
-  =====  ======
-  `m0`   Nombre compris entre 0 et 255 inclus.
-  `m1`   Nombre compris entre 0 et 255 inclus.
-  ...    ...
-  `m19`  Nombre compris entre 0 et 255 inclus.
-  =====  ======
-
-`ANT_COUNT <type> <quantity>`
-  Indique le nombre de fourmis dans la fourmilière.
-
-  Il y a une ligne d'information par type de fourmi présente.
-
-  ==========  ======
-  `type`      Type de fourmis.
-  `quantity`  Quantité de fourmis de ce type.
-  ==========  ======
-
-`ANT_IN <type> <m0> <m1>`
-  Liste les fourmis rentrées à la fourmilière depuis le dernier appel à la
-  stratégie.
-
-  Il y a une ligne d'information par fourmi rentrée.
-
-  ==========  ======
-  `type`      Type de fourmi.
-  `m0`        Mémoire de la fourmi
-  `m1`        Mémoire de la fourmi
-  ==========  ======
-
-Actions
--------
-
-`ANT_NEW <type>`
-  Crée une nouvelle fourmi dans la fourmilière.
-
-  Le type choisi par cette commande restera le même tout au long de la vie de la
-  fourmi.
-
-  Cette action est exclusive et consomme 5 unités de nourriture.
-
-  ==========  ======
-  `type`      Type de fourmi.
-  ==========  ======
-
-`ANT_OUT <type> <m0> <m1>`
-  Sort une fourmi de la fourmilière.
-
-  Cette fourmi doit exister dans la fourmilière. Elle sort avec le maximum de
-  stamina.
-
-  Cette action est exclusive et consomme 1 unité de nourriture.
-
-  ==========  ======
-  `type`      Type de fourmi.
-  `m0`        Mémoire initiale de la fourmi
-  `m1`        Mémoire initiale de la fourmi
-  ==========  ======
-
-`SET_MEMORY <m0> <m1> ... <m19>`
-  Modifie la mémoire de la fourmilière.
-
-  Cette action n'est pas exclusive et consomme 0 unité de nourriture.
-
-  =====  ======
-  `m0`   Nombre compris entre 0 et 255 inclus.
-  `m1`   Nombre compris entre 0 et 255 inclus.
-  ...    ...
-  `m19`  Nombre compris entre 0 et 255 inclus.
-  =====  ======
