@@ -9,7 +9,7 @@ fi
 
 MatchID=$1
 shift
-Scenario=$2
+Scenario=$1
 shift
 
 i=0
