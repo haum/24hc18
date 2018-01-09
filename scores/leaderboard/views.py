@@ -77,13 +77,34 @@ def team_detail(request, team_id):
     return render(request, 'team_detail.html', {'t': team})
 
 
+def match_detail(request, match_id):
+    match = get_object_or_404(Match, pk=match_id)
+    teams = match.teams.all()
+    return render(request, 'match_detail.html', {'m': match, 'teams': teams})
+
+
 @check_token
-def generate_runfile(request):
+def generate_repofile(request):
     """
     Generate and outputs a file containing the location of
     all repos and callback url for the teams registered as competing
     """
-    return render(request, 'backend/generate_runfile.html', {'exception': 'it works'})
+
+    teams = Team.objects.filter(valid_repo=True, valid_buildscript=True, valid_startscript=True)
+    return render(request, 'backend/generate_repofile.html', {'teams': teams})
+
+
+@check_token
+def generate_runfile(request, group_id):
+    """
+    Generate a file containing start instructions for all unfinished matches in specified
+    groups.
+    """
+
+    group = get_object_or_404(MatchGroup, pk=group_id)
+    matches = group.match_set.filter(is_finished=False)
+
+    return render(request, 'backend/generate_runfile.html', {'matches': matches})
 
 
 @check_token
@@ -91,6 +112,7 @@ def register_match(request, group, teams_str):
     """
     Register a new match between the teams in 'teams' and associate it to group 'group'
     """
+
     if group == "none":
         match_group = None
     else:

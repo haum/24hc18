@@ -1,6 +1,9 @@
 from django.db import models, IntegrityError
 from django.utils.crypto import get_random_string
+
+import itertools
 from random import randint
+from math import floor
 
 
 class Team(models.Model):
@@ -19,8 +22,12 @@ class Team(models.Model):
     valid_buildscript = models.BooleanField(default=False)
     valid_startscript = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
     def update_score(self):
         self.points = sum([_.points_earned for _ in self.participation_set.all()])
+        self.save()
 
 
 class BackendAuth(models.Model):
@@ -107,5 +114,31 @@ class MatchGroup(models.Model):
     name -- group's name
     """
     name = models.CharField(max_length=100)
+    teams = models.ManyToManyField(Team)
+    scenario = models.CharField(max_length=200)
+    number_playing_teams = models.IntegerField(default=1)
+    num_pools = models.IntegerField(default=1)
+    matches_generated = models.BooleanField(default=False)
 
+    def generate_matches(self):
+        pool_size = floor(self.teams.count()/self.num_pools)
+        ordered_teams = self.teams.order_by('-points')
+        for i_p in range(self.num_pools):
+            begin = pool_size*i_p
+            end = begin+pool_size if i_p != self.num_pools-1 else None
+            teams_in_pool = ordered_teams[begin:end]
 
+            for team_set in itertools.combinations(teams_in_pool, self.number_playing_teams):
+                m = Match.objects.create(group=self)
+                for t in team_set:
+                    Participation.objects.create(match=m, team=t)
+        self.matches_generated = True
+        self.save()
+
+    def finish_matches(self):
+        """End all matches linked to this group and update teams scores"""
+        for m in self.match_set.filter(is_finished=False):
+            m.participation_set.all().update(points_earned=0)
+        self.match_set.filter(is_finished=False).update(is_finished=True)
+        for t in self.teams.all():
+            t.update_score()

@@ -1,1 +1,3 @@
-{{exception}}
+{% for m in matches %} ./start.sh {{m.id}} {{m.group.scenario}} {{m.group.number_playing_teams}}{% for t in m.teams.all %} {{t.id}}{% endfor %}
+{% endfor %}
+
