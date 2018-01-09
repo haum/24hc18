@@ -17,6 +17,7 @@ Marabunta
    protocol
    simulateur
    scenario
+   bareme
 
 
 .. Indices and tables

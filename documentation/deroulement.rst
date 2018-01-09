@@ -82,27 +82,5 @@ Victoire
 ========
 
 Votre performance aux tournois est importante. Néanmoins, ce n'est pas le seul
-critère que nous utiliserons pour désigner les vainqueurs du sujet.
-
-En effet, nous baserons notre décisions sur plusieurs autres critères. Même s'il
-peuvent paraitre subjectifs, ils sont, à nos yeux, importants et représentatifs
-du fonctionnent des équipes ayant choisis de travailler sur ce sujet.
-
-Nous jugerons donc également votre travail d'équipe, selon les critères suivants
-:
-
-  - la lecture de votre code nous permetra d'apprécier  `l'élégance de votre 
-    raisonnement`,
-
-  - nous nous intéresserons également à votre propre jugement objectif des
-    réalisations des autre équipes,
-
-  - nous sommes particulièrement sensibles à `l'état d'esprit` des équipes,
-    l'organisation la cohésion, nous préferons la convivialité à la compétition,
-    la `participation aux séances de groupe` sera appréciée tout le `partage
-    d'idées` lors de ces moments de discution commune.
-
-
-TODO: définir des critères additionnels (élégance du raisonnement, participation
-aux séances de groupe, état d'esprit, partage de solutions en discussions
-communes, plébiscite/opinion des autre équipes..?)
+critère que nous utiliserons pour désigner les vainqueurs du sujet. Nous vous
+invitons à consulter la page du barème pour en connaître les détails.
