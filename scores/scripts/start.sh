@@ -27,7 +27,7 @@ echo "Launching match number #$MatchID"
 
 cmdArgs=""
 
-for TeamID in $Teams
+for TeamID in ${Teams[@]}
 do
  startFile="$MBNT_HOME/$TeamID/start.sh"
  echo "Getting team #$TeamID's start file !"
