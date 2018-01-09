@@ -30,10 +30,8 @@ cmdArgs=""
 for TeamID in ${Teams[@]}
 do
  startFile="$MBNT_HOME/$TeamID/start.sh"
- echo "Getting team #$TeamID's start file !"
+ echo "Getting team #$TeamID's start.sh file !"
  cmdArgs="$cmdArgs $startFile"
 done
-
-echo $cmdArgs
 
 echo ./marabunta_engine -s $Scenario -h localhost $cmdArgs
