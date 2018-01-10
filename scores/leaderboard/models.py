@@ -103,10 +103,13 @@ class Match(models.Model):
 
 
 class Participation(models.Model):
-    """ Holds the number of point won by a team in a match """
+    """ Holds the number of points won by a team in a match """
     points_earned = models.IntegerField(null=True)
     team = models.ForeignKey('Team', on_delete=models.CASCADE)
     match = models.ForeignKey('Match', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Participation of team {self.team} in match #{self.match.id}'
 
 
 class MatchGroup(models.Model):
@@ -119,6 +122,9 @@ class MatchGroup(models.Model):
     number_playing_teams = models.IntegerField(default=1)
     num_pools = models.IntegerField(default=1)
     matches_generated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.name} - {self.scenario} ({self.number_playing_teams})'
 
     def generate_matches(self):
         pool_size = floor(self.teams.count()/self.num_pools)
