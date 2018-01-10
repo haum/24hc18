@@ -20,7 +20,7 @@ for line in sys.stdin:
                 print("ANT_NEW 0")
                 print("SET_MEMORY 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1")
             elif memory == 'MEMORY 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1':
-                print("ANT_OUT 0 0 0")
+                print("ANT_OUT 0 0 0 0")
                 print("SET_MEMORY 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2")
         print("END", flush=True)
         isAnt = False

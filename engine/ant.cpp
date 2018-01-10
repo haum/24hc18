@@ -12,9 +12,10 @@ static_assert(Ant::NEAR_DISTANCE < Ant::FAR_DISTANCE,
 const GameObjectCategory Ant::s_category{"ANT"};
 
 Ant::Ant(Team &team, int stamina, double latitude, double longitude,
-         double heading, uint8_t ant_type, uint8_t memory1, uint8_t memory2)
+         double heading, uint8_t ant_type, int food, uint8_t memory1,
+         uint8_t memory2)
     : Agent{team, Ant::category(), latitude, longitude, heading},
-      m_stamina{std::min(stamina, int(MAX_STAMINA))}, m_stock{0},
+      m_stamina{std::min(stamina, int(MAX_STAMINA))}, m_stock{food},
       m_attacked{false}, m_ant_type{ant_type}, m_memory{memory1, memory2} {
 	m_teamBase = &team;
 }

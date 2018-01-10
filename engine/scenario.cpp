@@ -57,7 +57,7 @@ void Scenario::actionAnt(uint8_t team, uint8_t type, int latitude,
 	if (teamPtr != nullptr)
 		addGameObject<Ant>(*teamPtr, stamina, latitude * M_PI / 180,
 		                   longitude * M_PI / 180, heading * M_PI / 180, type,
-		                   memory1, memory2);
+		                   0, memory1, memory2);
 }
 
 void Scenario::actionPheromone(uint8_t team, uint8_t type, int latitude,

@@ -59,7 +59,8 @@ class Nest : public Agent {
 	void actionAntNew(bool valid, uint8_t type);
 
 	/** action ANT_OUT **/
-	void actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1);
+	void actionAntOut(bool valid, uint8_t type, int food, uint8_t m0,
+	                  uint8_t m1);
 
 	/** action SET_MEMORY **/
 	void actionSetMemory(bool valid, uint8_t mem[20]);

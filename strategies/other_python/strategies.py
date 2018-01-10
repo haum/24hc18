@@ -31,7 +31,7 @@ for line in sys.stdin:
                 pass
             elif line[0] == "ANT_COUNT": # infos fourmis
                 if ((line[1] == "10") & (int(line[2]) > 0)): #si type 10 et qu'il y'en a encore
-                    repNest ="ANT_OUT 10 0 0" # elle sort du nid
+                    repNest ="ANT_OUT 10 0 0 0" # elle sort du nid
             elif line[0] == "END":
                 isNest =False
                 print (repNest)

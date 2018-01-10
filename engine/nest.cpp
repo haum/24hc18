@@ -112,13 +112,14 @@ void Nest::periodic() {
 
 bool Nest::hasAntType(uint8_t type) { return (m_antNumber.count(type) > 0); }
 
-void Nest::actionAntOut(bool valid, uint8_t type, uint8_t m0, uint8_t m1) {
-	if (!preludeActionHelper(1, EXCLUSIVE, valid))
+void Nest::actionAntOut(bool valid, uint8_t type, int food, uint8_t m0,
+                        uint8_t m1) {
+	if (!preludeActionHelper(food + 1, EXCLUSIVE, valid))
 		return;
 	if (hasAntType(type) && m_antNumber[type] > 0) {
 		team().scenario().addGameObject<Ant>(
 		    team(), Ant::MAX_STAMINA, this->latitude(), this->longitude(),
-		    random_angle(), type, m0, m1);
+		    random_angle(), type, food, m0, m1);
 		setPopulation(type, static_cast<int>(m_antNumber[type] - 1));
 	} else {
 		w() << "There is no such ant type in nest, cannot perform action"
@@ -146,13 +147,16 @@ void Nest::execute(uint8_t argc, const char **argv) {
 	if (argc <= 0)
 		return;
 
-	if ((argc == 4) && (strncmp(argv[0], "ANT_OUT", 8) == 0)) {
-		bool ok_type, ok_m0, ok_m1;
+	if ((argc == 5) && (strncmp(argv[0], "ANT_OUT", 8) == 0)) {
+		bool ok_type, ok_food, ok_m0, ok_m1;
 		int type = param_int(argv[1], ok_type, 0, 255);
-		int m0 = param_int(argv[2], ok_m0, 0, 255);
-		int m1 = param_int(argv[3], ok_m1, 0, 255);
-		actionAntOut(ok_type && ok_m0 && ok_m1, static_cast<uint8_t>(type),
-		             static_cast<uint8_t>(m0), static_cast<uint8_t>(m1));
+		int food =
+		    param_int(argv[2], ok_food, 0, std::numeric_limits<int>::max());
+		int m0 = param_int(argv[3], ok_m0, 0, 255);
+		int m1 = param_int(argv[4], ok_m1, 0, 255);
+		actionAntOut(ok_type && ok_food && ok_m0 && ok_m1,
+		             static_cast<uint8_t>(type), food, static_cast<uint8_t>(m0),
+		             static_cast<uint8_t>(m1));
 
 	} else if ((argc == 2) && (strncmp(argv[0], "ANT_NEW", 8) == 0)) {
 		bool ok;

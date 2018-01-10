@@ -247,19 +247,20 @@ Actions
   `type`      Type de fourmi.
   ==========  ======
 
-`ANT_OUT <type> <m0> <m1>`
+`ANT_OUT <type> <food> <m0> <m1>`
   Sort une fourmi de la fourmilière.
 
   Cette fourmi doit exister dans la fourmilière. Elle sort avec le maximum de
-  stamina.
+  stamina et emporte `food` unités de nourriture avec elle.
 
-  Cette action est exclusive et consomme 1 unité de nourriture.
+  Cette action est exclusive et consomme `food` + 1 unités de nourriture.
 
-  ==========  ======
-  `type`      Type de fourmi.
-  `m0`        Mémoire initiale de la fourmi
-  `m1`        Mémoire initiale de la fourmi
-  ==========  ======
+  ======  ======
+  `type`  Type de fourmi.
+  `food`  Nourriture emportée.
+  `m0`    Mémoire initiale de la fourmi.
+  `m1`    Mémoire initiale de la fourmi.
+  ======  ======
 
 `SET_MEMORY <m0> <m1> ... <m19>`
   Modifie la mémoire de la fourmilière.
