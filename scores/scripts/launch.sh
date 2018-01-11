@@ -10,6 +10,6 @@ run_file=$(curl -s $run_file_path)
 IFS=$'\n'
 for l in $run_file; do
  [[ $l == '' ]] && continue
- echo line : $l
- # do GNU PARALLEL MAGIC
+ l=$(echo $l | xargs)
+ eval $l
 done 
