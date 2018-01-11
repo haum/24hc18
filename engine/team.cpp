@@ -3,7 +3,7 @@
 #include "scenario.h"
 #include <iostream>
 
-void Team::printStats() {
+void Team::printStats(bool apioutput) {
 	Nest *nest = nullptr;
 	scenario().listObjects([&nest, this](auto sgo) {
 		if (sgo->category() == Nest::category()) {
@@ -28,6 +28,9 @@ void Team::printStats() {
 		std::cout << "Food amount in nest: " << nest->foodAmount() << '\n';
 		std::cout << "Ants inside nest: " << nest->antsCount() << '\n';
 		std::cout << "Score: " << score << '\n';
+		if (apioutput) {
+			std::cout << "API:: " << m_exe << " " << score << '\n';
+		}
 	}
 	std::cout << std::flush;
 }

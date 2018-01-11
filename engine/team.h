@@ -23,7 +23,7 @@ class Team : public TeamBase {
 	void resetIds() { m_ids.clear(); }
 
 	/** Print team statistics **/
-	void printStats();
+	void printStats(bool apioutput);
 
   protected:
 	std::vector<GameObject *> m_ids;

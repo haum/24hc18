@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
 	uint16_t port = 2080;
 	int debug = -1;
 	bool nokill = false;
+	bool apioutput = false;
 
 	// Check arguments
 	auto usage = [](const char *appname) {
@@ -21,6 +22,7 @@ int main(int argc, char *argv[]) {
 		          << "       -p, --port=port_number\tport of server\n"
 		          << "       -d, --debug=ia nb\tIA number for debug\n"
 		          << "       -k, --nokill\tDo not random kill\n"
+		          << "       -a, --apioutput\tEnable API output\n"
 		          << std::endl;
 	};
 	if (argc > 1) {
@@ -30,9 +32,10 @@ int main(int argc, char *argv[]) {
 		    {"port", required_argument, nullptr, 'p'},
 		    {"debug", required_argument, nullptr, 'd'},
 		    {"nokill", no_argument, nullptr, 'k'},
+		    {"apioutput", no_argument, nullptr, 'k'},
 		    {nullptr, 0, nullptr, 0}};
 		int c, option_index;
-		while ((c = getopt_long(argc, argv, "s:d:h:p:k", long_options,
+		while ((c = getopt_long(argc, argv, "s:d:h:p:k:a", long_options,
 		                        &option_index)) != -1) {
 			switch (c) {
 			case 's':
@@ -49,6 +52,9 @@ int main(int argc, char *argv[]) {
 				break;
 			case 'k':
 				nokill = true;
+				break;
+			case 'a':
+				apioutput = true;
 				break;
 			default:
 				std::clog << "ERROR: Unknown option\n";
@@ -95,7 +101,7 @@ int main(int argc, char *argv[]) {
 	          << "STATISTICS\n"
 	          << "==========\n";
 	for (auto &team : teams) {
-		team->printStats();
+		team->printStats(apioutput);
 		std::cout << "----------\n";
 	}
 	std::cout << std::flush;
