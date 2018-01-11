@@ -9,7 +9,7 @@ fi
 
 MatchID=$1
 shift
-Scenario=$1
+Scenario=$MBNT_SCEN_HOME/$1
 shift
 
 i=0
