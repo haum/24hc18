@@ -5,8 +5,8 @@
 namespace {
 struct FoodMesh : public Qt3DExtras::QCylinderMesh {
 	FoodMesh() {
-		setRadius(0.01f);
-		setLength(0.02f);
+		setRadius(0.004f);
+		setLength(0.008f);
 		setSlices(32);
 		setShareable(true);
 	}

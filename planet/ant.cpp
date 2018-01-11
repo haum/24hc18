@@ -5,8 +5,8 @@ namespace {
 struct AntMesh : public Qt3DExtras::QConeMesh {
 	AntMesh() {
 		setTopRadius(0);
-		setBottomRadius(0.01f);
-		setLength(0.02f);
+		setBottomRadius(0.005f);
+		setLength(0.01f);
 		setRings(2);
 		setSlices(3);
 		setShareable(true);
