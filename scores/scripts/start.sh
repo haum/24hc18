@@ -34,4 +34,4 @@ do
  cmdArgs="$cmdArgs $startFile"
 done
 
-echo ./marabunta_engine -s $Scenario -h localhost $cmdArgs
+$MBNT_BIN -s $Scenario -h localhost $cmdArgs
