@@ -121,6 +121,17 @@ Window {
                     onActiveFocusChanged: if (activeFocus) scene3d.forceActiveFocus();
                     onPositionChanged: gcomm.setRefreshRate(value)
                 }
+
+                Text {
+                    text: qsTr("FOV: %1°").arg(scene.camera.fieldOfView)
+                    color: Qt.rgba(1, 1, 1, 1)
+                }
+                Slider {
+                    width: parent.width
+                    value: 0.5
+                    onActiveFocusChanged: if (activeFocus) scene3d.forceActiveFocus();
+                    onPositionChanged: scene.camera.fieldOfView = 10 + (value * (90-10))
+                }
             }
         }
     }

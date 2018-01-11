@@ -7,6 +7,7 @@ import Qt3D.Extras 2.0
 Entity {
     property real planetAngle: 0.0
     readonly property alias planet: sphereEntity
+    readonly property alias camera: camera
 
     OrbitCameraController {
         camera: Camera {
