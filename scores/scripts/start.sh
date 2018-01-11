@@ -9,7 +9,7 @@ fi
 
 MatchID=$1
 shift
-Scenario=$MBNT_SCEN_HOME/$1
+Scenario=$MBNT_BINDIR/scenarii/$1
 shift
 
 i=0
@@ -34,7 +34,7 @@ do
  cmdArgs="$cmdArgs $startFile"
 done
 
-OUTPUT="$($MBNT_BIN -s $Scenario -h localhost $cmdArgs)"
+OUTPUT="$($MBNT_BINDIR/marabunta_engine -s $Scenario -h localhost $cmdArgs)"
 echo "${OUTPUT}"
 
 Score=""
