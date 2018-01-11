@@ -1,21 +1,22 @@
 #! /bin/bash
 
 source set_env.sh
-mkdir $MBNT_HOME 2> /dev/null || echo "$MBNT_HOME already present, skipping."
 
 repo_file_url="$MBNT_URL/be/t:$MBNT_TOKEN/repofile"
 repo_file=$(curl -s $repo_file_url)
 
-cd $MBNT_HOME
-echo "Removing all in $MBNT_HOME ? [N/y]"
+echo "Removing $MBNT_HOME (rm -r $MBNT_HOME/)? [N/y]"
 read ans
 
 if [[ "$ans" = "y" || "$ans" = "Y" ]]; then
-	echo "rm -r $MBNT_HOME/*"
+	rm -rf "$MBNT_HOME/"
 else
 	echo  "Right... but you are no fun. Exiting."
 	exit 0
 fi
+
+mkdir $MBNT_HOME 2> /dev/null || echo "$MBNT_HOME already present, skipping."
+cd $MBNT_HOME
 
 IFS=$'\n'
 for l in $repo_file; do
