@@ -17,6 +17,7 @@ import sys
 
 isAnt = False
 isNest =False
+new_last = False
 
 for line in sys.stdin:
     #line.upper()
@@ -31,7 +32,11 @@ for line in sys.stdin:
                 pass
             elif line[0] == "ANT_COUNT": # infos fourmis
                 if ((line[1] == "10") & (int(line[2]) > 0)): #si type 10 et qu'il y'en a encore
-                    repNest ="ANT_OUT 10 0 0 0" # elle sort du nid
+                    if new_last:
+                        repNest ="ANT_OUT 10 0 0 0" # elle sort du nid
+                    else:
+                        repNest ="ANT_NEW 10" # on crée une fourmi
+                    new_last = False if new_last else True
             elif line[0] == "END":
                 isNest =False
                 print (repNest)
