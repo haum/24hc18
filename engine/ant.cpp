@@ -50,6 +50,7 @@ bool Ant::prelude(std::ostream &os) {
 						os << zoneTxt;
 						os << ' ' << distPercentHorizon;
 						os << ' ' << static_cast<int>(pheromone->type());
+						os << ' ' << pheromone->life();
 						os << '\n';
 					}
 

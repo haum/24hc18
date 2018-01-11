@@ -342,25 +342,31 @@ Informations
   `quantity`  Niveau du stock de nourriture.
   ==========  ======
 
-`SEE_PHEROMONE <id> <zone> <dist> <type>`
+`SEE_PHEROMONE <id> <zone> <dist> <type> <persistance>`
   Indique la présence d'une phéromone à proximité.
 
   Les phéromones des équipes adverses ne sont pas listées.
 
-  ======  ======
-  `id`    Nombre temporaire utilisé pour faire référence à cet objet dans les
-          actions.
-  ------  ------
-  `zone`  Zone d'interaction.
+  =============  ======
+  `id`           Nombre temporaire utilisé pour faire référence à cet objet dans
+                 les actions.
+  -------------  ------
+  `zone`         Zone d'interaction.
 
-          Prends les valeurs `FAR` ou `NEAR`.
-  ------  ------
-  `dist`  Distance de 0 (très près) à 100 (le plus loin que la fourmi perçoit)
-  ------  ------
-  `type`  Type de phéromone détectée.
+                 Prends les valeurs `FAR` ou `NEAR`.
+  -------------  ------
+  `dist`         Distance de 0 (très près) à 100 (le plus loin que la fourmi
+                 perçoit)
+  -------------  ------
+  `type`         Type de phéromone détectée.
 
-          Ce type est défini par la fourmi ayant déposé la phéromone.
-  ======  ======
+                 Ce type est défini par la fourmi ayant déposé la phéromone.
+  -------------  ------
+  `persistance`  Nombre indiquant la netteté du signal olfactif i.e. la
+                 persistance de la phéromone.
+
+                 Plus le nombre est grand, plus la phéromone est récente.
+  =============  ======
 
 `SEE_ANT <id> <zone> <dist> <friend> <stamina>`
   Indique la présence d'une fourmi à proximité.
