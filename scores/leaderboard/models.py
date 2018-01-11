@@ -17,7 +17,7 @@ class Team(models.Model):
     name = models.CharField(max_length=100, unique=True)
     points = models.IntegerField(default=0)
     repo_url = models.CharField(max_length=400, unique=True)
-    place = models.CharField(max_length=200)
+    place = models.CharField(max_length=200, blank=True, default="")
     valid_repo = models.BooleanField(default=False)
     valid_buildscript = models.BooleanField(default=False)
     valid_startscript = models.BooleanField(default=False)
