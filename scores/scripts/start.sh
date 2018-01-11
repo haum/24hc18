@@ -2,8 +2,8 @@
 
 source set_env.sh
 
-if [[ $# -lt 4 ]]; then
-    echo "You must specify at least 4 args !"
+if [[ $# -lt 3 ]]; then
+    echo "You must specify at least 3 args !"
     exit 1
 fi
 
