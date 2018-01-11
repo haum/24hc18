@@ -34,4 +34,25 @@ do
  cmdArgs="$cmdArgs $startFile"
 done
 
-$MBNT_BIN -s $Scenario -h localhost $cmdArgs
+OUTPUT="$($MBNT_BIN -s $Scenario -h localhost $cmdArgs)"
+echo "${OUTPUT}"
+
+Score=""
+RunningTeam=""
+
+IFS=$'\n'
+for l in $OUTPUT; do
+ [[ $l = '' ]] && continue
+ if [[ $l == *"executable"* ]]; then
+  RunningTeam=$(echo $l | cut -d " " -f 3 | cut -d "/" -f 4)
+ fi
+ if [[ $l == *"Score"* ]]; then
+  Score=$(echo $l | cut -d " " -f 2)
+ fi
+ if [[ $RunningTeam -ne "" && $Score -ne "" ]]; then
+  curl $MBNT_URL/be/t:$MBNT_TOKEN/register_score/$MatchID/$RunningTeam/$Score
+  echo curl $MBNT_URL/be/t:$MBNT_TOKEN/register_score/$MatchID/$RunningTeam/$Score
+  Score=""
+  RunningTeam=""
+ fi
+done
