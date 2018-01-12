@@ -31,11 +31,11 @@ Envoi de votre code
 -------------------
 
 Pour commencer, il vous faut un dépôt `GIT` public. Il existe plusieurs services
-en ligne proposant cet outil comme `<https://framagit.org>`_ ou 
+en ligne proposant cet outil comme `<https://framagit.org>`_ , `<https://gitlab.com/>`_ ou
 `<https://github.com>`_.
 
 Après la création de voter dépôt `GIT`, vous pouvez y déposer votre code. Il
-vous reste ensuite à 'cloner'  ce dépôt sur la machine virtuelle. 
+vous reste ensuite à 'cloner'  ce dépôt sur la machine virtuelle.
 
 Si vous ne connaissez pas cet outil, nous vous recommandons de consulter la
 documentation officielle : `<https://git-scm.com>`_
