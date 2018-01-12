@@ -49,8 +49,8 @@ la documentation en ligne dans toutes les langues.  Notons par exemple la
 
 .. NOTE::
    Au delà du sujet, nous vous conseillons fortement d'apprendre à maîtriser ce
-   genre d'outils. C'est un atout précieux pour produire du code de qualité et
-   maîtriser le développement au cours du temps, seul ou en équipe.
+   genre d'outil. C'est un atout précieux pour produire du code de qualité et
+   maîtriser le développement au cours du temps, seul ou en équipe. [#f2]_
 
 Pour chaque match, votre code est compilé et exécuté sur le serveur de jeu. Pour
 simplifier la récupération de votre travail, ce serveur tire profit de l'outil
@@ -71,6 +71,7 @@ simulateur.
 Vous disposez également du code source de notre simulateur, libre à vous de le
 compiler sur vos pc pour tester vos stratégies.
 
+
 Environnement clos
 ==================
 
@@ -83,3 +84,5 @@ certaines règles du jeu. Ne cherchez pas à vous en défaire.
 .. [#f1] Pour s'assurer de l'utilisation de la bonne version de l'interpréteur
          python, indiquez explicitement celle-ci dans le shebang.
 
+.. [#f2] L'outil est particulièrement avantageux dès que l'effort de
+         développement est porté par plus de 0 personne.
