@@ -120,7 +120,7 @@ preuve seras  pris en compte dans l'attribution des points.
 Plébiscite 🐜
 -------------
 
-Chaque année, nous demandons aux équipes,leur avis sur la prodictions des autres
+Chaque année, nous demandons aux équipes,leur avis sur la productions des autres
 équipes. Cela nous permet de voir et d'apprécier votre travail sous un angle
 différent et donc de donnez ou pas des points. Soyez sympas, restez objectifs.
 
