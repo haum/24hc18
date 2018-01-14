@@ -4,7 +4,7 @@
 const GameObjectCategory Pheromone::s_category{"PHEROMONE"};
 
 Pheromone::Pheromone(double latitude, double longitude, Team &team,
-                     uint8_t type)
+                     uint16_t type)
     : GameObject{Pheromone::category(), latitude, longitude, 0}, m_life{100},
       m_team{team}, m_type{type} {
 	m_teamBase = &team;

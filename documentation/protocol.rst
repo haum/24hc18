@@ -462,7 +462,7 @@ Actions
   Cette action est exclusive et coûte 3 unités de stamina.
 
   ======  ======
-  `type`  Type de phéromone (0 à 255)
+  `type`  Type de phéromone (0 à 1023)
   ======  ======
 
 `CHANGE_PHEROMONE <id> <type>`
@@ -475,7 +475,7 @@ Actions
 
   ======  ======
   `id`    Identifiant de l'objet indiqué par `SEE_PHEROMONE`
-  `type`  Type de phéromone (0 à 255)
+  `type`  Type de phéromone (0 à 1023)
   ======  ======
 
 `RECHARGE_PHEROMONE <id>`

@@ -175,14 +175,14 @@ void Ant::actionSuicide(bool valid) {
 	destroy();
 }
 
-void Ant::actionPutPheromone(bool valid, uint8_t type) {
+void Ant::actionPutPheromone(bool valid, int type) {
 	if (!preludeActionHelper(3, EXCLUSIVE, valid))
 		return;
 	team().scenario().addGameObject<Pheromone>(this->latitude(),
 	                                           this->longitude(), team(), type);
 }
 
-void Ant::actionChangePheromone(bool valid, uint8_t type, int id) {
+void Ant::actionChangePheromone(bool valid, int type, int id) {
 	if (!preludeActionHelper(2, EXCLUSIVE, valid))
 		return;
 
@@ -387,14 +387,14 @@ void Ant::execute(uint8_t argc, const char **argv) {
 
 	} else if ((argc == 2) && (strncmp(argv[0], "PUT_PHEROMONE", 14) == 0)) {
 		bool ok = false;
-		int type = param_int(argv[1], ok, 0, 255);
-		actionPutPheromone(ok, static_cast<uint8_t>(type));
+		int type = param_int(argv[1], ok, 0, 1023);
+		actionPutPheromone(ok, type);
 
 	} else if ((argc == 3) && (strncmp(argv[0], "CHANGE_PHEROMONE", 17) == 0)) {
 		bool ok1, ok2;
-		int type = param_int(argv[1], ok1, 0, 255);
-		int id = param_int(argv[2], ok2, 0, 255);
-		actionChangePheromone(ok1 && ok2, static_cast<uint8_t>(type), id);
+		int id = param_int(argv[1], ok2, 0, 255);
+		int type = param_int(argv[2], ok1, 0, 1023);
+		actionChangePheromone(ok1 && ok2, type, id);
 
 	} else if ((argc == 2) &&
 	           (strncmp(argv[0], "RECHARGE_PHEROMONE", 19) == 0)) {

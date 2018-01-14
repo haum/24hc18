@@ -40,10 +40,10 @@ class Ant : public Agent {
 	void actionSuicide(bool valid);
 
 	/** action PUT_PHEROMONE **/
-	void actionPutPheromone(bool valid, uint8_t type);
+	void actionPutPheromone(bool valid, int type);
 
 	/** action CHANGE_PHEROMONE **/
-	void actionChangePheromone(bool valid, uint8_t type, int id);
+	void actionChangePheromone(bool valid, int type, int id);
 
 	/** action RECHARGE_PHEROMONE **/
 	void actionRechargePheromone(bool valid, int id);
