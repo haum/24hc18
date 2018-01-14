@@ -362,10 +362,10 @@ Informations
 
                  Ce type est défini par la fourmi ayant déposé la phéromone.
   -------------  ------
-  `persistance`  Nombre indiquant la netteté du signal olfactif i.e. la
-                 persistance de la phéromone.
+  `persistance`  Persistance (i.e. netteté du signal olfactif) de la phéromone.
 
-                 Plus le nombre est grand, plus la phéromone est récente.
+                 Valeur allant de 100 (très récent) à 0 (sur le point de
+                 disparaître)
   =============  ======
 
 `SEE_ANT <id> <zone> <dist> <friend> <stamina>`
