@@ -20,3 +20,4 @@ HEADERS += \
 OTHER_FILES += \
     main.qml \
     Scene.qml \
+    Rtfm.qml \

@@ -31,6 +31,9 @@ Window {
                     toggleFullscreen();
                     event.accepted = true;
 
+                } else if (event.key == Qt.Key_R) {
+                    rtfm.anim.start();
+
                 } else if (event.key == Qt.Key_Space) {
                     controls.opened = !controls.opened;
 
@@ -47,6 +50,12 @@ Window {
                 id: scene
                 Component.onCompleted: gcomm.setRootEntity(scene.planet)
             }
+        }
+
+        Rtfm {
+            id: rtfm
+            anchors.fill: parent
+            anchors.margins: 20
         }
     }
     MouseArea {
