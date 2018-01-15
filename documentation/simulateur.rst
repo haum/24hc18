@@ -30,15 +30,9 @@ Les identifiants pour le compte utilisateur sur la machine virtuelle sont :
 Envoi de votre code
 -------------------
 
-Pour commencer, il vous faut un dépôt `GIT` public. Il existe plusieurs services
-en ligne proposant cet outil comme `<https://framagit.org>`_ , `<https://gitlab.com/>`_ ou
-`<https://github.com>`_.
-
-Après la création de voter dépôt `GIT`, vous pouvez y déposer votre code. Il
-vous reste ensuite à 'cloner'  ce dépôt sur la machine virtuelle.
-
-Si vous ne connaissez pas cet outil, nous vous recommandons de consulter la
-documentation officielle : `<https://git-scm.com>`_
+Le gestionnaire de version `git` étant installé sur la machine virtuelle, vous
+pouvez l'utiliser pour récuperer votre code depuis le dépot de votre équipe pour
+tester vous stratégies avec le simulateur. 
 
 Utiliser le simulateur
 ======================
