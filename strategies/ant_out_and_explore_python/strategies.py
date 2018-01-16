@@ -11,8 +11,6 @@ for line in sys.stdin:
         memory = line
     if line == "END":
         if isAnt:
-            #print("PUT_PHEROMONE 12")
-            #if memory == 'MEMORY 0 0':
             print("EXPLORE")
             pass
         else:
