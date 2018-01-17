@@ -85,7 +85,7 @@ Structure du dépôt et scripts
 =============================
 
 Les outils de gestion des matchs font appel à deux scripts qui **doivent** être
-présents dans le dépôt de chaque équipe et **éxécutables**:
+présents à la racine du dépôt de chaque équipe et **éxécutables**:
 
 - ``build.sh`` : script de compilation du programme lancé une fois au début de chaque série de matchs
 - ``start.sh``: script de lancement de la stratégie, appelé sur la ligne de commande du serveur de jeu
