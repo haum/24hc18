@@ -61,6 +61,13 @@ liste des actions réalisées avec le marqueur `END` et se met en écoute d'un
    attribuer certaines actions à d'autres entités, ignorer les commandes ou même
    tuer vos fourmis.
 
+.. NOTE::
+   Les commandes sont exécutées dans l'ordre de réception, ce qui peut avoir de
+   l'importance dans certaines situations. Par exemple, si la commande
+   `SET_MEMORY` est envoyée après la commande `NEST`, la fourmi entrera dans la
+   fourmillière avant de changer de mémoire. Dès lors, la fourmilière ne sera
+   pas informée de ce changement.
+
 Aléatoire
 ---------
 
