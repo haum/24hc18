@@ -286,11 +286,11 @@ nourriture qu'elle transporte. Le stock de nourriture peut être partiellement
 converti en stamina si besoin.
 
 Les fourmis n'étant pas omniscientes, elles ont une perception limitée à leur
-environnement proche. Nous distinguons les éléments à portée (`NEAR`) avec
-lesquels il est possible d'interagir (zone verte sur le schéma ci-dessous), et
-les éléments qui sont seulement dans le champ visuel (`FAR`) avec lesquels il
-est seulement possible de s'orienter (zone orange). Au-delà, la fourmi ignore
-ce qu'il se passe (zone blanche).
+environnement proche. Nous distinguons les éléments à portée (`NEAR`, en dessous
+de 3 pas) avec lesquels il est possible d'interagir (zone verte sur le schéma
+ci-dessous), et les éléments qui sont seulement dans le champ visuel (`FAR`, en
+dessous de 10 pas) avec lesquels il est seulement possible de s'orienter (zone
+orange). Au-delà, la fourmi ignore ce qu'il se passe (zone blanche).
 
 .. image:: _static/images/ant.png
    :align: center
