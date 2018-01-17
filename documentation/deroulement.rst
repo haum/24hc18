@@ -58,6 +58,26 @@ En cas d'égalité, plusieurs équipes peuvent marquer les points de victoire.
    permettant à la colonie de survivre est **essentiel**. Il n'est pas
    nécessaire de se battre pour gagner. 
 
+Inscription d'une équipe
+========================
+
+Le sujet du HAUM étant largement automatisé, il est demandé à chaque équipe de s'inscrire
+sur l'outil de gestion du score : `marabunta-scores.haum.org`_. Vous pourrez également
+l'utiliser pour consulter votre score.
+
+Lors de l'inscription, il vous sera demandé :
+
+- le nom de votre équipe
+- la pièce où vous êtes installés
+- l'adresse de votre dépôt git
+
+Notez que le dépôt doit notamment contenir des scripts de compilation et d'exécution dont
+le fonctionnement est `détaillé dans la trousse de survie`_. C'est à vous de créer ces
+fichiers.
+
+.. _marabunta-scores.haum.org: http://marabunta-scores.haum.org
+.. _détaillé dans la trousse de survie: trousse.html#structure-du-depot-et-scripts
+
 24 heures avec le HAUM
 ======================
 

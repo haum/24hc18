@@ -81,6 +81,47 @@ les possibilités des programmes pour limiter les conséquences d'un défaut de
 ces derniers. Ils renforcent aussi dans une certaine mesure le respect de
 certaines règles du jeu. Ne cherchez pas à vous en défaire.
 
+Structure du dépôt et scripts
+=============================
+
+Les outils de gestion des matchs font appel à deux scripts qui **doivent** être
+présents dans le dépôt de chaque équipe et **éxécutables**:
+
+- ``build.sh`` : script de compilation du programme lancé une fois au début de chaque série de matchs
+- ``start.sh``: script de lancement de la stratégie, appelé sur la ligne de commande du serveur de jeu
+
+Ces deux scripts sont écrits en bash_.
+
+Le script de compilation peut être un script vide :
+
+.. code-block:: bash
+
+  #!/bin/bash
+
+ou contenir des instructions de compilation :
+
+.. code-block:: bash
+
+  #!/bin/bash
+
+  make clean
+  ./configure
+  make
+
+Le script de démarrage lui, ne peut être vide. Il doit également rediriger le flux
+d'entrée standard (``/dev/stdin``) vers la commande d'appel de votre programme :
+
+.. code-block:: bash
+
+  #!/bin/bash
+
+  python3 ma_strategie.py < /dev/stdin
+
+N'hésitez pas à nous demander de l'aide pour l'écriture de ces scripts essentiels au bon
+déroulement de vos 24h.
+
+.. _bash: https://en.wikipedia.org/wiki/Bash_(Unix_shell)
+
 .. [#f1] Pour s'assurer de l'utilisation de la bonne version de l'interpréteur
          python, indiquez explicitement celle-ci dans le shebang.
 
