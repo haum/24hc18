@@ -288,9 +288,9 @@ Généralités
 -----------
 
 Une fourmi est un agent mobile de la colonie. Elle dispose d'un niveau de
-stamina qui détermine les actions qu'elle peut effectuer et d'un stock de
-nourriture qu'elle transporte. Le stock de nourriture peut être partiellement
-converti en stamina si besoin.
+stamina (maximum 10000) qui détermine les actions qu'elle peut effectuer et
+d'un stock de nourriture (maximum 1000) qu'elle transporte. Le stock de
+nourriture peut être partiellement converti en stamina si besoin.
 
 Les fourmis n'étant pas omniscientes, elles ont une perception limitée à leur
 environnement proche. Nous distinguons les éléments à portée (`NEAR`, en dessous
