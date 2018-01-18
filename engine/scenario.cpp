@@ -159,7 +159,7 @@ void Scenario::processLine(uint8_t argc, const char **argv) {
 		    parse_int(argv[3], ok, 0, std::numeric_limits<int>::max());
 		if (!ok)
 			throw(std::runtime_error("Invalid initial value"));
-		float chargeRate = parse_float(argv[4], ok, 0, 100);
+		float chargeRate = parse_float(argv[4], ok, 0, 10000);
 		if (!ok)
 			throw(std::runtime_error("Invalid charge rate"));
 		auto chargeMax =
