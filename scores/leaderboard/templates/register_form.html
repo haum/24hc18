@@ -2,10 +2,15 @@
 
 {% block content %}
 
-<form method=post action="{% url 'register_team' %}">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit"/>
-</form>
+<div style="width:40rem" class="card border-primary test-primary mx-auto">
+	<div class="card-header font-weight-bold bg-primary text-white">Enregistrer une équipe</div>
+	<form class="m-5" method=post action="{% url 'register_team' %}">
+		<div class="form-group">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" class="btn btn-primary" value="Submit"/>
+		</div>
+	</form>
+</div>
 {% endblock %}
 

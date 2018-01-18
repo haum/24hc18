@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{t.name}}</h1>
-<ul>
-    <li>{{t.id}}</li>
-    <li>{{t.points}}</li>
-    <li>{{t.repo_url}}</li>
-    <li>{{t.place}}</li>
-    <li>{{t.valid_repo}}</li>
-    <li>{{t.valid_buildscript}}</li>
-    <li>{{t.valid_startscript}}</li>
-</ul>
+<div class="card border-primary mx-auto my-5 font-weight-bold" style="width: 40rem">
+		<div class="card-header bg-primary border-primary text-white">
+			Infos sur {{t.name}}
+		</div>
+		<p class="m-3">
+			<span class="font-weight-bold">Score :</span> {{t.points}}<br/>
+			<span class="font-weight-bold">Salle :</span> {{t.place}}<br/>
+			<span class="font-weight-bold">Repo/build.sh/start.sh :</span>
+				{% if t.valid_repo %}<span class="text-success font-weight-bold">OK</span>{% else %}<span class="text-error font-weight-bold">NOK</span>{% endif %}
+				/{% if t.valid_buildscript %}<span class="text-success font-weight-bold">OK</span>{% else %}<span class="text-error font-weight-bold">NOK</span>{% endif %}
+				/{% if t.valid_startscript %}<span class="text-success font-weight-bold">OK</span>{% else %}<span class="text-error font-weight-bold">NOK</span>{% endif %}
+			<br/>
+		</p>
+
+		<p class="text-center"><a href="/" class='btn btn-primary'>Retour</a></p>
+</div>
 {% endblock %}

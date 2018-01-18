@@ -1,10 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a href="{% url 'register_team' %}">Register</a>
 
-<table>
-    <thead><tr>
+<div class="card border-info mb-3">
+  <div class="card-header bg-info text-white font-weight-bold border-info">Enregistrement d'une équipe</div>
+  <div class="card-body text-info text-center">
+    <p class="card-text">Afin de pouvoir participer aux matchs tout au long des 24h, vous devez au préalable vous enregistrer sur le serveur.<p>
+		<p><a href="{% url 'register_team' %}"  class="btn btn-outline-info btn-lg active" role="button" >S'enregistrer</a><p>
+  </div>
+</div>
+
+<h1>Scores</h1>
+
+<table class="table table-striped">
+    <thead class="thead-dark"><tr>
         <th>Team</th>
         <th>Score</th>
     </thead>
@@ -19,9 +28,25 @@
 </table>
 
 <h1>Matches</h1>
-<ul>
-    {% for m in matchs %}
-    <li><a href="{% url 'match_detail' m.id %}">{{m}}</a></li>
-    {% endfor %}
-</ul>
+
+{% for m in matchs %}
+<div class="card mt-2 {% if m.is_finished %}border-success text-success{% else %}border-warning text-warning{% endif %}">
+	<div class="{% if m.is_finished %}border-success{% else %}border-warning{% endif %} card-header bg-transparent">
+		Match #{{m.id}} : {{ m.teams.all|join:', '}}
+		<a href="{% url 'match_detail' m.id %}" class="{% if m.is_finished %}border-success text-success{% else %}border-warning text-warning{% endif %} font-weight-bold float-right">Plus d'info ></a>
+	</div>
+	<div class="card-body">
+		<p class="card-text text-secondary">
+		<span class="font-weight-bold">Scénario :</span> {{m.group.scenario}}<br/>
+		<span class="font-weight-bold">Nombre de pools :</span> {{m.group.num_pools}}<br/>
+		<span class="font-weight-bold">État :</span>
+			{% if m.is_finished %}
+				<span class="text-success">Terminé</span>
+			{% else %}
+				<span class="text-warning">En cours</span>
+			{% endif %}
+		</p>
+	</div>
+</div>
+{% endfor %}
 {% endblock %}

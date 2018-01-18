@@ -59,9 +59,9 @@ def register_team(request):
         if form.is_valid():
             name = form.cleaned_data['name']
             repo_url = form.cleaned_data['repo_url']
-            # TODO : check URL validity
+            place = form.cleaned_data['place']
 
-            team = Team(name=name, repo_url=repo_url)
+            team = Team(name=name, repo_url=repo_url, place=place)
             team.save()
 
             return HttpResponseRedirect(reverse('thanks'))
