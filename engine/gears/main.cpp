@@ -100,8 +100,11 @@ int main(int argc, char *argv[]) {
 	std::cout << "==========\n"
 	          << "STATISTICS\n"
 	          << "==========\n";
+	size_t score_max = 0;
+	for (auto &team : teams)
+		score_max = std::max(score_max, team->score());
 	for (auto &team : teams) {
-		team->printStats(apioutput);
+		team->printStats(apioutput, score_max);
 		std::cout << "----------\n";
 	}
 	std::cout << std::flush;

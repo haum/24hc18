@@ -4,6 +4,8 @@
 #include "gears/gameobject.h"
 #include "gears/team_base.h"
 
+class Nest;
+
 /** Class managing a team (story part) **/
 class Team : public TeamBase {
   public:
@@ -19,11 +21,17 @@ class Team : public TeamBase {
 		return m_ids.size();
 	}
 
+	/* Get nest **/
+	Nest *nest();
+
+	/** Compute score **/
+	size_t score();
+
 	/** Reset IDs **/
 	void resetIds() { m_ids.clear(); }
 
 	/** Print team statistics **/
-	void printStats(bool apioutput);
+	void printStats(bool apioutput, size_t score_max);
 
   protected:
 	std::vector<GameObject *> m_ids;
