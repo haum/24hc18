@@ -46,9 +46,12 @@ for l in $OUTPUT; do
  if [[ $l == *"executable"* ]]; then
   RunningTeam=$(echo $l | cut -d " " -f 3 | cut -d "/" -f 4)
  fi
- if [[ $l == *"Score"* ]]; then
-  Score=$(echo $l | cut -d " " -f 2)
+ if [[ $l == *"API::"* ]]; then
+  Score=$(echo $l | cut -d " " -f 3)
  fi
+#  if [[ $l == *"Score"* ]]; then
+#   Score=$(echo $l | cut -d " " -f 2)
+#  fi
  if [[ $RunningTeam -ne "" && $Score -ne "" ]]; then
   curl $MBNT_URL/be/t:$MBNT_TOKEN/register_score/$MatchID/$RunningTeam/$Score
   echo curl $MBNT_URL/be/t:$MBNT_TOKEN/register_score/$MatchID/$RunningTeam/$Score
