@@ -46,7 +46,7 @@ float parse_float(const char *str, bool &ok) {
 	return static_cast<float>(value);
 }
 
-float parse_float(const char *str, bool &ok, int min, int max) {
+float parse_float(const char *str, bool &ok, float min, float max) {
 	auto ret = parse_float(str, ok);
 	if (ok) {
 		if (ret < min)
