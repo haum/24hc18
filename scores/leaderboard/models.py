@@ -26,7 +26,7 @@ class Team(models.Model):
         return self.name
 
     def update_score(self):
-        self.points = sum([_.points_earned for _ in self.participation_set.all()])
+        self.points = sum([_.points_earned for _ in self.participation_set.filter(match__is_finished=True)])
         self.save()
 
 
