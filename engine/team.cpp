@@ -25,6 +25,7 @@ size_t Team::score() {
 		score += m_agents.size() - 1 + n->antsCount();
 		if (score > 0)
 			score += n->foodAmount();
+		score = n->foodAmountAddition() + score / 10;
 	}
 	return score;
 }
@@ -39,6 +40,8 @@ void Team::printStats(bool apioutput, size_t score_max) {
 	if (n) {
 		auto s = score();
 		std::cout << "Food amount in nest: " << n->foodAmount() << '\n';
+		std::cout << "Total food amount recolted: " << n->foodAmountAddition()
+		          << '\n';
 		std::cout << "Ants inside nest: " << n->antsCount() << '\n';
 		std::cout << "Score: " << s << '\n';
 		if (apioutput) {

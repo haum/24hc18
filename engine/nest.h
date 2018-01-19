@@ -46,6 +46,9 @@ class Nest : public Agent {
 	/** Get food amount **/
 	uint32_t foodAmount() { return m_stock; }
 
+	/** Get food amount **/
+	size_t foodAmountAddition() { return m_stock_addition; }
+
 	/** Number of ants inside nest **/
 	uint32_t antsCount();
 
@@ -68,6 +71,9 @@ class Nest : public Agent {
   private:
 	/** Stock of the nest**/
 	uint32_t m_stock = 0;
+
+	/** Total food added to the nest **/
+	size_t m_stock_addition = 0;
 
 	/** Number of ants currently in nest **/
 	std::map<uint8_t, uint32_t> m_antNumber;

@@ -26,6 +26,7 @@ void Nest::setPopulation(uint8_t type, int nb) {
 void Nest::antIn(uint8_t type, uint8_t m0, uint8_t m1, unsigned int stock) {
 	m_antsIn.push_back({type, m0, m1});
 	m_stock += stock;
+	m_stock_addition += stock;
 	if (hasAntType(type))
 		m_antNumber[type] += 1;
 	else
