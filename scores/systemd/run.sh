@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 source /opt/marabunta/venv/bin/activate
 cd /opt/marabunta/scores
