@@ -40,8 +40,9 @@ entre équipes. Votre objectif sera de marquer plus de points que les autres
 fourmilières (i.e. remporter le plus de matchs) sur l'ensemble des tournois.
 
 À la fin de chaque match, l'équipe victorieuse sera désignée en fonction de sa
-prospérité, calculée sur la somme des ressources accumulées dans la fourmilière
-et de la population en vie.
+prospérité, calculée sur la somme des ressources ramenées à la fourmillière à
+laquelle s'ajoute le dixième des ressources restantes et de la population en
+vie.
 
 Les points se gagnent ainsi à l'issue de chaque match:
 
