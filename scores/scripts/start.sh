@@ -2,6 +2,8 @@
 
 source set_env.sh
 
+jailcommand="timeout 5 cpulimit -l 10 -i firejail --profile=$MBNT_ABSPATH/spawner/jail.profile"
+
 if [[ $# -lt 3 ]]; then
     echo "You must specify at least 3 args !"
     exit 1
@@ -31,7 +33,7 @@ for TeamID in ${Teams[@]}
 do
  startFile="$MBNT_HOME/$TeamID/start.sh"
  echo "Getting team #$TeamID's start.sh file !"
- cmdArgs="$cmdArgs $startFile"
+ cmdArgs="$cmdArgs cd '$MBNT_HOME/$TeamID; $jailcommand $startFile'"
 done
 
 OUTPUT="$($MBNT_BINDIR/marabunta_engine -s $Scenario -h localhost $cmdArgs)"
