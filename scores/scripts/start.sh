@@ -33,7 +33,7 @@ for TeamID in ${Teams[@]}
 do
  startFile="$MBNT_HOME/$TeamID/start.sh"
  echo "Getting team #$TeamID's start.sh file !"
- cmdArgs="$cmdArgs cd '$MBNT_HOME/$TeamID; $jailcommand $startFile'"
+ cmdArgs="$cmdArgs cd '$MBNT_HOME/$TeamID; $jailcommand bash $startFile'"
 done
 
 OUTPUT="$($MBNT_BINDIR/marabunta_engine -s $Scenario -h localhost $cmdArgs)"

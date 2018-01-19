@@ -29,7 +29,7 @@ for l in $repo_file; do
 
 	git clone "$team_repo" "$team_id"
 	cd "$team_id"
-	./build.sh || "Exiting."
+	bash ./build.sh || "Exiting."
 
 	cd "$MBNT_HOME"
 done
