@@ -1,0 +1,14 @@
+[Unit]
+Description=Mule
+After=mutli-user.target
+Requires=multi-user.target
+
+[Service]
+Type=simple
+User=seb
+ExecStart=/opt/marabunta/scores/systemd/run.sh
+Restart=on-failure
+RestartSec=360
+
+[Install]
+WantedBy=multi-user.target
