@@ -116,11 +116,11 @@ class MatchGroup(models.Model):
     """ Groups matches together to gather all corresponding to the same game phase
     name -- group's name
     """
-    name = models.CharField(max_length=100)
-    teams = models.ManyToManyField(Team)
-    scenario = models.CharField(max_length=200)
-    number_playing_teams = models.IntegerField(default=1)
-    num_pools = models.IntegerField(default=1)
+    name = models.CharField(max_length=100, help_text="This is pupblic, choose wisely.")
+    teams = models.ManyToManyField(Team, help_text="Select the teams that will participate")
+    scenario = models.CharField(max_length=200, help_text="scenario_file.cfg with root in engine/scenarii")
+    number_playing_teams = models.IntegerField(default=1, help_text="The number of teams this scenario is made for")
+    num_pools = models.IntegerField(default=1, help_text="Number of pools to use when matching teams")
     matches_generated = models.BooleanField(default=False)
 
     def __str__(self):

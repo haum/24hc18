@@ -16,7 +16,35 @@ class TeamAdmin(admin.ModelAdmin):
         'name', 'points', 'repo_url', 'place',
         'valid_repo', 'valid_buildscript', 'valid_startscript'
     )
+    actions = [
+        'validate_repo',
+        'validate_buildscript',
+        'validate_startscript',
+        'validate_buildstart',
+        'invalidate_buildstart'
+    ]
 
+    def validate_buildscript(self, request, queryset):
+        queryset.update(valid_buildscript=True)
+    validate_buildscript.short_description = "Validate build.sh"
+
+    def validate_startscript(self, request, queryset):
+        queryset.update(valid_startscript=True)
+    validate_startscript.short_description = "Validate start.sh"
+
+    def validate_repo(self, request, queryset):
+        queryset.update(valid_repo=True)
+    validate_repo.short_description = "Validate git repo"
+
+    def validate_buildstart(self, request, queryset):
+        queryset.update(valid_buildscript=True)
+        queryset.update(valid_startscript=True)
+    validate_buildstart.short_description = "Validate both start.sh & build.sh"
+
+    def invalidate_buildstart(self, request, queryset):
+        queryset.update(valid_buildscript=True)
+        queryset.update(valid_startscript=True)
+    invalidate_buildstart.short_description = "INvalidate both start.sh & build.sh"
 
 @admin.register(BackendAuth)
 class BackendAuthAdmin(admin.ModelAdmin):
@@ -64,12 +92,37 @@ class ParticipationAdmin(admin.ModelAdmin):
 @admin.register(MatchGroup)
 class MatchGroupAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'name', 'scenario', 'number_playing_teams', 'num_pools', 'list_teams', 'matches_generated')
+    fieldsets= (
+        (None, {
+            'fields': ('name',),
+        }),
+        ('Scenario', {
+            'fields': ('scenario', 'number_playing_teams',),
+        }),
+        ('Teams', {
+            'fields': ('num_pools', 'teams'),
+        }),
+    )
+    list_display = ('id', 'name', 'scenario', 'number_playing_teams', 'num_pools', 'list_teams', 'matches_generated', 'is_closed')
     list_filter = ('matches_generated', 'num_pools', 'number_playing_teams')
     actions = ['mark_finished', 'generate_matches']
 
     def list_teams(self, obj):
-        return ', '.join([_.name for _ in obj.teams.all()])
+        qset = obj.teams.all()
+        total_teams = Team.objects.all().count()
+
+        if qset.count() == total_teams:
+            return "*"
+        elif qset.count() > 5:
+            return f"{qset.count()} teams"
+        else:
+            return ', '.join([_.name for _ in qset])
+    list_teams.short_description = 'Teams'
+
+    def is_closed(self, obj):
+        """true if all matches are finished"""
+        return obj.match_set.filter(is_finished=False).count() == 0
+    is_closed.boolean = True
 
     def mark_finished(self, request, queryset):
         for m in queryset:
