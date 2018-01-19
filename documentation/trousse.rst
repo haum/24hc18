@@ -56,10 +56,15 @@ Pour chaque match, votre code est compilé et exécuté sur le serveur de jeu. P
 simplifier la récupération de votre travail, ce serveur tire profit de l'outil
 `git` en rapatriant les sources de votre stratégie depuis son dépôt.
 
-Vous avez le choix de l'hébergement dès lors que le dépôt est accessibles
-publiquement. Si vous n'avez pas de serveur personnel à disposition, vous pouvez
-utiliser des services tels que `Framagit <https://framagit.org>`_ ou encore
-`Github <https://github.com>`_.
+Vous avez le choix de l'hébergement dès lors que le dépôt est accessible
+publiquement ou que la machine virtuelle est autorisée à le récupérer. Si vous
+n'avez pas de serveur personnel à disposition, vous pouvez utiliser des
+services tels que `Framagit <https://framagit.org>`_ ou encore `Github
+<https://github.com>`_.
+
+.. NOTE::
+   Sur Framagit, donner les droits à l'utilisateur "marabunta" satisfait cette
+   condition.
 
 Ressources
 ==========

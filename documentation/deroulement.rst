@@ -61,9 +61,9 @@ En cas d'égalité, plusieurs équipes peuvent marquer les points de victoire.
 Inscription d'une équipe
 ========================
 
-Le sujet du HAUM étant largement automatisé, il est demandé à chaque équipe de s'inscrire
-sur l'outil de gestion du score : `marabunta-scores.haum.org`_. Vous pourrez également
-l'utiliser pour consulter votre score.
+Le sujet du HAUM étant automatisé, il est demandé à chaque équipe de s'inscrire
+sur l'outil de gestion du score : `marabunta-scores.haum.org`_. Vous pourrez
+également l'utiliser pour consulter vos points.
 
 Lors de l'inscription, il vous sera demandé :
 

@@ -15,10 +15,6 @@ le jeu.
 Machine virtuelle
 =================
 
-.. TIP::
-    La machine virtuelle que nous utiliserons pour les matchs officiels est
-    strictement identique à celle qui vous sera fournie. Faites-en bon usage.
-
 Identifiants
 ------------
 
@@ -62,7 +58,7 @@ programme de stratégie pour analyser le comportement. Pour cela, il existe
 l'option `-d` qui prend en argument le numéro (commençant à 0) de la stratégie à
 espionner. Le log sort sur la sortie d'erreur standard.
 
-Extrait de trace en milieu de partie :
+Extrait de trace en milieu de partie [#f1]_ :
 
   | 1 @ BEGIN NEST
   | 1 @ STOCK 0
@@ -139,3 +135,5 @@ Même si nous avons réalisé de nombreux matchs de test, notre simulateur n'est
 peut-être pas exempt de bugs. N'hésitez pas à nous les signaler.  Dans le cas où
 ce bug deviendrait bloquant, vous disposez des sources pour nous aider à le
 résoudre.
+
+.. [#f1] Le format exact de la trace peut avoir changé depuis la capture réalisée.
