@@ -14,10 +14,11 @@ see_nest_id = 0
 see_nest_zone = ""
 see_nest_dist = 0
 see_nest_friend = 0
-ant_stock = 0
+stock = 0
 ant_stamina = 0
 ant_sorted = 0
 ant_exist = 0
+ant_count = 0
 explo = 0
 
 def log(string):
@@ -95,13 +96,16 @@ for line in sys.stdin:
         pheromone_see_list.append(liste)
     if line.startswith("STOCK"):
         line_splited = line.split()
-        ant_stock = line_splited[1]
+        stock = line_splited[1]
     if line.startswith("STAMINA"):
         line_splited = line.split()
         ant_stamina = line_splited[1]
+    if line.startswith("ANT_COUNT"):
+        line_splited = line.split()
+        ant_count = line_splited[2]
     if line == "END":
         if entity == 1:
-            if int(ant_stock) < 10 and int(memory[1]) < 255:
+            if int(stock) < 10 and int(memory[1]) < 255:
                 if int(memory[0]) >= 8:
                     print("PUT_PHEROMONE "+str(memory[1]))
                     memory[0]=0
@@ -122,7 +126,7 @@ for line in sys.stdin:
                             food_lvl = food_see[3]
                             probably_near_food_zone = food_see[1]
                     if probably_near_food_zone == "NEAR" and int(id_food) != 0 and int(food_lvl) > 10:
-                        print("COLLECT "+id_food+" 10")
+                        print("COLLECT "+id_food+" "+food_lvl)
                     elif probably_near_food_zone == "FAR" and int(id_food) != 0:
                         print("MOVE_TO "+str(id_food))
                 elif see_food_zone == "":
@@ -161,7 +165,6 @@ for line in sys.stdin:
                             m1tmp=3
 
 
-                        log(pheromone_see_list)
                         pheromone_see_good_type_list = []
                         for pheromone_see in pheromone_see_list:
                             if str(pheromone_see[3]) == str(m1tmp):
@@ -171,18 +174,13 @@ for line in sys.stdin:
                             type_pheromone_good_type = near_phero[3]
                             id_pheromone_good_type = near_phero[0]
                             dist_closest_pheromone_good_type = near_phero[2]
-                            log(str(id_pheromone_good_type)+": "+str(dist_closest_pheromone_good_type))
                         if pheromone_see_list != []:
                             near_phero = min(pheromone_see_list, key=lambda p: p[2])
                             type_pheromone = near_phero[3]
                             id_pheromone = near_phero[0]
                             dist_closest_pheromone = near_phero[2]
-                            log(str(id_pheromone)+": "+str(dist_closest_pheromone))
 
-                        log(str(id_pheromone_good_type)+" != 0"+str(type_pheromone_good_type)+" == "+str(m1tmp))
-                        log(str(id_pheromone)+" != 0"+str(id_pheromone_good_type)+" == 0")
                         if str(id_pheromone_good_type) != "0" and str(type_pheromone_good_type) == str(m1tmp):
-                            log("good type:"+str(id_pheromone_good_type)+":"+str(dist_closest_pheromone_good_type)+" > 1")
                             if int(dist_closest_pheromone_good_type) > 1:
                                 print("MOVE_TO "+id_pheromone_good_type)
                                 no_pheromone = 0
@@ -190,7 +188,6 @@ for line in sys.stdin:
                                 print("SET_MEMORY "+str(memory[0])+" "+str(m1tmp))
                                 no_pheromone = 0
                         elif str(id_pheromone) != "0" and str(id_pheromone_good_type) == "0":
-                            log(str(id_pheromone)+":"+str(dist_closest_pheromone)+" > 1")
                             if int(dist_closest_pheromone) > 1:
                                 print("MOVE_TO "+id_pheromone)
                                 no_pheromone = 0
@@ -214,10 +211,14 @@ for line in sys.stdin:
                         elif nest_friend_id != 0:
                             print("MOVE_TO "+nest_friend_id)
         elif entity == 2:
-            if memory_nest[0] == "0" and memory_nest[1] == "0":
+            if memory_nest[0] == "0" and int(memory_nest[3]) < 10 and int(stock) > 5:
                 print("ANT_NEW 0")
-                print("SET_MEMORY 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0")
-            elif memory_nest[0] == "0" and memory_nest[1] == "1":
-                print("ANT_OUT 0 0 0 1")
-                print("SET_MEMORY 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0")
+                print("SET_MEMORY 0 1 0 "+str(int(memory_nest[3])+1)+" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0")
+            elif memory_nest[0] == "0" and memory_nest[1] == "1" and int(stock) > 5 and int(ant_count) > 1:
+                if memory_nest[2] == "0":
+                    print("ANT_OUT 0 0 0 1")
+                    print("SET_MEMORY 0 1 1 "+memory_nest[3]+" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0")
+                elif memory_nest[2] == "1":
+                    print("ANT_OUT 1 0 0 1")
+                    print("SET_MEMORY 0 1 0 "+memory_nest[3]+" 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0")
         print("END", flush=True)
