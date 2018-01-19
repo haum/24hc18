@@ -46,7 +46,7 @@ void Team::printStats(bool apioutput, size_t score_max) {
 				s = 6;
 			else if (s != 0)
 				s = 4;
-			std::cout << "API:: " << m_exe << " " << s << '\n';
+			std::cout << "API:: " << s << '\n';
 		}
 	}
 	std::cout << std::flush;

@@ -47,7 +47,7 @@ for l in $OUTPUT; do
   RunningTeam=$(echo $l | cut -d " " -f 3 | cut -d "/" -f 4)
  fi
  if [[ $l == *"API::"* ]]; then
-  Score=$(echo $l | cut -d " " -f 3)
+  Score=$(echo $l | cut -d " " -f 2)
  fi
 #  if [[ $l == *"Score"* ]]; then
 #   Score=$(echo $l | cut -d " " -f 2)
