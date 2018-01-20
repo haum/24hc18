@@ -3,6 +3,7 @@
 source set_env.sh
 
 jailcommand="timeout 5 cpulimit -l 10 -i firejail --profile=$MBNT_ABSPATH/spawner/jail.profile"
+jailcommand=""
 
 if [[ $# -lt 3 ]]; then
     echo "You must specify at least 3 args !"
