@@ -90,7 +90,7 @@ Extrait de trace en milieu de partie :
   | 0 @ MEMORY 0 0
   | 0 @ STAMINA 198
   | 0 @ STOCK 0
-  | 0 @ SEE_FOOD 1 NEAR 5
+  | 0 @ SEE_FOOD 1 NEAR 5 100
   | 0 @ SEE_ANT 2 NEAR FRIEND 180
   | 0 @ SEE_ANT 3 NEAR ENEMY 160
   | 0 @ SEE_ANT 4 NEAR FRIEND 200
