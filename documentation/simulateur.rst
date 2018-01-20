@@ -68,10 +68,10 @@ stratégie sur le même terrain en listant le nom de chaque programme à la fin 
 la commande. Si vous avez vous-même des arguments, notamment pour paramétrer vos
 tests, n'oubliez pas d'entourer la commande de guillemets.
 
-Planet
-------
+Planète
+-------
 
-L'argument `-h` permet de se connecter à un host qui héberge une planet.
+L'argument `-h` permet de se connecter à un host qui héberge une planète.
 Exemple: ``./marabunta_engine -s scenarii/food_near_nest_1t_5s.cfg ./my_strategy.py -h localhost``
 
 Déverminage
