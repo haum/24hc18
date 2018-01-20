@@ -15,6 +15,16 @@ le jeu.
 Machine virtuelle
 =================
 
+.. TIP::
+    La machine virtuelle que nous utiliserons pour les matchs officiels est
+    strictement identique à celle qui est disponible à l'adresse :
+    
+    `haum.org/marabunta.ova`_
+
+    Faites-en bon usage.
+
+.. _haum.org/marabunta.ova: https://haum.org/marabunta.ova
+
 Identifiants
 ------------
 
@@ -26,9 +36,15 @@ Les identifiants pour le compte utilisateur sur la machine virtuelle sont :
 Envoi de votre code
 -------------------
 
-Le gestionnaire de version `git` étant installé sur la machine virtuelle, vous
-pouvez l'utiliser pour récuperer votre code depuis le dépot de votre équipe pour
-tester vous stratégies avec le simulateur. 
+Pour commencer, il vous faut un dépôt `GIT` public. Il existe plusieurs services
+en ligne proposant cet outil comme `<https://framagit.org>`_ ou 
+`<https://github.com>`_.
+
+Après la création de voter dépôt `GIT`, vous pouvez y déposer votre code. Il
+vous reste ensuite à 'cloner'  ce dépôt sur la machine virtuelle. 
+
+Si vous ne connaissez pas cet outil, nous vous recommandons de consulter la
+documentation officielle : `<https://git-scm.com>`_
 
 Utiliser le simulateur
 ======================
@@ -58,7 +74,7 @@ programme de stratégie pour analyser le comportement. Pour cela, il existe
 l'option `-d` qui prend en argument le numéro (commençant à 0) de la stratégie à
 espionner. Le log sort sur la sortie d'erreur standard.
 
-Extrait de trace en milieu de partie [#f1]_ :
+Extrait de trace en milieu de partie :
 
   | 1 @ BEGIN NEST
   | 1 @ STOCK 0
@@ -136,4 +152,14 @@ peut-être pas exempt de bugs. N'hésitez pas à nous les signaler.  Dans le cas
 ce bug deviendrait bloquant, vous disposez des sources pour nous aider à le
 résoudre.
 
-.. [#f1] Le format exact de la trace peut avoir changé depuis la capture réalisée.
+Matchs officiels
+================
+
+Les matchs comptant pour le score final sont exécutés sur nos machines. Nous avons
+automatisé la procédure *via* quelques scripts et voici la chaîne complète d'un match :
+
+1. Récupération des derniers *patchs* du moteur & recompilation
+2. Téléchargement des dépôts des équipes et lancement des ``build.sh``
+3. Lancement des matchs (``start.sh``) les uns après les autres (``launch.sh``)
+
+
