@@ -417,7 +417,7 @@ Informations
   ========  ======
 
 `SEE_FOOD <id> <zone> <dist> <amount>`
-  Indique la présence d'une fourmilière à proximité.
+  Indique la présence de nourriture à proximité.
 
   ========  ======
   `id`      Nombre temporaire utilisé pour faire référence à cet objet dans les
