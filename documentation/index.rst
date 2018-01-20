@@ -18,6 +18,7 @@ Marabunta
    simulateur
    scenario
    bareme
+   matches
 
 
 .. Indices and tables
