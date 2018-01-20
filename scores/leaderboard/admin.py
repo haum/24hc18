@@ -13,7 +13,7 @@ from .models import \
 class TeamAdmin(admin.ModelAdmin):
 
     list_display = (
-        'name', 'points', 'repo_url', 'place',
+        'name', 'id', 'points', 'repo_url', 'place',
         'valid_repo', 'valid_buildscript', 'valid_startscript'
     )
     actions = [
@@ -71,11 +71,14 @@ class BackendActionAdmin(admin.ModelAdmin):
 @admin.register(Match)
 class MatchAdmin(admin.ModelAdmin):
 
-    list_display = ('id', 'group', 'list_teams', 'is_finished')
+    list_display = ('id', 'group', 'show_scenario', 'list_teams', 'is_finished')
     list_filter = ('group', 'is_finished', 'teams')
 
     def list_teams(self, obj):
         return ', '.join([_.name for _ in obj.teams.all()])
+
+    def show_scenario(self, obj):
+        return obj.group.scenario
 
 
 @admin.register(Participation)
@@ -103,7 +106,7 @@ class MatchGroupAdmin(admin.ModelAdmin):
             'fields': ('num_pools', 'teams'),
         }),
     )
-    list_display = ('id', 'name', 'scenario', 'number_playing_teams', 'num_pools', 'list_teams', 'matches_generated', 'is_closed')
+    list_display = ('name', 'id', 'scenario', 'number_playing_teams', 'num_pools', 'list_teams', 'matches_generated', 'is_closed')
     list_filter = ('matches_generated', 'num_pools', 'number_playing_teams')
     actions = ['mark_finished', 'generate_matches']
 

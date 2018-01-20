@@ -124,7 +124,7 @@ class MatchGroup(models.Model):
     matches_generated = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.name} - {self.scenario} ({self.number_playing_teams})'
+        return self.name
 
     def generate_matches(self):
         pool_size = floor(self.teams.count()/self.num_pools)
