@@ -23,10 +23,11 @@ void Nest::setPopulation(uint8_t type, int nb) {
 		m_antNumber.erase(type);
 }
 
-void Nest::antIn(uint8_t type, uint8_t m0, uint8_t m1, unsigned int stock) {
+void Nest::antIn(uint8_t type, uint8_t m0, uint8_t m1, unsigned int stock,
+                 unsigned int initial_stock) {
 	m_antsIn.push_back({type, m0, m1});
 	m_stock += stock;
-	m_stock_addition += stock;
+	m_stock_addition += std::max(0u, stock - initial_stock);
 	if (hasAntType(type))
 		m_antNumber[type] += 1;
 	else

@@ -16,7 +16,8 @@ Ant::Ant(Team &team, int stamina, double latitude, double longitude,
          uint8_t memory2)
     : Agent{team, Ant::category(), latitude, longitude, heading},
       m_stamina{std::min(stamina, int(MAX_STAMINA))}, m_stock{food},
-      m_attacked{false}, m_ant_type{ant_type}, m_memory{memory1, memory2} {
+      m_initial_stock{food}, m_attacked{false},
+      m_ant_type{ant_type}, m_memory{memory1, memory2} {
 	m_teamBase = &team;
 }
 
@@ -348,7 +349,8 @@ void Ant::actionNest(bool valid, int id) {
 		auto *nest = static_cast<Nest *>(ptr); // Dynamically checked previously
 		if (&nest->team() == &team()) {
 			nest->antIn(m_ant_type, m_memory[0], m_memory[1],
-			            static_cast<unsigned int>(std::max(0, m_stock)));
+			            static_cast<unsigned int>(m_stock),
+			            static_cast<unsigned int>(m_initial_stock));
 			destroy();
 		} else {
 			w() << "The nest is not friend, cannot perform action" << std::endl;

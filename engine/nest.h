@@ -35,8 +35,10 @@ class Nest : public Agent {
 	 * @param m0    Memory 0 of ant
 	 * @param m1    Memory 1 of ant
 	 * @param stock Stock of ant
+	 * @param initial_stock Initial stock of ant
 	 */
-	void antIn(uint8_t type, uint8_t m0, uint8_t m1, unsigned int stock);
+	void antIn(uint8_t type, uint8_t m0, uint8_t m1, unsigned int stock,
+	           unsigned int initial_stock);
 
 	/** Set food amount
 	 * @param amount Amount of food
