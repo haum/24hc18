@@ -440,7 +440,10 @@ Actions
 `EXPLORE`
   Explore le terrain.
 
-  La fourmi n'explore pas en ligne droite.
+  La fourmi n'explore pas en ligne droite. Ci-dessous, un exemple de trace :
+
+  .. image:: _static/images/trace_forever.png
+    :align: center
 
   Cette action est exclusive et coûte 1 unité de stamina.
 
