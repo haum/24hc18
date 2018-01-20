@@ -38,4 +38,10 @@ Le scénario pour le match 3 est le même que le précédent, mais cette fois ci
 est périssable. Si la quantité atteint 0, la source de nourriture sera détruite. Également, les 
 sources de nourriture se régénèrent moins vite (25/100ms).
 
+Match 4 -- Deux nids et de la nourriture autour
+===============================================
+
+De la nourriture (avec les mêmes caractéristiques que le match précédent) est disposé en
+cercle autour de deux nids adverses.
+
 .. _disponible ici: _static/scenarii/01_food_around_nest_1t_fnd_60s.cfg
