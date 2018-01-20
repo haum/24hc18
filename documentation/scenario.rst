@@ -40,7 +40,7 @@ Commandes
   dans la simulation.
 
   ===========  ======
-  `team`       Numéro de l'équipe à qui appartient la fourmilière.
+  `team`       Numéro de l'équipe à qui appartient la fourmilière (débute à 0).
   `latitude`   Latitude de l'objet en degrés (-90 à 90).
   `longitude`  Longitude de l'objet en degrés (-180 à 180).
   ===========  ======
@@ -52,7 +52,7 @@ Commandes
   avoir sa propre ligne dans le fichier de scénario.
 
   ======  ======
-  `team`  Numéro de l'équipe à qui appartient la fourmilière
+  `team`  Numéro de l'équipe à qui appartient la fourmilière (débute à 0).
   `type`  Type de fourmis. Nombre compris entre 0 et 255 inclus.
   `nb`    Nombre de fourmis de ce type.
   ======  ======
@@ -61,7 +61,7 @@ Commandes
   Définis la quantité de nourriture initialement dans la fourmilière.
 
   ========  ======
-  `team`    Numéro de l'équipe à qui appartient la fourmilière.
+  `team`    Numéro de l'équipe à qui appartient la fourmilière (débute à 0).
   `amount`  Quantité de nourriture initiale.
   ========  ======
 
@@ -69,7 +69,7 @@ Commandes
   Ajoute une fourmi dans la simulation.
 
   ===========  ======
-  `team`       Numéro de l'équipe à laquelle appartient la fourmi.
+  `team`       Numéro de l'équipe à laquelle appartient la fourmi (débute à 0).
   `type`       Type de fourmi.
   `latitude`   Latitude de l'objet en degrés (-90 à 90).
   `longitude`  Longitude de l'objet en degrés (-180 à 180).
@@ -83,7 +83,7 @@ Commandes
   Ajoute une phéromone dans la simulation.
 
   ===========  ======
-  `team`       Numéro de l'équipe à laquelle appartient la phéromone.
+  `team`       Numéro de l'équipe à laquelle appartient la phéromone (débute à 0).
   `type`       Type de phéromone.
   `latitude`   Latitude de l'objet en degrés (-90 à 90).
   `longitude`  Longitude de l'objet en degrés (-180 à 180).
