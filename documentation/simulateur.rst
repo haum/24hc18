@@ -21,6 +21,8 @@ Machine virtuelle
     
     `haum.org/marabunta.ova`_
 
+    MD5: 4030424d3e7cc761ab29eddb103634a6
+
     Faites-en bon usage.
 
 .. _haum.org/marabunta.ova: https://haum.org/marabunta.ova
