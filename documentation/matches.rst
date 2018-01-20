@@ -26,4 +26,16 @@ ci-dessous::
   FOOD 2 -3 200 400 400 999999 0
   FOOD 3 -2 200 400 400 999999 0
 
+Match 2 -- On prend les mêmes et on recommence !
+================================================
+
+Ce scénario est le même que celui proposé pour le match 1.
+
+Match 3 -- La nourriture devient périssable
+===========================================
+
+Le scénario pour le match 3 est le même que le précédent, mais cette fois ci, la nourriture 
+est périssable. Si la quantité atteint 0, la source de nourriture sera détruite. Également, les 
+sources de nourriture se régénèrent moins vite (25/100ms).
+
 .. _disponible ici: _static/scenarii/01_food_around_nest_1t_fnd_60s.cfg
