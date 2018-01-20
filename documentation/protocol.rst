@@ -440,7 +440,8 @@ Actions
 `EXPLORE`
   Explore le terrain.
 
-  La fourmi n'explore pas en ligne droite. Ci-dessous, un exemple de trace :
+  La fourmi n'explore pas en ligne droite. Ci-dessous, un exemple de trace (et le log du
+  moteur de jeu `est ici`_):
 
   .. image:: _static/images/trace_forever.png
     :align: center
@@ -595,3 +596,5 @@ Actions
   `m0`  Nombre compris entre 0 et 255 inclus.
   `m1`  Nombre compris entre 0 et 255 inclus.
   ====  ======
+
+.. _est ici: _static/logs/log_explore.txt
