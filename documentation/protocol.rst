@@ -161,6 +161,9 @@ programme de stratégie, le simulateur dispose de petits mécanismes ci et là.
 L'un d'eux consiste à redémarrer votre programme occasionnellement entre deux
 entités jouées.
 
+Pour information toutes les mémoires des fourmis et des nids sont initialisées 
+à zéro.
+
 .. TIP::
   Vous êtes fortement encouragés à utiliser la mémoire des entités dans vos
   algorithmes et à profiter des mécanismes de la simulation pour échanger des
