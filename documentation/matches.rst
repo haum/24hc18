@@ -41,7 +41,7 @@ sources de nourriture se régénèrent moins vite (25/100ms).
 Match 4 -- Deux nids et de la nourriture autour
 ===============================================
 
-De la nourriture (avec les mêmes caractéristiques que le match précédent) est disposé en
+De la nourriture (avec les mêmes caractéristiques que le match précédent) est disposée en
 cercle autour de deux nids adverses.
 
 .. _disponible ici: _static/scenarii/01_food_around_nest_1t_fnd_60s.cfg
