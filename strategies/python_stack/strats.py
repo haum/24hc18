@@ -42,11 +42,17 @@ def nest_strat(n):
             if a['type'] == 0 and a['memory'][1] > 0:
                 n.memory[0] = 1
 
-    if n.ants != dict():
-        output.append(f'ANT_OUT {list(n.ants.keys())[0]} 0 {ant_id} 0')
+    explorer_ants = n.ants.get(0, False)
+    gatherer_ants = n.ants.get(1, False)
+    if explorer_ants and not food_found:
+        output.append(f'ANT_OUT 0 0 {ant_id} 0')
         n.memory[2] += 1
         excl = True
-    elif n.stock >= 5 and num_expl < 5:
+    elif gatherer_ants and food_found:
+        output.append(f'ANT_OUT 1 0 {ant_id} 0')
+        n.memory[2] += 1
+        excl = True
+    elif n.stock >= 5 and num_expl < 2:
         n.memory[1] += 1
         output.append('ANT_NEW 0')
     elif food_found and n.stock >= 5 and num_gatherer < 5:
@@ -70,18 +76,17 @@ def ant_strat(a):
 
     excl = False
     output = []
-    try:
-        nest = [_['id'] for _ in a.nests if _['friend'] == 'FRIEND'][0]
-        nest_near = [_['id'] for _ in a.nests if _['friend'] == 'FRIEND' and _['zone'] == 'NEAR'][0]
-    except:
-        nest = False
-        nest_near = False
+    nests = [_['id'] for _ in a.nests if _['friend'] == 'FRIEND']
+    nests_near = [_['id'] for _ in a.nests if _['friend'] == 'FRIEND' and _['zone'] == 'NEAR']
+    nest = nests[0] if len(nests) > 0 else False
+    nest_near = nests_near[0] if len(nests_near) > 0 else False
 
     if a.typ == 0:  # explorers
         moved_last = a.memory[0] >= 100
         ant_id = a.memory[0] - 100*floor(a.memory[0]/100)
-        found_food_last_time = a.memory[1] >= 100
-        found_food = (a.memory[1] - 100*floor(a.memory[1]/100)) == 1
+        found_food_last_time = a.memory[1] >= 200
+        found_food = a.memory[1] >= 100
+        num_steps = a.memory[1] - 100*floor(a.memory[1]/100)
         current_pheromone = False
         target_pheromone = False
 
@@ -96,39 +101,37 @@ def ant_strat(a):
         if found_food_last_time:
             output.append('TURN 180')
             excl = True
-            a.memory[1] -= 100
+            a.memory[1] = num_steps + 100
             if moved_last:
                 a.memory[0] -= 100
         elif found_food:
-            if moved_last and current_pheromone:
+            if nest_near:
+                output.append(f'NEST {nest_near}')
+            elif nest:
+                output.append(f'MOVE_TO {nest}')
+            elif moved_last and current_pheromone:
                 output.append(f'CHANGE_PHEROMONE {current_pheromone} 10')
                 excl = True
                 a.memory[0] -= floor(a.memory[0]/100)*100
-            elif not moved_last and (target_pheromone or nest):
-                if nest_near:
-                    log('nest')
-                    output.append(f'NEST {nest_near}')
-                elif nest:
-                    output.append(f'MOVE_TO {nest}')
-                else:
-                    output.append(f'MOVE_TO {target_pheromone}')
+            elif not moved_last and target_pheromone:
+                output.append(f'MOVE_TO {target_pheromone}')
                 a.memory[0] += 100
             else:
                 pass
                 # output.append('SUICIDE')
+            log(output)
         else:
-            if moved_last:
-                if a.food != []:
-                    output.append('PUT_PHEROMONE 10')
-                    excl = True
-                    a.memory[1] = 101
-                else:
-                    output.append(f'PUT_PHEROMONE {ant_id}')
-                    excl = True
-                a.memory[0] -= 100
+            if a.food != []:
+                output.append('PUT_PHEROMONE 10')
+                excl = True
+                a.memory[1] = num_steps + 200
+            elif num_steps > 4:
+                output.append(f'PUT_PHEROMONE {ant_id}')
+                excl = True
+                a.memory[1] -= 5
             else:
                 output.append('EXPLORE')
-                a.memory[0] += 100
+                a.memory[1] += 1
 
     elif a.typ == 1:  # gatherer
         has_turned = a.memory[0] == 1
