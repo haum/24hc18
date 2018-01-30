@@ -88,8 +88,11 @@ bool TeamBase::nextAgent() {
 			}
 		}
 		m_agentsToRemove.clear();
+		size_t pos = std::distance(m_agents.begin(), m_currentAgent);
 		std::copy(m_agentsToAdd.begin(), m_agentsToAdd.end(),
 		          std::back_inserter(m_agents));
+		m_currentAgent = m_agents.begin();
+		std::advance(m_currentAgent, pos);
 		m_agentsToAdd.clear();
 		m_currentAgent = m_agents.begin();
 		return false;
