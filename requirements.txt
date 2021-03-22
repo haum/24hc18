@@ -3,7 +3,7 @@ Babel==2.5.1
 certifi==2017.11.5
 chardet==3.0.4
 decorator==4.1.2
-Django==2.2.10
+Django==2.2.18
 docutils==0.14
 idna==2.6
 imagesize==0.7.1
